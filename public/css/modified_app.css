@@ -1,4 +1,48 @@
+#particles-js {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
 
+.card-header-custom {
+    background-color: #003f5a !important;
+    color: white;
+}
+
+.card-body-custom {
+    background-color: #426c79 !important;
+    color: white;
+}
+
+.bg-full {
+  background: url('../img/MetropolitanUniversitySylhet.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100vh;
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.bg-full-color{
+  background: #0a5a77;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100vh;
+  width: 100%;
+  height: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: relative;
+}
 
 .invalid-feedback {
   display: none;
