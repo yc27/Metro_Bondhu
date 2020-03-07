@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="bg-full">
-    <div class="container-sm py-5">
+    <div class="container-sm py-4">
         <div class="d-flex justify-content-start mt-2">
             <div class="col-md-5 col-sm-7 col-xs-9 p-4 text-left white rounded shadow-lg">
                 <div class="mb-4 text-center">

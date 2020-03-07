@@ -18,5 +18,6 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => true]);
+Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
 Route::get('/home', 'HomeController@index')->name('home');

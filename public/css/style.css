@@ -1,0 +1,301 @@
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: linear-gradient(to bottom, #00aeff, #281bda);
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+::-webkit-scrollbar-track {
+    background: linear-gradient(
+        to right,
+        #201c29,
+        #201c29 1px,
+        #11053d 1px,
+        #080122
+    );
+}
+/* /Custom Scrollbar */
+
+/* Laravel Style */
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #e3342f;
+}
+
+.invalid-tooltip {
+    position: absolute;
+    top: 100%;
+    z-index: 5;
+    display: none;
+    max-width: 100%;
+    padding: 0.25rem 0.5rem;
+    margin-top: 0.1rem;
+    font-size: 0.7875rem;
+    line-height: 1.6;
+    color: #fff;
+    background-color: rgba(227, 52, 47, 0.9);
+    border-radius: 0.25rem;
+}
+
+.was-validated :invalid ~ .invalid-feedback,
+.was-validated :invalid ~ .invalid-tooltip,
+.is-invalid ~ .invalid-feedback,
+.is-invalid ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    border-color: #e3342f;
+    padding-right: calc(1.6em + 0.75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23e3342f' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23e3342f' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.4em + 0.1875rem) center;
+    background-size: calc(0.8em + 0.375rem) calc(0.8em + 0.375rem);
+}
+
+.was-validated .form-control:invalid:focus,
+.form-control.is-invalid:focus {
+    border-color: #e3342f;
+    box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
+}
+
+.was-validated textarea.form-control:invalid,
+textarea.form-control.is-invalid {
+    padding-right: calc(1.6em + 0.75rem);
+    background-position: top calc(0.4em + 0.1875rem) right
+        calc(0.4em + 0.1875rem);
+}
+
+.was-validated .custom-select:invalid,
+.custom-select.is-invalid {
+    border-color: #e3342f;
+    padding-right: calc(0.75em + 2.3125rem);
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")
+            no-repeat right 0.75rem center/8px 10px,
+        url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23e3342f' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23e3342f' stroke='none'/%3e%3c/svg%3e")
+            #fff no-repeat center right 1.75rem / calc(0.8em + 0.375rem)
+            calc(0.8em + 0.375rem);
+}
+
+.was-validated .custom-select:invalid:focus,
+.custom-select.is-invalid:focus {
+    border-color: #e3342f;
+    box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
+}
+
+.was-validated .form-check-input:invalid ~ .form-check-label,
+.form-check-input.is-invalid ~ .form-check-label {
+    color: #e3342f;
+}
+
+.was-validated .form-check-input:invalid ~ .invalid-feedback,
+.was-validated .form-check-input:invalid ~ .invalid-tooltip,
+.form-check-input.is-invalid ~ .invalid-feedback,
+.form-check-input.is-invalid ~ .invalid-tooltip {
+    display: block;
+}
+
+.was-validated .custom-control-input:invalid ~ .custom-control-label,
+.custom-control-input.is-invalid ~ .custom-control-label {
+    color: #e3342f;
+}
+
+.was-validated .custom-control-input:invalid ~ .custom-control-label::before,
+.custom-control-input.is-invalid ~ .custom-control-label::before {
+    border-color: #e3342f;
+}
+
+.was-validated
+    .custom-control-input:invalid:checked
+    ~ .custom-control-label::before,
+.custom-control-input.is-invalid:checked ~ .custom-control-label::before {
+    border-color: #e9605c;
+    background-color: #e9605c;
+}
+
+.was-validated
+    .custom-control-input:invalid:focus
+    ~ .custom-control-label::before,
+.custom-control-input.is-invalid:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
+}
+
+.was-validated
+    .custom-control-input:invalid:focus:not(:checked)
+    ~ .custom-control-label::before,
+.custom-control-input.is-invalid:focus:not(:checked)
+    ~ .custom-control-label::before {
+    border-color: #e3342f;
+}
+
+.was-validated .custom-file-input:invalid ~ .custom-file-label,
+.custom-file-input.is-invalid ~ .custom-file-label {
+    border-color: #e3342f;
+}
+
+.was-validated .custom-file-input:invalid:focus ~ .custom-file-label,
+.custom-file-input.is-invalid:focus ~ .custom-file-label {
+    border-color: #e3342f;
+    box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
+}
+/* /Laravel Style */
+
+/* Side-Nabbar */
+.side-nav {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    z-index: 998;
+    background-color: #001540;
+    color: #00dbff;
+    transition: 0.5s;
+}
+#Side-Navbar .custom-menu {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    margin-right: -30px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+#Side-Navbar .custom-menu .btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+}
+#Side-Navbar .custom-menu .btn i {
+    padding-top: 0.5rem;
+    margin-right: -40px;
+    font-size: 14px;
+}
+#Side-Navbar .custom-menu .btn.btn-primary {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+#Side-Navbar .custom-menu .btn.btn-primary:after {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background: #001540;
+    border-radius: 10px;
+}
+#Side-Navbar .custom-menu .btn.btn-primary:hover,
+#Side-Navbar .custom-menu .btn.btn-primary:focus {
+    background: transparent !important;
+    border-color: transparent !important;
+}
+.sidenav-wrapper {
+    height: 100%;
+    overflow: hidden;
+}
+.sidenav-wrapper:hover {
+    overflow-y: auto;
+}
+.sidenav-wrapper a {
+    display: block;
+    position: relative;
+    transition: 0.3s;
+    line-height: 6vh;
+    font-size: 18px;
+    font-family: "Lato", sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 8px 8px 8px 32px;
+}
+.sidenav-wrapper a:hover {
+    font-weight: bold;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    background-color: #010e29;
+}
+.sidenav-wrapper .active {
+    color: #00ffff !important;
+    font-weight: bold;
+    background-color: #010e29;
+    border-right: 8px #00ffff solid;
+}
+@media screen and (max-height: 450px) {
+    #Side-Navbar .custom-menu {
+        top: 5px;
+        margin-right: -25px;
+    }
+    #Side-Navbar .custom-menu .btn {
+        width: 50px;
+        height: 50px;
+    }
+    #Side-Navbar .custom-menu .btn i {
+        padding-top: 0.7rem;
+        margin-right: -40px;
+    }
+    .sidenav-wrapper a {
+        font-size: 14px;
+        line-height: 4vh;
+    }
+}
+/* /Side-Nabbar */
+
+#particles-js {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.card-header-custom {
+    background-color: #001540 !important;
+    color: white;
+}
+
+.card-body-custom {
+    background-color: #4682B4 !important;
+    color: white;
+}
+
+.bg-full {
+    background: url("../img/MetropolitanUniversitySylhet.jpg") no-repeat center
+        center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+}
+
+.bg-full-color {
+    background: #08afee;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    height: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: relative;
+}

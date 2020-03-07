@@ -48,4 +48,8 @@
         </div>
     </div>
 </div>
+
+<!-- ParticleJS -->
+<script type="text/javascript" src={{ asset('js/particles.js') }}></script>
+<script type="text/javascript" src={{ asset('js/particles-app.js') }}></script>
 @endsection
