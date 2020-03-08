@@ -18,6 +18,9 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => true]);
+Route::get('/register/request', 'Auth\RegisterController@requestInvitation')->name('requestInvitation');
+Route::post('invitations', 'Auth\RegisterController@storeRequest')->name('storeInvitationRequest');
+
 Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {    
@@ -13,6 +14,22 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.dashboard');
+        $invitations = DB::table('invitations')
+            ->whereNull('invitation_token')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+            
+        $pendingRequests = DB::table('invitations')
+            ->whereNull('invitation_token')
+            ->count();
+            
+        // $invitations = DB::table('invitations')
+        //     ->select('email', DB::raw('MIN(created_at) as created_at'))
+        //     ->whereNull('registered_at')
+        //     ->groupBy('email')
+        //     ->orderBy('created_at', 'desc')
+        //     ->get(['email', 'created_at'])
+        //     ->paginate(10);
+        return view('admin.dashboard', ['invitations' => $invitations, 'pendingRequests' => $pendingRequests]);
     }
 }

@@ -159,34 +159,40 @@ textarea.form-control.is-invalid {
     background-color: #001540;
     color: #00dbff;
     transition: 0.5s;
+    box-shadow: none;
 }
-#Side-Navbar .custom-menu {
+.side-nav.active {
+    width: 260px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5), 0 2px 10px 0 rgba(0,0,0,0.5);
+}
+.side-nav .custom-menu {
     display: inline-block;
     position: absolute;
     top: 10px;
     right: 0;
-    margin-right: -30px;
+    margin-right: -25px;
     -webkit-transition: 0.3s;
     -o-transition: 0.3s;
     transition: 0.3s;
 }
-#Side-Navbar .custom-menu .btn {
+.side-nav .custom-menu .btn {
+    margin: 0;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     position: relative;
 }
-#Side-Navbar .custom-menu .btn i {
-    padding-top: 0.5rem;
+.side-nav .custom-menu .btn i {
+    padding-top: 0.75rem;
     margin-right: -40px;
     font-size: 14px;
 }
-#Side-Navbar .custom-menu .btn.btn-primary {
+.side-nav .custom-menu .btn.btn-primary {
     background: transparent !important;
     border-color: transparent !important;
     box-shadow: none !important;
 }
-#Side-Navbar .custom-menu .btn.btn-primary:after {
+.side-nav .custom-menu .btn.btn-primary:after {
     z-index: -1;
     position: absolute;
     top: 0;
@@ -200,8 +206,8 @@ textarea.form-control.is-invalid {
     background: #001540;
     border-radius: 10px;
 }
-#Side-Navbar .custom-menu .btn.btn-primary:hover,
-#Side-Navbar .custom-menu .btn.btn-primary:focus {
+.side-nav .custom-menu .btn.btn-primary:hover,
+.side-nav .custom-menu .btn.btn-primary:focus {
     background: transparent !important;
     border-color: transparent !important;
 }
@@ -222,6 +228,7 @@ textarea.form-control.is-invalid {
     text-decoration: none;
     cursor: pointer;
     padding: 8px 8px 8px 32px;
+    border-bottom: dotted 1px;
 }
 .sidenav-wrapper a:hover {
     font-weight: bold;
@@ -235,19 +242,22 @@ textarea.form-control.is-invalid {
     border-right: 8px #00ffff solid;
 }
 @media screen and (max-height: 450px) {
-    #Side-Navbar .custom-menu {
+    .side-nav.active {
+        width: 220px;
+    }
+    .side-nav .custom-menu {
         top: 5px;
         margin-right: -25px;
     }
-    #Side-Navbar .custom-menu .btn {
+    .side-nav .custom-menu .btn {
         width: 50px;
         height: 50px;
     }
-    #Side-Navbar .custom-menu .btn i {
+    .side-nav .custom-menu .btn i {
         padding-top: 0.7rem;
         margin-right: -40px;
     }
-    .sidenav-wrapper a {
+    .side-nav .sidenav-wrapper a {
         font-size: 14px;
         line-height: 4vh;
     }
@@ -271,8 +281,7 @@ textarea.form-control.is-invalid {
 }
 
 .bg-full {
-    background: url("../img/MetropolitanUniversitySylhet.jpg") no-repeat center
-        center fixed;
+    background: url("../img/MetropolitanUniversitySylhet.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -285,7 +294,7 @@ textarea.form-control.is-invalid {
 }
 
 .bg-full-color {
-    background: #08afee;
+    background: url("../img/bg.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -298,4 +307,14 @@ textarea.form-control.is-invalid {
     left: 0;
     right: 0;
     position: relative;
+}
+
+.request-table td,.request-table th {
+    border-left: 1px solid rgb(139, 19, 55);
+}
+.request-table tbody,.request-table thead {
+    border-color: rgb(139, 19, 55) !important;
+}
+.request-table .pagination .page-item.active .page-link {
+    background-color: #0d47a1;
 }

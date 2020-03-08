@@ -22,7 +22,7 @@
                                 {{ $message }}
                             </div>
                             @enderror
-                        </div> 
+                        </div>
                     </div>
 
                     <div class="form-row">
@@ -40,7 +40,14 @@
 
                     <div class="form-row">
                         <div class="form-group col-md">
-                            <label for="invitation_token">{{ __('Invitation Code') }}</label>
+                            <label for="invitation_token">
+                                {{ __('Invitation Code') }}
+                                <small class="text-muted">
+                                    (Don't have any?
+                                    <a href="{{ route('requestInvitation') }}">Request Here</a>
+                                    )
+                                </small>
+                            </label>
                             <input id="invitation_token" type="text" class="form-control {{ $errors->has('invitation_token') ? 'is-invalid' : '' }}" name="invitation_token" required>
 
                             @error('invitation_token')

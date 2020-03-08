@@ -15,10 +15,12 @@ class CreateInvitationsTable extends Migration
     {
         Schema::create('invitations', function (Blueprint $table) {
             $table->id();
-            $table->string('inviter');
-            $table->string('invitation_code');
-            $table->boolean('is_active');
-            $table->boolean('is_used');
+            $table->string('email');
+            $table->integer('inviter_id')->nullable();
+            $table->string('invitation_token', 32)->nullable();
+            $table->timestamp('registered_at')->nullable();
+            $table->boolean('is_active')->nullable();
+            $table->boolean('is_used')->nullable();
             $table->timestamps();
         });
     }

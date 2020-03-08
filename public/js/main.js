@@ -11,15 +11,9 @@ $(window).resize(function() {
 
 // side nav-bar collapse function
 var sidebarToggle = document.getElementById("Sidenav-Toggle");
-sidebarToggle.addEventListener("click", function () {
-	var content = document.getElementById("Side-Navbar");
-	if (content.style.width) {
-		content.style.width = null;
-        content.style.boxShadow = "none";
-	} else {
-		content.style.width = "240px";
-    	content.style.boxShadow = "0 2px 5px 0 rgba(0,0,0,0.5), 0 2px 10px 0 rgba(0,0,0,0.5)";
-	}
+sidebarToggle.addEventListener("click", function() {
+    var content = document.getElementById("Side-Navbar");
+    content.classList.toggle("active");
 });
 
 // get the element with id="defaultOpen" and click on it

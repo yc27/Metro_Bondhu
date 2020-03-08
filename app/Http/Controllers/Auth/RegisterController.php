@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Invitation;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\StoreInvitationRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -69,5 +71,18 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function requestInvitation() {
+        return view('auth.request');
+    }
+    
+    public function storeRequest(StoreInvitationRequest $request)
+    {
+        $invitation = new Invitation($request->all());
+        $invitation->save();
+
+        return redirect()->route('requestInvitation')
+            ->with('success', 'Invitation to register successfully requested. Please wait and check your mail unitil an admin sent you an invitaion code.');
     }
 }
