@@ -28,7 +28,8 @@
                         <td>{{ $invitation->created_at }}</td>
                         <td>abcdefghijklmnopqrtuvwxyz</td>
                         <td>
-                            <button class="btn btn-success btn-sm">Generate Token</button>
+                            <button class="btn btn-warning btn-sm">Generate Token</button>
+                            <button class="btn btn-success btn-sm">Send Mail</button>
                             <button class="btn btn-danger btn-sm">Delete</button>
                         </td>
                     </tr>

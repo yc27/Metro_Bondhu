@@ -281,19 +281,6 @@ textarea.form-control.is-invalid {
 }
 
 .bg-full {
-    background: url("../img/MetropolitanUniversitySylhet.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    min-height: 100vh;
-    width: 100%;
-    height: auto;
-    top: 0;
-    left: 0;
-}
-
-.bg-full-color {
     background: url("../img/bg.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;

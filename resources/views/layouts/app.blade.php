@@ -68,7 +68,7 @@
         </nav>
         <!-- /Navbar -->
 
-        <main id="main" class="position-relative bg-full-color">
+        <main id="main" class="position-relative bg-full">
             @yield('content')
         </main>
     </div>

@@ -39,7 +39,7 @@
 <!-- /Sidebar -->
 
 <!-- Page Content -->
-<div class="text-white mb-0 px-4 px-md-5 py-3">
+<div id="Page-Content" class="text-white mb-0 px-4 px-md-5 py-3">
     @include('admin.invitationRequests')
 </div>
 <!-- /Page Content -->
