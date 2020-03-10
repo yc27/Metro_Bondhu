@@ -296,12 +296,37 @@ textarea.form-control.is-invalid {
     position: relative;
 }
 
+/* Request DataTable */
+.request-table thead{
+    background: linear-gradient(to right,#222379,#e51b46) !important;
+    color: #fff !important;
+}
 .request-table td,.request-table th {
     border-left: 1px solid rgb(139, 19, 55);
 }
-.request-table tbody,.request-table thead {
-    border-color: rgb(139, 19, 55) !important;
+.request-table tr td:last-child, .request-table tr th:last-child {
+    border-right: 1px solid rgb(139, 19, 55);
 }
-.request-table .pagination .page-item.active .page-link {
-    background-color: #0d47a1;
+.request-table .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #dddddd;
 }
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #333 !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+    color: #fff !important;
+    border: 1px solid #979797;
+    background-color: linear-gradient(to right, #00aeff, #281bda);
+    background: -webkit-linear-gradient(to right, #00aeff, #281bda);
+    background: -moz-linear-gradient(to right, #00aeff, #281bda);
+    background: -ms-linear-gradient(to right, #00aeff, #281bda);
+    background: -o-linear-gradient(to right, #00aeff, #281bda);
+    background: linear-gradient(to right, #00aeff, #281bda);
+}
+.dataTables_wrapper .dataTables_paginate {
+    color: #fff;
+}
+/* /Request DataTable */

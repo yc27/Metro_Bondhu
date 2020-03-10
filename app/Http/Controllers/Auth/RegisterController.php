@@ -80,6 +80,8 @@ class RegisterController extends Controller
     public function storeRequest(StoreInvitationRequest $request)
     {
         $invitation = new Invitation($request->all());
+        $email = $invitation['email'];
+        Invitation::where('email', $email)->delete();
         $invitation->save();
 
         return redirect()->route('requestInvitation')

@@ -10,6 +10,14 @@
 
     <title> Metro Guide </title>
 
+    <!-- JQuery -->
+    <script type="text/javascript" src={{ asset('jQuery-3.3.1/jquery-3.3.1.min.js') }}></script>
+
+    <!-- Data Table Script -->
+    <script type="text/javascript" src="{{ asset('DataTables/datatables.min.js') }}"></script>
+    <!-- Data Table Style -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/datatables.min.css') }}">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -72,9 +80,6 @@
             @yield('content')
         </main>
     </div>
-
-    <!-- JQuery -->
-    <script type="text/javascript" src={{ asset('js/jquery.min.js') }}></script>
 
     <!-- Script -->
     <script type="text/javascript" src={{ asset('js/main.js') }}></script>
