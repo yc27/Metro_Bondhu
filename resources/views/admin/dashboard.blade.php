@@ -40,7 +40,10 @@
 
 <!-- Page Content -->
 <div id="Page-Content" class="text-white mb-0 px-4 px-md-5 py-3">
-    @include('admin.invitationRequests')
+    @include('admin.invitations.invitationRequests')
 </div>
 <!-- /Page Content -->
+
+<!-- Script -->
+<script type="text/javascript" src={{ asset('js/main.js') }}></script>
 @endsection

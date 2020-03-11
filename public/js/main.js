@@ -1,14 +1,3 @@
-// function to adjust top position of main section
-function adjustMainTop() {
-    var navbarHight = document.getElementById("top-navbar").scrollHeight;
-	$("#main").css("top", navbarHight);
-	$("#Side-Navbar").css("top", navbarHight);
-};
-adjustMainTop();
-$(window).resize(function() {
-	adjustMainTop();
-});
-
 // side nav-bar collapse function
 var sidebarToggle = document.getElementById("Sidenav-Toggle");
 sidebarToggle.addEventListener("click", function() {

@@ -81,13 +81,18 @@
         </main>
     </div>
 
-    <!-- Script -->
-    <script type="text/javascript" src={{ asset('js/main.js') }}></script>
+    <script>
+        // function to adjust top position of main section
+        function adjustMainTop() {
+            var navbarHight = document.getElementById("top-navbar").scrollHeight;
+            $("#main").css("top", navbarHight);
+            $("#Side-Navbar").css("top", navbarHight);
+        };
+        adjustMainTop();
+        $(window).resize(function() {
+            adjustMainTop();
+        });
 
-    <!-- Bootstrap -->
-    {{-- <script type="text/javascript" src={{ asset('js/popper.js') }}></script> --}}
-    {{-- <script type="text/javascript" src={{ asset('js/bootstrap.min.js') }}></script> --}}
-    {{-- <script type="text/javascript" src={{ asset('js/mdb.min.js') }}></script> --}}
+    </script>
 </body>
 </html>
-

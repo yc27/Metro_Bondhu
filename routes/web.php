@@ -23,27 +23,22 @@ Route::post('invitations', 'Auth\RegisterController@storeRequest')->name('storeI
 
 Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
-//admins control
+//Invitation Request Control
 Route::group(['prefix' => '/requests'], function () {
     Route::get('/show', [
         'uses' => 'InvitationController@show',
         'as'   => 'requests.show',
     ]);
 
-    // Route::put('/generate/token',     [
-    //     'uses' => 'AdminController@generateToken',
-    //     'as'   => 'requests.generateToken',
-    // ]);
+    Route::put('/generate/token/{id}',     [
+        'uses' => 'InvitationController@generateToken',
+        'as'   => 'requests.generateToken',
+    ]);
 
-    // Route::put('/mailto/{id}', [
-    //     'uses' => 'AdminController@sendMail',
-    //     'as'   => 'requests.sendMail',
-    // ]);
-
-    // Route::delete('/delete/{id}', [
-    //     'uses' => 'AdminController@destroy',
-    //     'as'   => 'adminsrequests.destroy',
-    // ]);
+    Route::delete('/delete/{id}', [
+        'uses' => 'InvitationController@destroy',
+        'as'   => 'requests.destroy',
+    ]);
 });
 
 
