@@ -55,6 +55,23 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'invitation_token' => [
+                'bail',
+                'required',
+                function ($attribute, $value, $fail) use ($data) {
+                    $request = Invitation::where([
+                        ['invitation_token', md5($value)],
+                        ['email', $data['email']]
+                    ])->first();
+                    if ($request === null) {
+                        $fail('Invitation Code is invalid.');
+                    } elseif ($request->is_active === false) {
+                        $fail('This Invitation Code has been expired.');
+                    } elseif ($request->is_used === false) {
+                        $fail('Invitation Code is invalid.');
+                    }
+                }
+            ]
         ]);
     }
 
@@ -66,6 +83,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $request = Invitation::where('email', $data['email'])->first();
+        $request->is_active = false;
+        $request->is_used = true;
+        $request->registered_at = Date('Y-m-d H:i:s');
+        $request->save();
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
