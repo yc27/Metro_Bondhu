@@ -1,3 +1,4 @@
+<!-- Invitation -->
 <div id="Invite" class="tabcontent">
     <div class="container">
         <div class="text-dark title h1">
@@ -8,8 +9,8 @@
             <span class="badge primary-color p-2" id="Pending-Requests"></span>
         </div>
         <hr>
-        <div class="request-table p-0">
-            <table class="table table-striped text-center" id="Request-Table">
+        <div class="border border-dark rounded p-2">
+            <table class="table table-striped text-center w-100" id="Request-Table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -78,3 +79,4 @@
 
 <!-- DataTable Script -->
 <script type="text/javascript" src={{ asset('js/invitationRequest.js') }}></script>
+<!-- /Invitation -->

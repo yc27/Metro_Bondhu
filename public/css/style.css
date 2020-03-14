@@ -162,7 +162,7 @@ textarea.form-control.is-invalid {
     box-shadow: none;
 }
 .side-nav.active {
-    width: 260px;
+    width: 290px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5), 0 2px 10px 0 rgba(0,0,0,0.5);
 }
 .side-nav .custom-menu {
@@ -242,8 +242,11 @@ textarea.form-control.is-invalid {
     border-right: 8px #00ffff solid;
 }
 @media screen and (max-height: 450px) {
+    #Page-Content.pushed-left {
+        margin-left: 250px;
+    }
     .side-nav.active {
-        width: 220px;
+        width: 250px;
     }
     .side-nav .custom-menu {
         top: 5px;
@@ -296,18 +299,26 @@ textarea.form-control.is-invalid {
     position: relative;
 }
 
+#Page-Content {
+    transition: 0.5s;
+}
+
+#Page-Content.pushed-left {
+    margin-left: 290px;
+}
+
 /* Request DataTable */
-.request-table thead{
+.dataTable thead{
     background: linear-gradient(to right,#222379,#e51b46) !important;
     color: #fff !important;
 }
-.request-table td,.request-table th {
+.dataTable td,.dataTable th {
     border-left: 1px solid rgb(139, 19, 55);
 }
-.request-table tr td:last-child, .request-table tr th:last-child {
+.dataTable tr td:last-child, .dataTable tr th:last-child {
     border-right: 1px solid rgb(139, 19, 55);
 }
-.request-table .table-striped tbody tr:nth-of-type(odd) {
+.dataTable .table-striped tbody tr:nth-of-type(odd) {
     background-color: #dddddd;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {

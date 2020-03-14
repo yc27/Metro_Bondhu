@@ -19,11 +19,29 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 Route::get('/register/request', 'Auth\RegisterController@requestInvitation')->name('requestInvitation');
-Route::post('invitations', 'Auth\RegisterController@storeRequest')->name('storeInvitationRequest');
+Route::post('/invitations', 'Auth\RegisterController@storeRequest')->name('storeInvitationRequest');
 
 Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
-//Invitation Request Control
+// Transport Control
+Route::group(['prefix' => '/transport'], function () {
+    Route::get('/show/schedules', [
+        'uses' => 'TransportController@showSchedules',
+        'as'   => 'transport.show.schedules',
+    ]);
+
+    Route::put('/store/bus_schedule',     [
+        'uses' => 'TransportController@storeSchedule',
+        'as'   => 'transport.store.schedule',
+    ]);
+
+    // Route::delete('/delete/schedules/{id}', [
+    //     'uses' => 'TransportController@destroySchedule',
+    //     'as'   => 'transport.destroy.schedule',
+    // ]);
+});
+
+// Invitation Request Control
 Route::group(['prefix' => '/requests'], function () {
     Route::get('/show', [
         'uses' => 'InvitationController@show',

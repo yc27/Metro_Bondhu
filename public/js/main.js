@@ -1,8 +1,24 @@
 // side nav-bar collapse function
 var sidebarToggle = document.getElementById("Sidenav-Toggle");
 sidebarToggle.addEventListener("click", function() {
-    var content = document.getElementById("Side-Navbar");
-    content.classList.toggle("active");
+    var sidebar = document.getElementById("Side-Navbar");
+    sidebar.classList.toggle("active");
+
+    content = document.getElementById("Page-Content");
+    content.classList.toggle("pushed-left");
+    
+    setTimeout(function() {
+        window.scheduleTable.columns.adjust().draw();
+        window.requestTable.columns.adjust().draw();
+    }, 500);
+});
+
+// display DataTables
+var scheduleTable;
+var requestTable;
+$(document).ready(function() {
+    $.noConflict();
+    $("table.display").dataTable();
 });
 
 // get the element with id="defaultOpen" and click on it
@@ -23,4 +39,54 @@ function openMenu(evt, menu) {
         active[i].className += " active";
     }
     document.getElementById(menu).style.display = "block";
+    
+    if (menu == "Transport") {
+        window.scheduleTable.columns.adjust().draw();
+    }else if (menu == "Invite") {
+        window.requestTable.columns.adjust().draw();
+    }
+}
+
+// Append Leading Zero
+function leadingZero(n) {
+    return n < 10 ? "0" + n : n;
+}
+
+// Formate Time
+function formateTime(hh, mm) {
+    return (
+        (hh % 12 === 0 ? 12 : hh % 12) +
+        ":" +
+        leadingZero(mm) +
+        (hh > 11 ? "pm" : "am")
+    );
+}
+
+// Fromate Date
+function formateDate(d) {
+    var months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ];
+
+    var time = formateTime(d.getHours(), d.getMinutes());
+    return (
+        time +
+        ", " +
+        leadingZero(d.getDate()) +
+        " " +
+        months[d.getMonth()] +
+        " " +
+        d.getFullYear()
+    );
 }
