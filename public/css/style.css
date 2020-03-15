@@ -318,8 +318,8 @@ textarea.form-control.is-invalid {
 .dataTable tr td:last-child, .dataTable tr th:last-child {
     border-right: 1px solid rgb(139, 19, 55);
 }
-.dataTable .table-striped tbody tr:nth-of-type(odd) {
-    background-color: #dddddd;
+.dataTable.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #ebebeb;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     color: #333 !important;

@@ -63,7 +63,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="mb-0">Are you sure you want to delete this user?
+                <p class="mb-0">Are you sure you want to delete this request?
                     <br><br>
                     <div class="text-danger">This action cannot be undone.</div>
                 </p>

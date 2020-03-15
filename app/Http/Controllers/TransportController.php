@@ -21,7 +21,7 @@ class TransportController extends Controller
         return Datatables::of(
             DB::table('bus_schedules')
                 ->leftJoin('way_points', 'bus_schedules.id', '=', 'way_points.schedule_id')
-                ->groupBy('starts_at', 'source', 'destination')
+                ->groupBy('bus_schedules.id')
                 ->select(
                     DB::raw('min(bus_schedules.id) as id'),
                     DB::raw('min(starts_at) as starts_at'),
@@ -50,15 +50,25 @@ class TransportController extends Controller
             ]
         );
 
-        $busSchedule = new BusSchedule();
+        if ($request->has('schedule-id') && $request['schedule-id'] !== null)
+        {
+            $busSchedule = BusSchedule::find($request['schedule-id']);
+        }
+        else
+        {
+            $busSchedule = new BusSchedule();
+        }
+        
         $busSchedule->source = $request['source'];
         $busSchedule->destination = $request['destination'];
         $busSchedule->starts_at = $request['starts_at'];
         $busSchedule->save();
 
+        $scheduleId = $busSchedule->id;
+        WayPoints::where('schedule_id', $scheduleId)->delete();
+
         if ($request->has('stoppages'))
         {
-            $scheduleId = $busSchedule->id;
             foreach ($request['stoppages'] as $stoppage)
             {
                 if($stoppage !== null && !empty($stoppage))
@@ -73,9 +83,28 @@ class TransportController extends Controller
 
         $arr = array('msg' => 'Something went wrong. Please try again later', 'status' => false);
         if ($busSchedule->id) {
-            $arr = array('msg' => 'Successfully created new bus schedule.', 'status' => true);
+            $arr = array('msg' => 'Bus Schedule Set Successfully.', 'status' => true);
         }
 
-        return Response()->json($arr);
+        return Response::json($arr);
+    }
+
+    public function getSchedule($id)
+    {
+        $schedule = BusSchedule::find($id);
+        return Response::json($schedule);
+    }
+
+    public function getStoppages($id)
+    {
+        $stoppages = WayPoints::where('schedule_id', $id)->get('stoppage');
+        return Response::json($stoppages);
+    }
+
+    public function destroySchedule($id)
+    {
+        $schedules = BusSchedule::where('id', $id)->delete();
+
+        return Response::json($schedules);
     }
 }

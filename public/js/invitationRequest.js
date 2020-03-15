@@ -80,6 +80,7 @@ $("body").on("click", "#Btn-Generate-Token", function() {
         url: "/requests/generate/token/" + requestId,
         success: function(data) {
             window.requestTable.ajax.reload();
+            window.requestTable.columns.adjust().draw();
         },
         error: function(data) {
             console.log("Error:", data);
@@ -106,6 +107,7 @@ $("body").on("click", "#Btn-Delete-Request", function() {
         url: "/requests/delete/" + requestId,
         success: function(data) {
             window.requestTable.ajax.reload();
+            window.requestTable.columns.adjust().draw();
         },
         error: function(data) {
             console.log("Error:", data);

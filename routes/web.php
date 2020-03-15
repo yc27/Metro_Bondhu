@@ -30,15 +30,25 @@ Route::group(['prefix' => '/transport'], function () {
         'as'   => 'transport.show.schedules',
     ]);
 
+    Route::get('/get/schedule/{id}', [
+        'uses' => 'TransportController@getSchedule',
+        'as'   => 'transport.get.schedule',
+    ]);
+
+    Route::get('/get/stoppages/{id}', [
+        'uses' => 'TransportController@getStoppages',
+        'as'   => 'transport.get.stoppages',
+    ]);
+
     Route::put('/store/bus_schedule',     [
         'uses' => 'TransportController@storeSchedule',
         'as'   => 'transport.store.schedule',
     ]);
 
-    // Route::delete('/delete/schedules/{id}', [
-    //     'uses' => 'TransportController@destroySchedule',
-    //     'as'   => 'transport.destroy.schedule',
-    // ]);
+    Route::delete('/delete/schedules/{id}', [
+        'uses' => 'TransportController@destroySchedule',
+        'as'   => 'transport.destroy.schedule',
+    ]);
 });
 
 // Invitation Request Control
