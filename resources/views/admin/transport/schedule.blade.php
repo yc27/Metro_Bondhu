@@ -1,7 +1,7 @@
 <!-- Schedules Tab -->
 <button id="Btn-Create-Schedule" class="btn btn-block blue-gradient mx-0 my-4 fa-lg" data-toggle="modal" data-target="#Modal-Schedule-Form">
-	<i class="fas fa-plus-circle mr-2"></i>
-	Add Bus Schedule
+    <i class="fas fa-plus-circle mr-2"></i>
+    Add Bus Schedule
 </button>
 
 <div class="alert alert-success d-none" id="Schedule-Success">
@@ -9,7 +9,7 @@
 </div>
 
 <div class="border border-dark rounded p-2">
-    <table class="table table-striped text-center w-100" id="Schedule-Table">
+    <table class="table table-striped text-center w-100" id="Schedules-Table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -27,12 +27,12 @@
 
 <!-- Schedule Form Modal -->
 <div class="modal fade" id="Modal-Schedule-Form" tabindex="-1" role="dialog" aria-labelledby="Modal-Schedule-Label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-notify modal-info" role="document">
         <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 id="Modal-Bus-Schedule-Title" class="modal-title w-100 font-weight-bold"></h4>
+            <div class="modal-header text-white">
+                <h4 id="Modal-Bus-Schedule-Title" class="modal-title w-100 text-center font-weight-bold"></h4>
                 <button type="button" id="Btn-Close-Schedule-Form" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="text-white">&times;</span>
                 </button>
             </div>
             <form id="Form-Schedule" method="post" action="javascript:void(0)" enctype="multipart/form-data">
@@ -67,12 +67,12 @@
 
 <!-- Delete Modal -->
 <div id="Modal-Schedule-Delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Schedule-Delete-Label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-notify modal-danger" role="document">
         <div class="modal-content text-dark" style="font-size: 14px">
             <div class="modal-header">
-                <h4 class="modal-title w-100" id="Modal-Schedule-Delete-Label">Confirme Delete?</h4>
+                <p class="heading lead" id="Modal-Schedule-Delete-Label">Confirme Delete?</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="white-text">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -83,10 +83,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="Btn-Delete-Schedule" class="btn btn-danger btn-sm" data-dismiss="modal">Delete</button>
-                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
 </div>
 <!-- /Delete Modal -->
+
+<!-- DataTable Script -->
+<script type="text/javascript" src={{ asset('js/schedule.js') }}></script>
 <!-- /Schedules Tab -->

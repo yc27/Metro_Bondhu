@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BusSchedule;
-use App\WayPoints;
+use App\Stoppage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -20,7 +20,7 @@ class TransportController extends Controller
     {
         return Datatables::of(
             DB::table('bus_schedules')
-                ->leftJoin('way_points', 'bus_schedules.id', '=', 'way_points.schedule_id')
+                ->leftJoin('stoppages', 'bus_schedules.id', '=', 'stoppages.schedule_id')
                 ->groupBy('bus_schedules.id')
                 ->select(
                     DB::raw('min(bus_schedules.id) as id'),
@@ -65,7 +65,7 @@ class TransportController extends Controller
         $busSchedule->save();
 
         $scheduleId = $busSchedule->id;
-        WayPoints::where('schedule_id', $scheduleId)->delete();
+        Stoppage::where('schedule_id', $scheduleId)->delete();
 
         if ($request->has('stoppages'))
         {
@@ -73,7 +73,7 @@ class TransportController extends Controller
             {
                 if($stoppage !== null && !empty($stoppage))
                 {
-                    $way_point = new WayPoints();
+                    $way_point = new Stoppage();
                     $way_point->schedule_id = $scheduleId;
                     $way_point->stoppage = $stoppage;
                     $way_point->save();
@@ -97,7 +97,7 @@ class TransportController extends Controller
 
     public function getStoppages($id)
     {
-        $stoppages = WayPoints::where('schedule_id', $id)->get('stoppage');
+        $stoppages = Stoppage::where('schedule_id', $id)->get('stoppage');
         return Response::json($stoppages);
     }
 
@@ -106,5 +106,21 @@ class TransportController extends Controller
         $schedules = BusSchedule::where('id', $id)->delete();
 
         return Response::json($schedules);
+    }
+
+    public function showRoutes()
+    {
+        return Datatables::of(
+            DB::table('routes')
+                ->leftJoin('way_points', 'routes.id', '=', 'way_points.route_id')
+                ->groupBy('routes.id')
+                ->select(
+                    DB::raw('min(routes.id) as id'),
+                    'source',
+                    'destination',
+                    DB::raw('GROUP_CONCAT(way_point separator "| ") AS way_points')
+                )
+                ->get()
+        )->make(true);
     }
 }

@@ -25,6 +25,7 @@ Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
 // Transport Control
 Route::group(['prefix' => '/transport'], function () {
+    // Schedules
     Route::get('/show/schedules', [
         'uses' => 'TransportController@showSchedules',
         'as'   => 'transport.show.schedules',
@@ -48,6 +49,12 @@ Route::group(['prefix' => '/transport'], function () {
     Route::delete('/delete/schedules/{id}', [
         'uses' => 'TransportController@destroySchedule',
         'as'   => 'transport.destroy.schedule',
+    ]);
+
+    // Routes
+    Route::get('/show/routes', [
+        'uses' => 'TransportController@showRoutes',
+        'as'   => 'transport.show.routes',
     ]);
 });
 

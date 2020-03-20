@@ -1,3 +1,13 @@
+// display DataTables
+var schedulesTable;
+var routesTable;
+var requestsTable;
+
+$(document).ready(function() {
+    $.noConflict();
+    $("table.display").dataTable();
+});
+
 // side nav-bar collapse function
 var sidebarToggle = document.getElementById("Sidenav-Toggle");
 sidebarToggle.addEventListener("click", function() {
@@ -8,17 +18,9 @@ sidebarToggle.addEventListener("click", function() {
     content.classList.toggle("pushed-left");
     
     setTimeout(function() {
-        window.scheduleTable.columns.adjust().draw();
-        window.requestTable.columns.adjust().draw();
+        schedulesTable.columns.adjust().draw();
+        requestsTable.columns.adjust().draw();
     }, 500);
-});
-
-// display DataTables
-var scheduleTable;
-var requestTable;
-$(document).ready(function() {
-    $.noConflict();
-    $("table.display").dataTable();
 });
 
 // get the element with id="defaultOpen" and click on it
@@ -41,9 +43,9 @@ function openMenu(evt, menu) {
     document.getElementById(menu).style.display = "block";
     
     if (menu == "Transport") {
-        window.scheduleTable.columns.adjust().draw();
+        schedulesTable.columns.adjust().draw();
     }else if (menu == "Invite") {
-        window.requestTable.columns.adjust().draw();
+        requestsTable.columns.adjust().draw();
     }
 }
 

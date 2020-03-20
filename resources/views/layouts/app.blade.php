@@ -95,7 +95,6 @@
         $(window).resize(function() {
             adjustMainTop();
         });
-
     </script>
 </body>
 </html>

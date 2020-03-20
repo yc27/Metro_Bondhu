@@ -1,4 +1,4 @@
-window.requestTable = $("#Request-Table").DataTable({
+requestsTable = $("#Requests-Table").DataTable({
     autoWidth: true,
     bAutoWidth: true,
     scrollX: true,
@@ -60,7 +60,7 @@ window.requestTable = $("#Request-Table").DataTable({
 
 // Update No of Pending Requests
 function pendingRequests() {
-    var json = window.requestTable.ajax.json();
+    var json = requestsTable.ajax.json();
     $("#Pending-Requests").text(json.pendingRequests);
     $("#Sidebar-Pending-Requests").text(json.pendingRequests);
 }
@@ -79,8 +79,8 @@ $("body").on("click", "#Btn-Generate-Token", function() {
         type: "put",
         url: "/requests/generate/token/" + requestId,
         success: function(data) {
-            window.requestTable.ajax.reload();
-            window.requestTable.columns.adjust().draw();
+            requestsTable.ajax.reload();
+            requestsTable.columns.adjust().draw();
         },
         error: function(data) {
             console.log("Error:", data);
@@ -106,8 +106,8 @@ $("body").on("click", "#Btn-Delete-Request", function() {
         type: "delete",
         url: "/requests/delete/" + requestId,
         success: function(data) {
-            window.requestTable.ajax.reload();
-            window.requestTable.columns.adjust().draw();
+            requestsTable.ajax.reload();
+            requestsTable.columns.adjust().draw();
         },
         error: function(data) {
             console.log("Error:", data);

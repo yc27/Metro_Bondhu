@@ -10,7 +10,7 @@
         </div>
         <hr>
         <div class="border border-dark rounded p-2">
-            <table class="table table-striped text-center w-100" id="Request-Table">
+            <table class="table table-striped text-center w-100" id="Requests-Table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -28,12 +28,12 @@
 
 <!-- Generate Token Modal -->
 <div id="Modal-Generate-Token" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Generate-Token-Label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-notify modal-warning" role="document">
         <div class="modal-content text-dark" style="font-size: 14px">
             <div class="modal-header">
-                <h4 class="modal-title w-100" id="Modal-Generate-Token-Label">Confirme Token Generation?</h4>
+                <p class="heading lead" id="Modal-Generate-Token-Label">Confirme Token Generation?</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="white-text">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -45,7 +45,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="Btn-Generate-Token" class="btn btn-warning btn-sm" data-dismiss="modal">Generate Token</button>
-                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-outline-warning btn-sm" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
@@ -54,12 +54,12 @@
 
 <!-- Delete Modal -->
 <div id="Modal-Request-Delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Request-Delete-Label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content text-dark" style="font-size: 14px">
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <div class="modal-content" style="font-size: 14px">
             <div class="modal-header">
-                <h4 class="modal-title w-100" id="Modal-Request-Delete-Label">Confirme Delete?</h4>
+                <p class="heading lead" id="Modal-Request-Delete-Label">Confirme Delete?</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="white-text">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -70,7 +70,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="Btn-Delete-Request" class="btn btn-danger btn-sm" data-dismiss="modal">Delete</button>
-                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>

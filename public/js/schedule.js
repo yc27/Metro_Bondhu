@@ -1,4 +1,4 @@
-window.scheduleTable = $("#Schedule-Table").DataTable({
+schedulesTable = $("#Schedules-Table").DataTable({
     autoWidth: true,
     bAutoWidth: true,
     scrollX: true,
@@ -54,7 +54,7 @@ window.scheduleTable = $("#Schedule-Table").DataTable({
 $("#Btn-Add-Stoppage").click(function() {
     var cloned_stoppage = document.createElement("div");
 
-    cloned_stoppage.className = "form-row mb-4 remove-clone";
+    cloned_stoppage.className = "form-row mb-4 align-items-center remove-clone";
 
     cloned_stoppage.innerHTML =
         '<div class="col-7 col-sm-9"><input type="text" name="stoppages[]" class="form-control"></div><div class="col-5 col-sm-3"><button class="btn btn-danger btn-sm btn-block btn-reomve-stoppage" type="button">Remove</button></div>';
@@ -92,7 +92,7 @@ $("body").on("click", ".edit-schedule", function () {
     $.get("/transport/get/stoppages/"+scheduleId, function(data) {
         $.each(data, function(key, item) {
             var stoppage = document.createElement("div");
-            stoppage.className = "form-row mb-4 remove-clone";
+            stoppage.className = "form-row mb-4 align-items-center remove-clone";
             stoppage.innerHTML =
                 '<div class="col-7 col-sm-9"><input type="text" name="stoppages[]" class="form-control" value="' + item.stoppage + '"></div><div class="col-5 col-sm-3"><button class="btn btn-danger btn-sm btn-block btn-reomve-stoppage" type="button">Remove</button></div>';
             $("#Clone-Stoppage").before(stoppage);
@@ -116,8 +116,8 @@ $("#Form-Schedule").on("submit", function(e) {
             $(".remove-clone").remove();
             $("#Form-Schedule").trigger("reset");
             $("#Btn-Close-Schedule-Form").click();
-            window.scheduleTable.ajax.reload();
-            window.scheduleTable.columns.adjust().draw();
+            schedulesTable.ajax.reload();
+            schedulesTable.columns.adjust().draw();
 
             $("#Schedule-Success-Message").html(response.msg);
             $("#Schedule-Success").removeClass("d-none");
@@ -155,8 +155,8 @@ $("body").on("click", "#Btn-Delete-Schedule", function() {
         type: "delete",
         url: "/transport/delete/schedules/" + scheduleId,
         success: function(data) {
-            window.scheduleTable.ajax.reload();
-            window.scheduleTable.columns.adjust().draw();
+            schedulesTable.ajax.reload();
+            schedulesTable.columns.adjust().draw();
         },
         error: function(data) {
             console.log("Error:", data);
