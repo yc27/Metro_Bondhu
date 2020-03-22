@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoutesTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateRoutesTable extends Migration
      */
     public function up()
     {
-        Schema::create('routes', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->double('source_lat');
-            $table->double('source_lng');
-            $table->double('destination_lat');
-            $table->double('destination_lng');
+            $table->string('name');
+            $table->string('email');
+            $table->longText('message');
+            $table->boolean('is_opened');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateRoutesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('routes');
+        Schema::dropIfExists('messages');
     }
 }

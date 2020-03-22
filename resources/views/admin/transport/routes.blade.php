@@ -101,7 +101,7 @@
 		);
 	}
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBt1_psb6yAe1iP4OVkTdrs79YDJ_4hytU&callback=myMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.key') }}&callback=myMap"></script>
 {{-- <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script> --}}
 
 {{-- <script>

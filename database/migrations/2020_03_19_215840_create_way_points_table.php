@@ -17,7 +17,8 @@ class CreateWayPointsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('route_id');
             $table->foreign('route_id')->references('id')->on('routes')->onDelete('cascade');
-            $table->string('way_point')->nullable();
+            $table->double('way_point_lat')->nullable();
+            $table->double('way_point_lng')->nullable();
             $table->timestamps();
         });
     }

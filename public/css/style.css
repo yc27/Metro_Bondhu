@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Ostrich;
+    src: url("/fonts/ostrich-regular.ttf");
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -163,7 +168,7 @@ textarea.form-control.is-invalid {
 }
 .side-nav.active {
     width: 290px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5), 0 2px 10px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);
 }
 .side-nav .custom-menu {
     display: inline-block;
@@ -242,7 +247,7 @@ textarea.form-control.is-invalid {
     border-right: 8px #00ffff solid;
 }
 @media screen and (max-height: 450px) {
-    #Page-Content.pushed-left {
+    #Page-Content.pushed-right {
         margin-left: 250px;
     }
     .side-nav.active {
@@ -267,55 +272,17 @@ textarea.form-control.is-invalid {
 }
 /* /Side-Nabbar */
 
-#particles-js {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-}
-
-.card-header-custom {
-    background-color: #001540 !important;
-    color: white;
-}
-
-.card-body-custom {
-    background-color: #4682B4 !important;
-    color: white;
-}
-
-.bg-full {
-    background: url("../img/bg.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    min-height: 100vh;
-    width: 100%;
-    height: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: relative;
-}
-
-#Page-Content {
-    transition: 0.5s;
-}
-
-#Page-Content.pushed-left {
-    margin-left: 290px;
-}
-
-/* Request DataTable */
-.dataTable thead{
-    background: linear-gradient(to right,#222379,#e51b46) !important;
+/* DataTable */
+.dataTable thead {
+    background: linear-gradient(to right, #222379, #e51b46) !important;
     color: #fff !important;
 }
-.dataTable td,.dataTable th {
+.dataTable td,
+.dataTable th {
     border-left: 1px solid rgb(139, 19, 55);
 }
-.dataTable tr td:last-child, .dataTable tr th:last-child {
+.dataTable tr td:last-child,
+.dataTable tr th:last-child {
     border-right: 1px solid rgb(139, 19, 55);
 }
 .dataTable.table-striped tbody tr:nth-of-type(odd) {
@@ -340,4 +307,86 @@ textarea.form-control.is-invalid {
 .dataTables_wrapper .dataTables_paginate {
     color: #fff;
 }
-/* /Request DataTable */
+/* /DataTable */
+
+#particles-js {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.card-header-custom {
+    background-color: #001540 !important;
+    color: white;
+}
+
+.card-body-custom {
+    background-color: #4682b4 !important;
+    color: white;
+}
+
+.bg-full {
+    background: url("../img/bg.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    height: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: relative;
+}
+
+.bg-home {
+    background: linear-gradient(rgba(4, 202, 252, 0.5), rgba(3, 97, 247, 0.5)),
+        url("../img/MetropolitanUniversitySylhet.jpg") no-repeat center center
+            fixed;
+    background-color: #00ddff7e;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: relative;
+}
+
+#Page-Content {
+    transition: 0.5s;
+}
+
+#Page-Content.pushed-right {
+    margin-left: 290px;
+}
+
+.w-35 {
+    width: 35% !important;
+}
+
+.app-header {
+    font-size: 24px;
+    font-family: Lato;
+}
+
+.app-name {
+    font-size: 40px;
+    font-family: Ostrich;
+}
+
+.app-content {
+    font-size: 18px;
+    font-family: Lato;
+}
+
+.message-box {
+    overflow-y: auto;
+    height: 250px !important;
+}

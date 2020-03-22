@@ -15,10 +15,11 @@ sidebarToggle.addEventListener("click", function() {
     sidebar.classList.toggle("active");
 
     content = document.getElementById("Page-Content");
-    content.classList.toggle("pushed-left");
+    content.classList.toggle("pushed-right");
     
     setTimeout(function() {
         schedulesTable.columns.adjust().draw();
+        routesTable.columns.adjust().draw();
         requestsTable.columns.adjust().draw();
     }, 500);
 });

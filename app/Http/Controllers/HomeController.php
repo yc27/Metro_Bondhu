@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Message;
 use Illuminate\Http\Request;
+use Response;
 
 class HomeController extends Controller
 {
@@ -13,16 +15,39 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['guest']);
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         return view('home');
+    }
+
+    public function storeMessage(Request $request)
+    {
+        request()->validate(
+            [
+                'name' => 'required|string',
+                'email' => 'required|email',
+                'message' => 'required'
+            ],
+            [
+                'name.required' => 'Name field can\'t be empty',
+                'name.string' => 'Name field should be a string',
+                'email.required' => 'Email field can\'t be empty',
+                'email.email' => 'Enter a valid email address.',
+                'message.required' => 'Message field can\'t be empty',
+            ]
+        );
+        
+        $message = new Message();
+        $message->name = $request['name'];
+        $message->email = $request['email'];
+        $message->message = $request['message'];
+        $message->is_opened = false;
+        $message->save();
+        
+        $arr = array('msg' => 'Your message sent to admins.', 'status' => true);
+        return Response::json($arr);
     }
 }
