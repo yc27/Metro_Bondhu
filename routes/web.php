@@ -23,6 +23,7 @@ Route::get('/register/request', 'Auth\RegisterController@requestInvitation')->na
 Route::post('/invitations', 'Auth\RegisterController@storeRequest')->name('storeInvitationRequest');
 
 Route::get('/dashboard', 'AdminController@index')->name('dashboard');
+Route::delete('/inbox/delete/message/{id}', 'AdminController@destroyMessage')->name('inbox.destroy.message');
 
 // Transport Control
 Route::group(['prefix' => '/transport'], function () {

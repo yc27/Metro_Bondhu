@@ -13,7 +13,7 @@
         <a class="tablinks Home" onclick="openMenu(event, 'Home')">
             <i class="fas fa-home mr-4"></i>Home
         </a>
-        <a class="tablinks Inbox" onclick="openMenu(event, 'Inbox')">
+        <a id="defaultOpen" class="tablinks Inbox" onclick="openMenu(event, 'Inbox')">
             <i class="fas fa-envelope mr-4"></i>
             Inbox
             <span class="badge badge-pill warning-color-dark ml-1" id="Sidebar-Unread-Messages">0</span>
@@ -27,7 +27,7 @@
         <a class="tablinks Routine" onclick="openMenu(event, 'Routine')">
             <i class="far fa-calendar-plus mr-4"></i>Routine
         </a>
-        <a id="defaultOpen" class="tablinks Transport" onclick="openMenu(event, 'Transport')">
+        <a class="tablinks Transport" onclick="openMenu(event, 'Transport');setTimeout(function() {routesTable.columns.adjust().draw();}, 150);">
             <i class="fas fa-bus-alt mr-4"></i>Transport
         </a>
         <a class="tablinks Invite" onclick="openMenu(event, 'Invite')">
@@ -43,7 +43,8 @@
 <!-- /Sidebar -->
 
 <!-- Page Content -->
-<div id="Page-Content" class="text-white mb-0 px-4 px-md-5 py-3">
+<div id="Page-Content" class="mb-0 px-4 px-md-5 py-3">
+    @include('admin.inbox.inbox')
     @include('admin.transport.transport')
     @include('admin.invitations.invitationRequests')
 </div>
