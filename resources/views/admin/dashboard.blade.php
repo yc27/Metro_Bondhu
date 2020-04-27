@@ -15,7 +15,7 @@
         </a>
         <a id="defaultOpen" class="tablinks Inbox" onclick="openMenu(event, 'Inbox')">
             <i class="fas fa-envelope mr-4"></i>Inbox
-            <span class="badge badge-pill warning-color-dark ml-1" id="Sidebar-Unread-Messages">0</span>
+            <span class="badge badge-pill warning-color-dark ml-1" id="Sidebar-Unseen-Messages-Count">{{ $unseen_messages_count }}</span>
         </a>
         <a class="tablinks Profile" onclick="openMenu(event, 'Profile')">
             <i class="fas fa-user mr-4"></i>Profile

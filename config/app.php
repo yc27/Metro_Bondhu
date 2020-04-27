@@ -180,6 +180,11 @@ return [
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
 
+        /*
+         * HTML Purifier
+         */
+        Mews\Purifier\PurifierServiceProvider::class,
+
     ],
 
     /*
@@ -232,7 +237,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Datatables' => Yajra\DataTables\Facades\DataTables::class,
-
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
     ],
 
 ];

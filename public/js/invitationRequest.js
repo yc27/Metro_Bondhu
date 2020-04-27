@@ -7,7 +7,7 @@ requestsTable = $("#Requests-Table").DataTable({
     order: [[2, "asc"]],
     pagingType: "full_numbers",
     ajax: {
-        url: "/requests/show"
+        url: "/request/show"
     },
     columns: [
         { data: "id", name: "id" },
@@ -24,16 +24,16 @@ requestsTable = $("#Requests-Table").DataTable({
             targets: 2,
             render: function(data, type, row, meta) {
                 var d = new Date(row.created_at);
-                return formateDate(d);
+                return formatDate(d);
             }
         },
         {
             targets: 3,
             render: function(data, type, row, meta) {
                 return (
-                    '<button type="button" class="generate-token btn btn-sm btn-success" data-toggle="modal" data-target="#Modal-Generate-Token" data-id="' +
+                    '<button type="button" class="send-invitation btn btn-sm btn-success" data-toggle="modal" data-target="#Modal-Send-Invitation" data-id="' +
                     row.id +
-                    '"><i class="fas fa-cogs mr-2"></i>Generate Token</button><button type="button" class="delete-request btn btn-sm btn-danger" data-toggle="modal" data-target="#Modal-Request-Delete" data-id="' +
+                    '"><i class="fas fa-cogs mr-2"></i>Send Invitation</button><button type="button" class="delete-request btn btn-sm btn-danger" data-toggle="modal" data-target="#Modal-Request-Delete" data-id="' +
                     row.id +
                     '"><i class="fas fa-trash-alt mr-2"></i>Delete Request</button>'
                 );
@@ -54,21 +54,19 @@ requestsTable = $("#Requests-Table").DataTable({
         infoFiltered: "(Filtered from _MAX_ total records)"
     },
     drawCallback: function(settings) {
-        pendingRequests();
+        updatePendingRequestsCount(requestsTable.ajax.json());
     }
 });
 
-// Update No of Pending Requests
-function pendingRequests() {
-    var json = requestsTable.ajax.json();
+// Update Pending Requests Counter
+function updatePendingRequestsCount(json) {
     $("#Pending-Requests").text(json.pendingRequests);
     $("#Sidebar-Pending-Requests").text(json.pendingRequests);
 }
 
-// Generate Token
-$("body").on("click", "#Btn-Generate-Token", function() {
-    var requestId = $("#Generate-Token").data("id");
-    $("#Generate-Token").prop("id", "");
+// Send Invitation
+$("body").on("click", "#Btn-Send-Invitation", function() {
+    var requestId = $(this).data("id");
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
@@ -77,25 +75,23 @@ $("body").on("click", "#Btn-Generate-Token", function() {
 
     $.ajax({
         type: "put",
-        url: "/requests/generate/token/" + requestId,
-        success: function(data) {
-            requestsTable.ajax.reload();
-            requestsTable.columns.adjust().draw();
+        url: "/request/send-invitation/" + requestId,
+        success: function (data) {
+            $("#Request-Id-" + requestId).remove();
+            updatePendingRequestsCount(data);
         },
         error: function(data) {
             console.log("Error:", data);
         }
     });
 });
-$("body").on("click", ".generate-token", function() {
-    $("#Generate-Token").prop("id", "");
-    $(this).prop("id", "Generate-Token");
+$("body").on("click", ".send-invitation", function() {
+    $("#Btn-Send-Invitation").data("id", $(this).data("id"));
 });
 
 // Delete Request
 $("body").on("click", "#Btn-Delete-Request", function() {
-    var requestId = $("#Delete-Request").data("id");
-    $("#Delete-Request").prop("id", "");
+    var requestId = $(this).data("id");
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
@@ -104,10 +100,10 @@ $("body").on("click", "#Btn-Delete-Request", function() {
 
     $.ajax({
         type: "delete",
-        url: "/requests/delete/" + requestId,
-        success: function(data) {
-            requestsTable.ajax.reload();
-            requestsTable.columns.adjust().draw();
+        url: "/request/delete/" + requestId,
+        success: function (data) {
+            $("#Request-Id-" + requestId).remove();
+            updatePendingRequestsCount(data);
         },
         error: function(data) {
             console.log("Error:", data);
@@ -115,6 +111,5 @@ $("body").on("click", "#Btn-Delete-Request", function() {
     });
 });
 $("body").on("click", ".delete-request", function() {
-    $("#Delete-Request").prop("id", "");
-    $(this).prop("id", "Delete-Request");
+    $("#Btn-Delete-Request").data("id", $(this).data("id"));
 });

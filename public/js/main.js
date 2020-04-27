@@ -56,7 +56,7 @@ function leadingZero(n) {
 }
 
 // Formate Time
-function formateTime(hh, mm) {
+function formatTime(hh, mm) {
     return (
         (hh % 12 === 0 ? 12 : hh % 12) +
         ":" +
@@ -66,7 +66,7 @@ function formateTime(hh, mm) {
 }
 
 // Fromate Date
-function formateDate(d) {
+function formatDate(d) {
     var months = [
         "January",
         "February",
@@ -82,7 +82,7 @@ function formateDate(d) {
         "December"
     ];
 
-    var time = formateTime(d.getHours(), d.getMinutes());
+    var time = formatTime(d.getHours(), d.getMinutes());
     return (
         time +
         ", " +

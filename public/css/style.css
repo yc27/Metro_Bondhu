@@ -386,6 +386,14 @@ textarea.form-control.is-invalid {
     font-family: Lato;
 }
 
+.custom-blue-1 {
+    color: #00d5ff !important;
+}
+
+.custom-blue-2 {
+    color: #00c3ff !important;
+}
+
 .message-box {
     overflow-y: auto;
     height: 250px !important;

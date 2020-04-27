@@ -26,31 +26,31 @@
     </div>
 </div>
 
-<!-- Generate Token Modal -->
-<div id="Modal-Generate-Token" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Generate-Token-Label" aria-hidden="true">
+<!-- Send Invitation Modal -->
+<div id="Modal-Send-Invitation" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Send-Invitation-Label" aria-hidden="true">
     <div class="modal-dialog modal-notify modal-warning" role="document">
         <div class="modal-content text-dark" style="font-size: 14px">
             <div class="modal-header">
-                <p class="heading lead" id="Modal-Generate-Token-Label">Confirme Token Generation?</p>
+                <p class="heading lead" id="Modal-Send-Invitation-Label">Confirme Send Invitation?</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="white-text">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <p class="mb-0">
-                    Are you sure you want to generate token for this email address?
+                    Are you sure you want to send invitation to this email address?
                     <br><br>    
                     <div class="orange-text">If you confirm this action, a token will be generated and sent to this email address.</div>
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" id="Btn-Generate-Token" class="btn btn-warning btn-sm" data-dismiss="modal">Generate Token</button>
+                <button type="button" id="Btn-Send-Invitation" class="btn btn-warning btn-sm" data-dismiss="modal">Send Invitation</button>
                 <button type="button" class="btn btn-outline-warning btn-sm" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
 </div>
-<!-- /Generate Token Modal -->
+<!-- /Send Invitation Modal -->
 
 <!-- Delete Modal -->
 <div id="Modal-Request-Delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Request-Delete-Label" aria-hidden="true">

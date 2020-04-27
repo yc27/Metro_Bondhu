@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +22,24 @@ Route::get('/register/request', 'Auth\RegisterController@requestInvitation')->na
 Route::post('/invitations', 'Auth\RegisterController@storeRequest')->name('storeInvitationRequest');
 
 Route::get('/dashboard', 'AdminController@index')->name('dashboard');
-Route::delete('/inbox/delete/message/{id}', 'AdminController@destroyMessage')->name('inbox.destroy.message');
+
+// Inbox Control
+Route::group(['prefix' => '/message'], function () {
+    Route::get('/view/{id}', [
+        'uses' => 'AdminController@viewMessage',
+        'as'   => 'message.view',
+    ]);
+
+    Route::put('/mark/{id}', [
+        'uses' => 'AdminController@markMessage',
+        'as'   => 'message.mark',
+    ]);
+
+    Route::delete('/delete/{id}',     [
+        'uses' => 'AdminController@destroyMessage',
+        'as'   => 'message.destroy',
+    ]);
+});
 
 // Transport Control
 Route::group(['prefix' => '/transport'], function () {
@@ -43,12 +59,12 @@ Route::group(['prefix' => '/transport'], function () {
         'as'   => 'transport.get.stoppages',
     ]);
 
-    Route::put('/store/bus_schedule',     [
+    Route::put('/store/schedule', [
         'uses' => 'TransportController@storeSchedule',
         'as'   => 'transport.store.schedule',
     ]);
 
-    Route::delete('/delete/schedules/{id}', [
+    Route::delete('/delete/schedule/{id}', [
         'uses' => 'TransportController@destroySchedule',
         'as'   => 'transport.destroy.schedule',
     ]);
@@ -61,19 +77,19 @@ Route::group(['prefix' => '/transport'], function () {
 });
 
 // Invitation Request Control
-Route::group(['prefix' => '/requests'], function () {
+Route::group(['prefix' => '/request'], function () {
     Route::get('/show', [
         'uses' => 'InvitationController@show',
-        'as'   => 'requests.show',
+        'as'   => 'request.show',
     ]);
 
-    Route::put('/generate/token/{id}',     [
-        'uses' => 'InvitationController@generateToken',
-        'as'   => 'requests.generateToken',
+    Route::put('/send-invitation/{id}',     [
+        'uses' => 'InvitationController@sendInvitation',
+        'as'   => 'request.sendInvitation',
     ]);
 
     Route::delete('/delete/{id}', [
         'uses' => 'InvitationController@destroy',
-        'as'   => 'requests.destroy',
+        'as'   => 'request.destroy',
     ]);
 });

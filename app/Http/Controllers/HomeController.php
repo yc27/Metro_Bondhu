@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use Illuminate\Http\Request;
+use Mews\Purifier\Facades\Purifier;
 use Response;
 
 class HomeController extends Controller
@@ -43,7 +44,7 @@ class HomeController extends Controller
         $message = new Message();
         $message->name = $request['name'];
         $message->email = $request['email'];
-        $message->message = $request['message'];
+        $message->message = Purifier::clean($request['message']);
         $message->is_opened = false;
         $message->save();
         

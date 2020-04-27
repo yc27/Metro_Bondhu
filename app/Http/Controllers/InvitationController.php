@@ -21,13 +21,16 @@ class InvitationController extends Controller
         $pendingRequests = Invitation::whereNull('invitation_token')->count();
         
         return Datatables::of(Invitation::whereNull('invitation_token')->get(['id', 'email', 'created_at']))
+            ->setRowId(function ($request) {
+                return "Request-Id-".$request->id;
+            })
             ->with([
                 "pendingRequests" => $pendingRequests
             ])
             ->make(true);
     }
 
-    public function generateToken($id)
+    public function sendInvitation($id)
     {
         $request = Invitation::find($id);
         
@@ -49,14 +52,19 @@ class InvitationController extends Controller
 
         // Send Invitation Token tom mailing address
         Mail::to($request->email)->send(new SendInvitationToken($token));
+
+        $pendingRequests = Invitation::whereNull('invitation_token')->count();
+        $data = ['pendingRequests' => $pendingRequests];
         
-        return Response::json($request);
+        return Response::json($data);
     }
 
     public function destroy($id)
     {
-        $invitations = Invitation::where('id', $id)->delete();
+        Invitation::where('id', $id)->delete();
+        $pendingRequests = Invitation::whereNull('invitation_token')->count();
+        $data = ['pendingRequests' => $pendingRequests];
 
-        return Response::json($invitations);
+        return Response::json($data);
     }
 }

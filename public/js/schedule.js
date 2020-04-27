@@ -110,7 +110,7 @@ $("#Form-Schedule").on("submit", function(e) {
     });
     $.ajax({
         type: "PUT",
-        url: "/transport/store/bus_schedule",
+        url: "/transport/store/schedule",
         data: $("#Form-Schedule").serialize(),
         success: function (response) {
             $(".remove-clone").remove();
@@ -143,8 +143,7 @@ $("#Form-Schedule").on("submit", function(e) {
 
 // Delete Bus-Schedule
 $("body").on("click", "#Btn-Delete-Schedule", function() {
-    var scheduleId = $("#Delete-Schedule").data("id");
-    $("#Delete-Schedule").prop("id", "");
+    var scheduleId = $(this).data("id");
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
@@ -153,10 +152,9 @@ $("body").on("click", "#Btn-Delete-Schedule", function() {
 
     $.ajax({
         type: "delete",
-        url: "/transport/delete/schedules/" + scheduleId,
+        url: "/transport/delete/schedule/" + scheduleId,
         success: function(data) {
-            schedulesTable.ajax.reload();
-            schedulesTable.columns.adjust().draw();
+            $("#Schedule-Id-" + scheduleId).remove();
         },
         error: function(data) {
             console.log("Error:", data);
@@ -164,6 +162,5 @@ $("body").on("click", "#Btn-Delete-Schedule", function() {
     });
 });
 $("body").on("click", ".delete-schedule", function() {
-    $("#Delete-Schedule").prop("id", "");
-    $(this).prop("id", "Delete-Schedule");
+    $("#Btn-Delete-Schedule").data("id", $(this).data("id"));
 });

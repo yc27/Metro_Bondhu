@@ -30,7 +30,11 @@ class TransportController extends Controller
                     DB::raw('GROUP_CONCAT(stoppage separator ", ") AS stoppages')
                 )
                 ->get()
-        )->make(true);
+        )
+        ->setRowId(function ($schedule) {
+            return "Schedule-Id-".$schedule->id;
+        })
+        ->make(true);
     }
 
     public function storeSchedule(Request $request)
@@ -121,6 +125,10 @@ class TransportController extends Controller
                     DB::raw('GROUP_CONCAT(way_point separator "| ") AS way_points')
                 )
                 ->get()
-        )->make(true);
+        )
+        ->setRowId(function ($route) {
+            return "Route-Id-".$route->id;
+        })
+        ->make(true);
     }
 }
