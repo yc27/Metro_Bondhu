@@ -16,7 +16,7 @@ function setMessageCardSeen(id) {
         .removeClass("custom-blue-1");
     $("#Message-Id-" + id)
         .find(".message-email")
-        .addClass("blue-gray-text")
+        .addClass("blue-grey-text")
         .removeClass("custom-blue-2");
     $("#Message-Id-" + id)
         .find(".message-date")
@@ -40,7 +40,7 @@ function setMessageCardUnseen(id) {
     $("#Message-Id-" + id)
         .find(".message-email")
         .addClass("custom-blue-2")
-        .removeClass("blue-gray-text");
+        .removeClass("blue-grey-text");
     $("#Message-Id-" + id)
         .find(".message-date")
         .addClass("text-white")
@@ -129,61 +129,31 @@ $("body").on("click", ".mark-message", function() {
 });
 
 // AJAX Pagination of Unseen Messages
-// $(document).ready(function() {
-//     $(document).on('click', '.unseen-messages .pagination a', function(event) {
-//         event.preventDefault();
-
-//         $('li').removeClass('active');
-//         $(this).parent('li').addClass('active');
-//         var myurl = $(this).attr('href');
-//         var page = $(this).attr('href').split('page=')[1];
-//         getUnseenMessages(page);
-//     });
-// });
-// function getUnseenMessages(page) {
-//     $.ajax({
-//         url: '?page=' + page,
-// 		type: "get",
-// 		datatype: "html"
-//     }).done(function(data) {
-//         $("#Unseen-Messages").empty().html(data);
-//     }).fail(function(jqXHR, ajaxOptions, thrownError) {
-//         console.log('No response from server');
-//     });
-// }
-
-// AJAX Pagination of Seen Messages
-// $(window).on('hashchange', function() {
-//     if (window.location.hash) {
-//         var page = window.location.hash.replace('#', '');
-//         if (page == Number.NaN || page <= 0) {
-//             return false;
-//         }else{
-//             getData(page);
-//         }
-//     }
-// });
-// $(document).ready(function() {
-//     $(document).on('click', '.seen-messages .pagination a', function(event) {
-//         event.preventDefault();
-
-// 		$('.seen-messages .pagination').children('li').removeClass('active');
-//         $(this).parent('li').addClass('active');
-// 		var myurl = $(this).attr('href');
-// 		var page = $(this).attr('href').split('page=')[1];
-// 		console.log(myurl, page);
-//         getSeenMessages(page);
-//     });
-// });
-// function getSeenMessages(page) {
-//     $.ajax({
-//         url: 'http://localhost:8000/dashboard/inbox?page=' + page,
-// 		type: "get",
-// 		datatype: "html"
-//     }).done(function(data) {
-// 		$("#Seen-Messages").empty().html(data);
-// 		location.hash = page;
-//     }).fail(function(jqXHR, ajaxOptions, thrownError) {
-//         console.log('No response from server');
-//     });
-// }
+$(window).on("hashchange", function() {
+    if (window.location.hash) {
+        var page = window.location.hash.replace("#", "");
+        if (page == Number.NaN || page <= 0) {
+            return false;
+        } else {
+            getMessages(page);
+        }
+    }
+});
+$(document).on("click", ".pagination a", function(e) {
+    getMessages( $(this).attr("href").split("page=")[1] );
+    e.preventDefault();
+});
+function getMessages(page) {
+    $.ajax({
+        url: "/inbox?page=" + page,
+        dataType: "json"
+    })
+    .done(function (data) {
+        $(".inbox").html(data);
+        // location.hash = page;
+    })
+    .fail(function(data) {
+        console.log(data);
+        alert("Messages Could Not Be Loaded.");
+    });
+}

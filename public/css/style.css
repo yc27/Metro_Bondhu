@@ -399,6 +399,10 @@ textarea.form-control.is-invalid {
     height: 250px !important;
 }
 
+.inbox ul.pagination {
+    margin-bottom: 0;
+}
+
 strong {
     font-weight: bold !important;
 }

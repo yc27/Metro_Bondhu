@@ -22,6 +22,7 @@ Route::get('/register/request', 'Auth\RegisterController@requestInvitation')->na
 Route::post('/invitations', 'Auth\RegisterController@storeRequest')->name('storeInvitationRequest');
 
 Route::get('/dashboard', 'AdminController@index')->name('dashboard');
+Route::get('/inbox', 'AdminController@index')->name('dashboard.inbox');
 
 // Inbox Control
 Route::group(['prefix' => '/message'], function () {

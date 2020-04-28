@@ -145,7 +145,7 @@
                         <div class="form-row">
                             <div class="form-group col-md">
                                 <label for="message">Message*:</label>
-                                <textarea id="message" type="text" class="message-bpx form-control {{ $errors->has('message') ? 'is-invalid' : '' }}" name="message" required autocomplete="false">
+                                <textarea id="message" type="text" class="message-box form-control" name="message" autocomplete="false">
                                 </textarea>
                                 @error('message')
                                 <div class="alert alert-danger" role="alert">
@@ -193,6 +193,7 @@
             selector: '#message',
             skin: 'oxide-dark',
             content_css: "{{ url('css/style.css') }}",
+            extended_valid_elements: 'blockquote[class=blockquote]',
             plugins: 'lists',
             toolbar: 'undo redo | bold italic underline | fontsizeselect | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | subscript superscript | forecolor backcolor | outdent indent | removeformat',
             menubar: false,

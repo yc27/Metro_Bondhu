@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Response;
 
 class AdminController extends Controller
@@ -13,10 +14,14 @@ class AdminController extends Controller
         $this->middleware(['auth', 'verified']);
     }
 
-    public function index(Request $request)
+    public function index()
     {
         $unseen_messages_count = Message::where('is_opened', '0')->count();
         $messages = Message::orderBy('is_opened', 'ASC')->orderBy('created_at', 'DESC')->paginate(5);
+
+        if(request()->ajax()) {
+            return Response::json(View::make('admin.inbox.messages', ['unseen_messages_count' => $unseen_messages_count, 'messages' => $messages])->render());
+        }
         
         return view('admin.dashboard', ['unseen_messages_count' => $unseen_messages_count, 'messages' => $messages]);
     }
