@@ -2,6 +2,22 @@
 function updateUnseenMessagesCount(val) {
     $("#Sidebar-Unseen-Messages-Count").text(val);
     $("#Unseen-Messages-Count").text(val);
+
+    if (val > 0) {
+        $(".Inbox")
+            .removeClass("custom-blue-1")
+            .addClass("yellow-text");
+        $("#Sidebar-Unseen-Messages-Count")
+            .removeClass("d-none")
+            .addClass("d-block");
+    } else {
+        $(".Inbox")
+            .removeClass("yellow-text")
+            .addClass("custom-blue-1");
+        $("#Sidebar-Unseen-Messages-Count")
+            .removeClass("d-block")
+            .addClass("d-none");
+    }
 }
 
 // Set Message Card As Seen

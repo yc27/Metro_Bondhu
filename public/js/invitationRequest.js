@@ -62,6 +62,22 @@ requestsTable = $("#Requests-Table").DataTable({
 function updatePendingRequestsCount(json) {
     $("#Pending-Requests").text(json.pendingRequests);
     $("#Sidebar-Pending-Requests").text(json.pendingRequests);
+
+    if (json.pendingRequests > 0) {
+        $(".Invite")
+            .removeClass("custom-blue-1")
+            .addClass("yellow-text");
+        $("#Sidebar-Pending-Requests")
+            .removeClass("d-none")
+            .addClass("d-block");
+    } else {
+        $(".Invite")
+            .removeClass("yellow-text")
+            .addClass("custom-blue-1");
+        $("#Sidebar-Pending-Requests")
+            .removeClass("d-block")
+            .addClass("d-none");
+    }
 }
 
 // Send Invitation

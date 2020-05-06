@@ -3,6 +3,42 @@
     src: url("/fonts/ostrich-regular.ttf");
 }
 
+strong {
+    font-weight: bold !important;
+}
+
+thead {
+    background: linear-gradient(to right, #222379, #e51b46) !important;
+    color: #fff !important;
+}
+tr td,
+tr th {
+    border-left: 1px solid rgb(139, 19, 55);
+}
+tr td:last-child,
+tr th:last-child {
+    border-right: 1px solid rgb(139, 19, 55);
+}
+tbody tr:nth-of-type(odd) {
+    background-color: #ebebeb !important;
+}
+
+blockquote p {
+    padding: 0 !important;
+}
+
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url("../img/loader.gif") no-repeat center center fixed rgb(241, 242, 243);
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -159,15 +195,15 @@ textarea.form-control.is-invalid {
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 0;
+    width: 45px;
     z-index: 998;
     background-color: #001540;
-    color: #00dbff;
+    color: #00d5ff;
     transition: 0.5s;
     box-shadow: none;
 }
 .side-nav.active {
-    width: 290px;
+    width: 225px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);
 }
 .side-nav .custom-menu {
@@ -224,35 +260,33 @@ textarea.form-control.is-invalid {
     overflow-y: auto;
 }
 .sidenav-wrapper a {
-    display: block;
+    display: flex;
+    align-items: center;
     position: relative;
     transition: 0.3s;
-    line-height: 6vh;
-    font-size: 18px;
+    line-height: 2rem;
+    font-size: 14px;
     font-family: "Lato", sans-serif;
     text-decoration: none;
     cursor: pointer;
-    padding: 8px 8px 8px 32px;
-    border-bottom: dotted 1px;
+    padding: 8px 8px 8px 12px;
+    border-bottom: #00d5ff dotted 1px;
+    white-space: nowrap;
 }
 .sidenav-wrapper a:hover {
     font-weight: bold;
-    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-    background-color: #010e29;
+    color: #fff !important;
+    background-color: #00bbff;
+}
+.sidenav-wrapper a i {
+    font-size: 20px;
 }
 .sidenav-wrapper .active {
-    color: #00ffff !important;
+    color: #fff !important;
     font-weight: bold;
-    background-color: #010e29;
-    border-right: 8px #00ffff solid;
+    background-color: #00bbff;
 }
 @media screen and (max-height: 450px) {
-    #Page-Content.pushed-right {
-        margin-left: 250px;
-    }
-    .side-nav.active {
-        width: 250px;
-    }
     .side-nav .custom-menu {
         top: 5px;
         margin-right: -25px;
@@ -265,29 +299,10 @@ textarea.form-control.is-invalid {
         padding-top: 0.7rem;
         margin-right: -40px;
     }
-    .side-nav .sidenav-wrapper a {
-        font-size: 14px;
-        line-height: 4vh;
-    }
 }
 /* /Side-Nabbar */
 
 /* DataTable */
-.dataTable thead {
-    background: linear-gradient(to right, #222379, #e51b46) !important;
-    color: #fff !important;
-}
-.dataTable td,
-.dataTable th {
-    border-left: 1px solid rgb(139, 19, 55);
-}
-.dataTable tr td:last-child,
-.dataTable tr th:last-child {
-    border-right: 1px solid rgb(139, 19, 55);
-}
-.dataTable.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #ebebeb;
-}
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     color: #333 !important;
 }
@@ -361,10 +376,11 @@ textarea.form-control.is-invalid {
 
 #Page-Content {
     transition: 0.5s;
+    margin-left: 45px;
 }
 
 #Page-Content.pushed-right {
-    margin-left: 290px;
+    margin-left: 225px;
 }
 
 .w-35 {
@@ -403,6 +419,22 @@ textarea.form-control.is-invalid {
     margin-bottom: 0;
 }
 
-strong {
-    font-weight: bold !important;
+.container-masonry {
+    /* -webkit-columns: 2 250px;
+    -moz-columns: 2 250px; */
+    columns: 2 250px;
+    column-gap: 20px;
+}
+
+.container-masonry .card {
+    -webkit-column-break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid-column !important;
+    box-shadow: none !important;
+    border: 1px #ddd solid !important;
+}
+
+.container-masonry .card .card-body {
+    max-height: 200px;
+    overflow: auto;
 }

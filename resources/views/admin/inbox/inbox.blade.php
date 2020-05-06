@@ -4,10 +4,12 @@
         <div class="text-dark title h1">
             Inbox
         </div>
-        <div class="py-1 px-2 my-2 mx-0 align-middle rounded warning-color text-dark" style="width: fit-content;">
+        @if($unseen_messages_count !== 0)
+        <div class="py-1 px-2 my-2 mx-0 align-middle rounded warning-color text-dark" style="width: -moz-fit-content;width: fit-content;">
             Total Unseen Messages:
             <span class="badge primary-color p-2" id="Unseen-Messages-Count">{{ $unseen_messages_count }}</span>
         </div>
+        @endif
         <hr>
         @if($messages->isEmpty())
         <div class="container">
