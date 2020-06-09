@@ -1,42 +1,49 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600");
+
 @font-face {
     font-family: Ostrich;
     src: url("/fonts/ostrich-regular.ttf");
+}
+
+@font-face {
+    font-family: Age;
+    src: url("/fonts/Age.otf");
 }
 
 strong {
     font-weight: bold !important;
 }
 
-thead {
-    background: linear-gradient(to right, #222379, #e51b46) !important;
-    color: #fff !important;
-}
-tr td,
-tr th {
-    border-left: 1px solid rgb(139, 19, 55);
-}
-tr td:last-child,
-tr th:last-child {
-    border-right: 1px solid rgb(139, 19, 55);
-}
-tbody tr:nth-of-type(odd) {
-    background-color: #ebebeb !important;
-}
-
 blockquote p {
     padding: 0 !important;
 }
 
-.loader {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background: url("../img/loader.gif") no-repeat center center fixed rgb(241, 242, 243);
+.alert ul {
+    margin-bottom: 0;
+}
+
+.modal-dialog .modal-content {
+    border-radius: 0.25rem;
+}
+
+.modal-dialog .modal-content .modal-header {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+.modal-dialog .modal-content .modal-header .modal-title {
+    font-weight: 500;
+    font-size: 18px;
+    font-family: 'Poppints', sans-serif;
+}
+
+.btn-circle.btn-sm {
+    width: 30px; 
+    height: 30px; 
+    padding: 6px 0px; 
+    border-radius: 15px; 
+    font-size: 8px; 
+    text-align: center; 
 }
 
 /* Custom Scrollbar */
@@ -61,6 +68,59 @@ blockquote p {
     );
 }
 /* /Custom Scrollbar */
+
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url("../img/loader.gif") no-repeat center center fixed
+        rgb(241, 242, 243);
+}
+
+#particles-js {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.bg-full {
+    background: url("../img/bg.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    height: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: relative;
+}
+
+.bg-home {
+    background: linear-gradient(rgba(4, 202, 252, 0.5), rgba(3, 97, 247, 0.5)),
+        url("../img/MetropolitanUniversitySylhet.jpg") no-repeat center center
+            fixed;
+    background-color: #00ddff7e;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: relative;
+}
 
 /* Laravel Style */
 .invalid-feedback {
@@ -190,6 +250,65 @@ textarea.form-control.is-invalid {
 }
 /* /Laravel Style */
 
+/* Home Page */
+.app-header {
+    font-size: 24px;
+    font-family: Lato;
+}
+
+.app-name {
+    font-size: 40px;
+    font-family: Ostrich;
+}
+
+.app-content {
+    font-size: 18px;
+    font-family: Lato;
+}
+
+.message-box {
+    overflow-y: auto;
+    height: 250px !important;
+}
+/* /Home Page */
+
+/* DataTable */
+.dataTable thead {
+    background: linear-gradient(to right, #222379, #e51b46) !important;
+    color: #fff !important;
+}
+.dataTable tr td,
+.dataTable tr th {
+    border-left: 1px solid rgb(139, 19, 55);
+}
+.dataTable tr td:last-child,
+.dataTable tr th:last-child {
+    border-right: 1px solid rgb(139, 19, 55);
+}
+.dataTable tbody tr:nth-of-type(odd) {
+    background-color: #ebebeb !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #333 !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+    color: #fff !important;
+    border: 1px solid #979797;
+    background-color: linear-gradient(to right, #00aeff, #281bda);
+    background: -webkit-linear-gradient(to right, #00aeff, #281bda);
+    background: -moz-linear-gradient(to right, #00aeff, #281bda);
+    background: -ms-linear-gradient(to right, #00aeff, #281bda);
+    background: -o-linear-gradient(to right, #00aeff, #281bda);
+    background: linear-gradient(to right, #00aeff, #281bda);
+}
+.dataTables_wrapper .dataTables_paginate {
+    color: #fff;
+}
+/* /DataTable */
+
 /* Side-Nabbar */
 .side-nav {
     position: fixed;
@@ -233,7 +352,7 @@ textarea.form-control.is-invalid {
     border-color: transparent !important;
     box-shadow: none !important;
 }
-.side-nav .custom-menu .btn.btn-primary:after {
+.side-nav .custom-menu .btn.btn-primary::after {
     z-index: -1;
     position: absolute;
     top: 0;
@@ -302,78 +421,6 @@ textarea.form-control.is-invalid {
 }
 /* /Side-Nabbar */
 
-/* DataTable */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    color: #333 !important;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button:active {
-    color: #fff !important;
-    border: 1px solid #979797;
-    background-color: linear-gradient(to right, #00aeff, #281bda);
-    background: -webkit-linear-gradient(to right, #00aeff, #281bda);
-    background: -moz-linear-gradient(to right, #00aeff, #281bda);
-    background: -ms-linear-gradient(to right, #00aeff, #281bda);
-    background: -o-linear-gradient(to right, #00aeff, #281bda);
-    background: linear-gradient(to right, #00aeff, #281bda);
-}
-.dataTables_wrapper .dataTables_paginate {
-    color: #fff;
-}
-/* /DataTable */
-
-#particles-js {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-}
-
-.card-header-custom {
-    background-color: #001540 !important;
-    color: white;
-}
-
-.card-body-custom {
-    background-color: #4682b4 !important;
-    color: white;
-}
-
-.bg-full {
-    background: url("../img/bg.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    min-height: 100vh;
-    width: 100%;
-    height: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: relative;
-}
-
-.bg-home {
-    background: linear-gradient(rgba(4, 202, 252, 0.5), rgba(3, 97, 247, 0.5)),
-        url("../img/MetropolitanUniversitySylhet.jpg") no-repeat center center
-            fixed;
-    background-color: #00ddff7e;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    min-height: 100vh;
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: relative;
-}
-
 #Page-Content {
     transition: 0.5s;
     margin-left: 45px;
@@ -383,23 +430,18 @@ textarea.form-control.is-invalid {
     margin-left: 225px;
 }
 
-.w-35 {
-    width: 35% !important;
+.card-header-custom {
+    background-color: #001540 !important;
+    color: white !important;
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
 }
 
-.app-header {
-    font-size: 24px;
-    font-family: Lato;
-}
-
-.app-name {
-    font-size: 40px;
-    font-family: Ostrich;
-}
-
-.app-content {
-    font-size: 18px;
-    font-family: Lato;
+.card-body-custom {
+    background-color: #4682b4 !important;
+    color: white !important;
+    border-bottom-left-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
 }
 
 .custom-blue-1 {
@@ -410,31 +452,230 @@ textarea.form-control.is-invalid {
     color: #00c3ff !important;
 }
 
-.message-box {
-    overflow-y: auto;
-    height: 250px !important;
+.w-35 {
+    width: 35% !important;
 }
 
 .inbox ul.pagination {
     margin-bottom: 0;
 }
 
-.container-masonry {
-    /* -webkit-columns: 2 250px;
-    -moz-columns: 2 250px; */
-    columns: 2 250px;
-    column-gap: 20px;
+.academic-structure-menu {
+    margin: 0 -15px;
 }
 
-.container-masonry .card {
-    -webkit-column-break-inside: avoid !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid-column !important;
-    box-shadow: none !important;
-    border: 1px #ddd solid !important;
+.academic-structure-menu .menu-button {
+    padding: 0 15px;
+    width: 100%;
+    height: 200px;
 }
 
-.container-masonry .card .card-body {
-    max-height: 200px;
-    overflow: auto;
+@media (min-width: 576px) {
+    .academic-structure-menu .menu-button {
+        width: 50%;
+    }
+}
+
+@media (min-width: 768px) {
+    .academic-structure-menu .menu-button {
+        width: 33.33%;
+    }
+}
+
+@media (min-width: 992px) {
+    .academic-structure-menu .menu-button {
+        width: 25%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .academic-structure-menu .menu-button {
+        width: 20%;
+    }
+}
+
+.academic-structure-menu .card {
+    cursor: pointer;
+    height: 100%;
+}
+
+.academic-structure-menu .card .card-body span {
+    font-size: 68px;
+    color: #00aeff;
+    font-family: Age;
+    padding: 0;
+}
+
+.academic-structure-menu .card .card-footer {
+    background: #00aeff;
+    color: #ffffff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.academic-structure-details .card {
+    cursor: default;
+    margin-left: 5px;
+    min-width: 250px;
+    box-shadow: none;
+    filter:drop-shadow(0 0 0.3rem rgba(0,0,0,0.3));
+}
+
+.academic-structure-details .card::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+	left:-40px; 
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	border: 20px solid transparent;
+	border-right-color:#002456;
+}
+
+.academic-structure-details .card .card-header {
+    background: #002456;
+    color: #ffffff;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.academic-structure-details .card .card-body {
+    color: #002456;
+}
+
+.academic-structure-details .table thead {
+    border-bottom: 1px solid;
+}
+
+.academic-structure-details .table tr td:last-child{
+    width:1%;
+    white-space:nowrap;
+    text-align: center;
+}
+
+.academic-structure-details .table td,
+.academic-structure-details .table th {
+    padding: 10px;
+    border-top: none;
+    border-bottom: none;
+}
+
+.academic-structure-details .table.table-hover tbody tr:hover {
+    background-color: #00aeff;
+    color: #ffffff;
+    -webkit-transition: 0s;
+    transition: 0s;
+}
+
+#Modal-Academic-Structure-Form .btn {
+    box-shadow: none;
+    border-radius: 0;
+    border: 1px solid #cccccc;
+}
+
+#Modal-Academic-Structure-Form .btn.text-primary:hover,
+#Modal-Academic-Structure-Form .btn.text-primary:focus {
+    color: #ffffff !important;
+    background: #4285f4 !important;
+}
+
+#Modal-Academic-Structure-Form .btn.text-danger:hover,
+#Modal-Academic-Structure-Form .btn.text-danger:focus {
+    color: #ffffff !important;
+    background: #ff3547 !important;
+}
+
+#Routines .card {
+    box-shadow: none;
+    filter:drop-shadow(0 0 0.3rem rgba(0,0,0,0.3));
+}
+
+#Routines .card::before {
+    content: "";
+    position: absolute;
+    top: -3rem;
+	left:10px; 
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	border: 1.5rem solid transparent;
+	border-bottom-color:#002456;
+}
+
+#Routines .card .card-header {
+    color: #ffffff;
+    background: #002456;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+#Routines .card .card-body {
+    color: #002456;
+}
+
+#Table-Routine.table tbody tr td,
+#Table-Routine.table thead tr th {
+    border-left: 1px solid #002456;
+    border-top: none;
+    border-bottom: none;
+}
+
+#Table-Routine.table tbody tr td:first-child,
+#Table-Routine.table thead tr th:first-child {
+    border-left: none;
+}
+
+#Table-Routine.table thead tr th,
+#Table-Routine.table tbody tr td:first-child {
+    border-bottom: 1px solid #002456;
+    background: #4682B4;
+    color: #ffffff;
+    padding: 10px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+#Table-Routine.table thead tr th:first-child {
+    background: #356c99;
+}
+
+#Table-Routine.table tbody tr td:first-child {
+    width:1%;
+    white-space:nowrap;
+    text-align: center;
+}
+
+#Table-Routine.table tbody tr td {
+    color: #002456;
+    padding: 0;
+}
+
+#Table-Routine.table .view {
+    padding: 10px;
+}
+
+#Table-Routine.table .subject {
+    font-size: 16px;
+    font-weight: bold;
+    color: #002456;
+}
+
+#Table-Routine.table .teacher {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2a4fad;
+}
+
+#Table-Routine.table .room {
+    font-size: 14px;
+    font-weight: bold;
+    color: #800080;
+}
+
+#Table-Routine .btn-outline-info,
+#Table-Routine .btn-outline-info:hover,
+#Table-Routine .btn-outline-info:focus {
+    background: #ffffff !important;
 }

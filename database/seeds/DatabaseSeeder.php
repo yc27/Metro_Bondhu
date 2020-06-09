@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(SuperAdminSeed::class);
+        $this->call([
+            SuperAdminSeeder::class,
+            ClassDaysSeeder::class
+        ]);
     }
 }

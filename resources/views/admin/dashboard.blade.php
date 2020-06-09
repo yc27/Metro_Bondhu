@@ -43,6 +43,7 @@
 <!-- Page Content -->
 <div id="Page-Content" class="mb-0 px-4 px-md-5 py-3">
     @include('admin.inbox.inbox')
+    @include('admin.routine.setup')
     @include('admin.transport.transport')
     @include('admin.invitations.invitationRequests')
 </div>

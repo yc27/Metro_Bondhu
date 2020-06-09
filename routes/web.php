@@ -36,10 +36,152 @@ Route::group(['prefix' => '/message'], function () {
         'as'   => 'message.mark',
     ]);
 
-    Route::delete('/delete/{id}',     [
+    Route::delete('/delete/{id}', [
         'uses' => 'AdminController@destroyMessage',
         'as'   => 'message.destroy',
     ]);
+});
+
+// Routines Control
+Route::group(['prefix' => '/routine'], function () {
+    // Department
+    Route::get('/get/departments', [
+        'uses' => 'RoutineController@getDepartments',
+        'as'   => 'routine.get.departments',
+    ]);
+    
+    Route::post('/store/department', [
+        'uses' => 'RoutineController@storeDepartment',
+        'as'   => 'routine.store.department',
+    ]);
+
+    Route::delete('/delete/department/{id}', [
+        'uses' => 'RoutineController@destroyDepartment',
+        'as'   => 'routine.destroy.department',
+    ]);
+    
+    // Batch
+    Route::get('/get/batches-id/{dept_id}', [
+        'uses' => 'RoutineController@getBatchesId',
+        'as'   => 'routine.get.batches-id',
+    ]);
+    
+    Route::get('/get/batches/{dept_id}', [
+        'uses' => 'RoutineController@getBatches',
+        'as'   => 'routine.get.batches',
+    ]);
+    
+    Route::post('/store/batch', [
+        'uses' => 'RoutineController@storeBatch',
+        'as'   => 'routine.store.batch',
+    ]);
+
+    Route::delete('/delete/batch/{id}', [
+        'uses' => 'RoutineController@destroyBatch',
+        'as'   => 'routine.destroy.batch',
+    ]);
+    
+    // Section
+    Route::get('/get/sections-id/{batch_id}', [
+        'uses' => 'RoutineController@getSectionsId',
+        'as'   => 'routine.get.sections-id',
+    ]);
+    
+    Route::get('/get/sections/{batch_id}', [
+        'uses' => 'RoutineController@getSections',
+        'as'   => 'routine.get.sections',
+    ]);
+    
+    Route::post('/store/section', [
+        'uses' => 'RoutineController@storeSection',
+        'as'   => 'routine.store.section',
+    ]);
+
+    Route::delete('/delete/section/{id}', [
+        'uses' => 'RoutineController@destroySection',
+        'as'   => 'routine.destroy.section',
+    ]);
+
+    // Teacher
+    Route::get('get/teachers',[
+        'uses' => 'RoutineController@getTeachers',
+        'as'   => 'routine.get.teachers'
+    ]);
+    
+    Route::post('/store/teacher', [
+        'uses' => 'RoutineController@storeTeacher',
+        'as'   => 'routine.store.teacher',
+    ]);
+
+    Route::delete('/delete/teacher/{id}', [
+        'uses' => 'RoutineController@destroyTeacher',
+        'as'   => 'routine.destroy.teacher',
+    ]);
+
+    // Subject
+    Route::get('get/subjects',[
+        'uses' => 'RoutineController@getSubjects',
+        'as'   => 'routine.get.subjects'
+    ]);
+    
+    Route::post('/store/subject', [
+        'uses' => 'RoutineController@storeSubject',
+        'as'   => 'routine.store.subject',
+    ]);
+
+    Route::delete('/delete/subject/{id}', [
+        'uses' => 'RoutineController@destroySubject',
+        'as'   => 'routine.destroy.subject',
+    ]);
+
+    // Period
+    Route::post('/store/period', [
+        'uses' => 'RoutineController@storePeriod',
+        'as'   => 'routine.store.period',
+    ]);
+
+    Route::delete('/delete/period/{id}', [
+        'uses' => 'RoutineController@destroyPeriod',
+        'as'   => 'routine.destroy.period',
+    ]);
+
+    // Class Days
+    Route::post('/store/class-days', [
+        'uses' => 'RoutineController@storeClassDays',
+        'as'   => 'routine.store.class-days',
+    ]);
+
+    // Session
+    Route::get('/get/sessions', [
+        'uses' => 'RoutineController@getSessions',
+        'as'   => 'routine.get.sessions',
+    ]);
+    
+    Route::post('/store/session', [
+        'uses' => 'RoutineController@storeSession',
+        'as'   => 'routine.store.session',
+    ]);
+
+    Route::delete('/delete/session/{id}', [
+        'uses' => 'RoutineController@destroySession',
+        'as'   => 'routine.destroy.session',
+    ]);
+
+    // Routine
+    Route::get('/search', [
+        'uses' => 'RoutineController@searchRoutine',
+        'as'   => 'routine.search'
+    ]);
+
+    Route::post('/store', [
+        'uses' => 'RoutineController@storeRoutine',
+        'as'   => 'routine.store'
+    ]);
+
+    Route::delete('/delete/{id}', [
+        'uses' => 'RoutineController@destroyRoutine',
+        'as'   => 'routine.destroy'
+    ]);    
 });
 
 // Transport Control
@@ -84,7 +226,7 @@ Route::group(['prefix' => '/request'], function () {
         'as'   => 'request.show',
     ]);
 
-    Route::put('/send-invitation/{id}',     [
+    Route::put('/send-invitation/{id}', [
         'uses' => 'InvitationController@sendInvitation',
         'as'   => 'request.sendInvitation',
     ]);

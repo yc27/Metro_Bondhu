@@ -92,6 +92,8 @@
             var navbarHight = document.getElementById("top-navbar").scrollHeight;
             $("#main").css("top", navbarHight);
             $("#Side-Navbar").css("top", navbarHight);
+
+            $("#main").css("min-height", Math.max($(window).height() - navbarHight - 3, 0));
         };
         adjustMainTop();
         $(window).resize(function() {
