@@ -90,3 +90,28 @@
     </div>
 </div>
 <!-- /Create-Routine Form Modal -->
+
+<!-- Reset Modal -->
+<div id="Modal-Routine-Reset" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Routine-Reset-Label" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <div class="modal-content text-dark" style="font-size: 14px">
+            <div class="modal-header">
+                <p class="heading lead" id="Modal-Routine-Reset-Label">Confirme Reset?</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you sure you want to reset this routine table? If you confirm, this routine table will be truncated.
+                    <br><br>
+                    <div class="text-danger">This action cannot be undone.</div>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="Btn-Reset-Routine" class="btn btn-danger btn-sm" data-dismiss="modal">Reset</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Modal -->

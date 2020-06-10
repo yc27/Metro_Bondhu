@@ -435,6 +435,11 @@ class RoutineController extends Controller
         $classDays = ClassDay::where('is_open', 1)->get();
         $periods = Period::select(DB::raw('id, TIME_FORMAT(start_time, "%h:%i %p") start_time, TIME_FORMAT(end_time, "%h:%i %p") end_time'))->orderBy('start_time', 'ASC')->get();
 
+        $session = Session::where('id', $sessionId)->first('session');
+        $departmentName = Department::where('id', $departmentId)->first('short_name');
+        $batchNo = Batch::where('id', $batchId)->first('batch_no');
+        $sectionNo = Section::where('id', $sectionId)->first('section_no');
+
         $rotines = DB::table('routines')
             ->join('sessions', 'sessions.id', 'routines.session_id')
             ->join('class_days', 'class_days.id', 'routines.day_id')
@@ -452,7 +457,19 @@ class RoutineController extends Controller
             ])
             ->get(['routines.id as id', 'class_days.id as day', 'periods.id as period', 'subjects.name as subject', 'teachers.name as teacher', 'room']);
 
-        $response = ['classDays' => $classDays, 'periods' => $periods, 'routines' => $rotines];
+        $response = [
+            'sessionId' => $sessionId,
+            'departmentId' => $departmentId,
+            'batchId' => $batchId,
+            'sectionId' => $sectionId,
+            'session' => $session,
+            'departmentName' => $departmentName,
+            'batchNo' => $batchNo,
+            'sectionNo' => $sectionNo,
+            'classDays' => $classDays,
+            'periods' => $periods,
+            'routines' => $rotines
+        ];
 
         return Response::json($response);
     }
@@ -487,7 +504,7 @@ class RoutineController extends Controller
             ->join('subjects', 'subjects.id', 'routines.subject_id')
             ->join('teachers', 'teachers.id', 'routines.teacher_id')
             ->where('routines.id', $routine->id)
-            ->first(['routines.id as id', 'class_days.id as day', 'periods.id as period', 'subjects.name as subject', 'teachers.name as teacher', 'room']);
+            ->first(['routines.id as id', 'routines.session_id as session', 'routines.section_id as section', 'class_days.id as day', 'periods.id as period', 'subjects.name as subject', 'teachers.name as teacher', 'room']);
 
         $response = ['msg' => 'Something went wrong. Please try again later', 'status' => false];
         if ($routine->id) {
@@ -503,6 +520,55 @@ class RoutineController extends Controller
         $routine->delete();
 
         $response = ['msg' => 'Routine Deleted Successfully.', 'status' => true];
+
+        return Response::json($response);
+    }
+
+    public function resetRoutine(Request $request, $sessionId, $departmentId, $batchId, $sectionId)
+    {
+        Routine::where([
+            ['session_id', $sessionId],
+            ['section_id', $sectionId]
+        ])->delete();
+
+        $classDays = ClassDay::where('is_open', 1)->get();
+        $periods = Period::select(DB::raw('id, TIME_FORMAT(start_time, "%h:%i %p") start_time, TIME_FORMAT(end_time, "%h:%i %p") end_time'))->orderBy('start_time', 'ASC')->get();
+
+        $session = Session::where('id', $sessionId)->first('session');
+        $departmentName = Department::where('id', $departmentId)->first('short_name');
+        $batchNo = Batch::where('id', $batchId)->first('batch_no');
+        $sectionNo = Section::where('id', $sectionId)->first('section_no');
+
+        $rotines = DB::table('routines')
+            ->join('sessions', 'sessions.id', 'routines.session_id')
+            ->join('class_days', 'class_days.id', 'routines.day_id')
+            ->join('sections', 'sections.id', 'routines.section_id')
+            ->join('periods', 'periods.id', 'routines.period_id')
+            ->join('subjects', 'subjects.id', 'routines.subject_id')
+            ->join('teachers', 'teachers.id', 'routines.teacher_id')
+            ->join('batches', 'batches.id', 'sections.batch_id')
+            ->join('departments', 'departments.id', 'batches.dept_id')
+            ->where([
+                ['sessions.id', $sessionId],
+                ['departments.id', $departmentId],
+                ['batches.id', $batchId],
+                ['sections.id', $sectionId]
+            ])
+            ->get(['routines.id as id', 'class_days.id as day', 'periods.id as period', 'subjects.name as subject', 'teachers.name as teacher', 'room']);
+
+        $response = [
+            'sessionId' => $sessionId,
+            'departmentId' => $departmentId,
+            'batchId' => $batchId,
+            'sectionId' => $sectionId,
+            'session' => $session,
+            'departmentName' => $departmentName,
+            'batchNo' => $batchNo,
+            'sectionNo' => $sectionNo,
+            'classDays' => $classDays,
+            'periods' => $periods,
+            'routines' => $rotines
+        ];
 
         return Response::json($response);
     }

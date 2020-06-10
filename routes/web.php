@@ -181,7 +181,12 @@ Route::group(['prefix' => '/routine'], function () {
     Route::delete('/delete/{id}', [
         'uses' => 'RoutineController@destroyRoutine',
         'as'   => 'routine.destroy'
-    ]);    
+    ]);
+
+    Route::delete('/reset/{sessionId}/{departmentId}/{batchId}/{sectionId}', [
+        'uses' => 'RoutineController@resetRoutine',
+        'as'   => 'routine.reset'
+    ]);
 });
 
 // Transport Control

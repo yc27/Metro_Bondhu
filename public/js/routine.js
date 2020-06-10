@@ -169,8 +169,9 @@ function setTeacherOptions(form) {
 }
 
 // Create Routine Table Cell
-function createEmptyRoutineCell(dayId, periodId) {
-    var cell = '<td class="text-center align-middle" id="Routine-Cell-' +
+function createEmptyRoutineCell(dayId, periodId, sessionId, sectionId) {
+    var cell =
+        '<td class="text-center align-middle" id="Routine-Cell-' +
         dayId +
         "-" +
         periodId +
@@ -178,11 +179,15 @@ function createEmptyRoutineCell(dayId, periodId) {
         dayId +
         '" data-period="' +
         periodId +
+        '" data-session="' +
+        sessionId +
+        '" data-section="' +
+        sectionId +
         '" data-toggle="modal" data-target="#Modal-Create-Routine-Form"><i class="fas fa-plus"></i></button></td>';
     
     return cell;
 }
-function createRoutineCell(routineId, dayId, periodId, subject, teacher, room) {
+function createRoutineCell(routineId, sessionId, sectionId, dayId, periodId, subject, teacher, room) {
     var cell =
         '<td class="text-center align-middle" id="Routine-Cell-' +
         dayId +
@@ -200,6 +205,10 @@ function createRoutineCell(routineId, dayId, periodId, subject, teacher, room) {
         dayId +
         '" data-period="' +
         periodId +
+        '" data-session="' +
+        sessionId +
+        '" data-section="' +
+        sectionId +
         '"><i class="fas fa-trash-alt"></i></button></div></div></td>';
 
     return cell;
@@ -207,8 +216,25 @@ function createRoutineCell(routineId, dayId, periodId, subject, teacher, room) {
 
 // Create Routine Table
 function setRoutineTable(data) {
+    console.log(data);
     var tableButton =
-        '<div class="d-flex align-items-center justify-content-between">Routine<div><button class="btn btn-sm btn-primary ml-0">Download PDF</button><button class="btn btn-sm btn-danger">Reset Routine</button></div></div>';
+        '<div class="d-flex align-items-end justify-content-between"> Dept: ' +
+        data.departmentName["short_name"] +
+        "</br>Batch: " +
+        data.batchNo["batch_no"] +
+        "</br>Section: " +
+        data.sectionNo["section_no"] +
+        "</br>Session: " +
+        data.session["session"] +
+        '<div><button class="btn btn-sm btn-primary ml-0">Download PDF</button><button class="btn btn-sm btn-danger reset-routine" data-toggle="modal" data-target="#Modal-Routine-Reset" data-session="' +
+        data.sessionId +
+        '" data-department="' +
+        data.departmentId +
+        '" data-batch="' +
+        data.batchId +
+        '" data-section="' +
+        data.sectionId +
+        '">Reset Routine</button></div></div>';
 
     var table =
         "<hr>" +
@@ -236,6 +262,8 @@ function setRoutineTable(data) {
                 ) {
                     table += createRoutineCell(
                         routine["id"],
+                        data["sessionId"],
+                        data["sectionId"],
                         classDay["id"],
                         period["id"],
                         routine["subject"],
@@ -246,7 +274,7 @@ function setRoutineTable(data) {
                 }
             });
             if (flag === false) {
-                table += createEmptyRoutineCell(classDay["id"], period["id"]);
+                table += createEmptyRoutineCell(classDay["id"], period["id"], data["sessionId"], data["sectionId"]);
             }
         });
         table += "</tr>";
@@ -675,8 +703,8 @@ $("body").on("click", ".create-routine", function (e) {
 
     $("#Day-Id").val($(this).data("day"));
     $("#Period-Id").val($(this).data("period"));
-    $("#Section-Id").val($("#Form-Routine-Search .Select-Section").val());
-    $("#Session-Id").val($("#Form-Routine-Search .Select-Session").val());
+    $("#Session-Id").val($(this).data("session"));
+    $("#Section-Id").val($(this).data("section"));
 });
 
 // Store Routine
@@ -698,6 +726,8 @@ $("#Btn-Form-Create-Routine-Save").click(function(e) {
 
             var dayId = response.data.day;
             var periodId = response.data.period;
+            var sessionId = response.data.session;
+            var sectionId = response.data.section;
 
             $("#Routine-Cell-" + dayId + "-" + periodId).empty();
             $("#Routine-Cell-" + dayId + "-" + periodId).html(
@@ -713,6 +743,10 @@ $("#Btn-Form-Create-Routine-Save").click(function(e) {
                     dayId +
                     '" data-period="' +
                     periodId +
+                    '" data-session="' +
+                    sessionId +
+                    '" data-section="' +
+                    sectionId +
                     '"> <i class="fas fa-trash-alt"></i></button ></div ></div > '
             );
         },
@@ -745,6 +779,8 @@ $("body").on("click", ".delete-routine", function() {
     var id = $(this).data("id");
     var dayId = $(this).data("day");
     var periodId = $(this).data("period");
+    var sessionId = $(this).data("session");
+    var sectionId = $(this).data("section");
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
@@ -757,14 +793,56 @@ $("body").on("click", ".delete-routine", function() {
         success: function (data) {
             $("#Routine-Cell-" + dayId + "-" + periodId).html(
                 '<button class="btn btn-outline-info btn-sm btn-circle create-routine" data-day="' +
-                dayId +
-                '" data-period="' +
-                periodId +
-                '" data-toggle="modal" data-target="#Modal-Create-Routine-Form"><i class="fas fa-plus"></i></button>'
+                    dayId +
+                    '" data-period="' +
+                    periodId +
+                    '" data-session="' +
+                    sessionId +
+                    '" data-section="' +
+                    sectionId +
+                    '" data-toggle="modal" data-target="#Modal-Create-Routine-Form"><i class="fas fa-plus"></i></button>'
             );
         },
         error: function(data) {
             console.log("Error:", data);
         }
     });
+});
+
+// Reset Routine
+$("body").on("click", "#Btn-Reset-Routine", function() {
+    var sessionId = $(this).data("session");
+    var departmentId = $(this).data("department");
+    var batchId = $(this).data("batch");
+    var sectionId = $(this).data("section");
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        }
+    });
+
+    $.ajax({
+        type: "delete",
+        url:
+            "/routine/reset/" +
+            sessionId +
+            "/" +
+            departmentId +
+            "/" +
+            batchId +
+            "/" +
+            sectionId,
+        success: function(response) {
+            setRoutineTable(response);
+        },
+        error: function(response) {
+            console.log("Error:", response);
+        }
+    });
+});
+$("body").on("click", ".reset-routine", function() {
+    $("#Btn-Reset-Routine").data("session", $(this).data("session"));
+    $("#Btn-Reset-Routine").data("department", $(this).data("department"));
+    $("#Btn-Reset-Routine").data("batch", $(this).data("batch"));
+    $("#Btn-Reset-Routine").data("section", $(this).data("section"));
 });
