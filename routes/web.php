@@ -187,6 +187,11 @@ Route::group(['prefix' => '/routine'], function () {
         'uses' => 'RoutineController@resetRoutine',
         'as'   => 'routine.reset'
     ]);
+
+    Route::get('/download/pdf/{sessionId}/{departmentId}/{batchId}/{sectionId}', [
+        'uses' => 'RoutineController@downloadRoutinePDF',
+        'as'   => 'routine.download.pdf'
+    ]);
 });
 
 // Transport Control

@@ -216,17 +216,24 @@ function createRoutineCell(routineId, sessionId, sectionId, dayId, periodId, sub
 
 // Create Routine Table
 function setRoutineTable(data) {
-    console.log(data);
     var tableButton =
-        '<div class="d-flex align-items-end justify-content-between"> Dept: ' +
+        '<div class="d-flex align-items-end justify-content-between"><div>Dept: <strong>' +
         data.departmentName["short_name"] +
-        "</br>Batch: " +
+        "</strong></br>Batch: <strong>" +
         data.batchNo["batch_no"] +
-        "</br>Section: " +
+        "</strong></br>Section: <strong>" +
         data.sectionNo["section_no"] +
-        "</br>Session: " +
+        "</strong></br>Session: <strong>" +
         data.session["session"] +
-        '<div><button class="btn btn-sm btn-primary ml-0">Download PDF</button><button class="btn btn-sm btn-danger reset-routine" data-toggle="modal" data-target="#Modal-Routine-Reset" data-session="' +
+        '</strong></div><div><button class="btn btn-sm btn-primary ml-0 download-routine-pdf" data-session="' +
+        data.sessionId +
+        '" data-department="' +
+        data.departmentId +
+        '" data-batch="' +
+        data.batchId +
+        '" data-section="' +
+        data.sectionId +
+        '">Download PDF</button><button class="btn btn-sm btn-danger mr-0 reset-routine" data-toggle="modal" data-target="#Modal-Routine-Reset" data-session="' +
         data.sessionId +
         '" data-department="' +
         data.departmentId +
@@ -440,7 +447,6 @@ $("#Btn-Add-Period").click(function () {
         '<label>Start Time</label><input type="time" name="start-time" class="form-control mb-4" required> <label>End Time</label><input type="time" name="end-time" class="form-control mb-4" required>'
     );
 });
-
 
 // Clicked to Add Session
 $("#Btn-Add-Session").click(function () {
@@ -845,4 +851,39 @@ $("body").on("click", ".reset-routine", function() {
     $("#Btn-Reset-Routine").data("department", $(this).data("department"));
     $("#Btn-Reset-Routine").data("batch", $(this).data("batch"));
     $("#Btn-Reset-Routine").data("section", $(this).data("section"));
+});
+
+// Download Routine PDF
+$("body").on("click", ".download-routine-pdf", function() {
+    var sessionId = $(this).data("session");
+    var departmentId = $(this).data("department");
+    var batchId = $(this).data("batch");
+    var sectionId = $(this).data("section");
+
+    var link =
+        "/routine/download/pdf/" +
+        sessionId +
+        "/" +
+        departmentId +
+        "/" +
+        batchId +
+        "/" +
+        sectionId;
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: link,
+        success: function(response) {
+            window.open(link, "_blank");
+        },
+        error: function(response) {
+            console.log("Error:", response);
+        }
+    });
 });
