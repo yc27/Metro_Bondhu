@@ -120,9 +120,11 @@ class TransportController extends Controller
                 ->groupBy('routes.id')
                 ->select(
                     DB::raw('min(routes.id) as id'),
-                    'source',
-                    'destination',
-                    DB::raw('GROUP_CONCAT(way_point separator "| ") AS way_points')
+                    'source_lat',
+                    'source_lng',
+                    'destination_lat',
+                    'destination_lng',
+                    DB::raw('GROUP_CONCAT("(", way_point_lat, ", ", way_point_lng, ")" separator " | ") AS way_points')
                 )
                 ->get()
         )

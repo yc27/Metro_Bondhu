@@ -12,8 +12,22 @@ routesTable = $("#Routes-Table").DataTable({
     },
     columns: [
         { data: "id", name: "id" },
-        { data: "source", name: "source" },
-        { data: "destination", name: "destination" },
+        {
+            data: "source",
+            name: "source",
+            render: function(data, type, row) {
+                return "(" + row.source_lat + ", " + row.source_lng + ")";
+            }
+        },
+        {
+            data: "destination",
+            name: "destination",
+            render: function(data, type, row) {
+                return (
+                    "(" + row.destination_lat + ", " + row.destination_lng + ")"
+                );
+            }
+        },
         { data: "way_points", name: "way_points" }
     ],
     columnDefs: [
