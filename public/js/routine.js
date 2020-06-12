@@ -150,9 +150,9 @@ function setSubjectOptions(form) {
 // Set Teacher Options
 function setTeacherOptions(form) {
     var deferred = new $.Deferred();
-    getTeachers().done(function (teachers) {
+    getTeachers().done(function(teachers) {
         var teacherOptions = "";
-        $.each(teachers, function (index, value) {
+        $.each(teachers, function(index, value) {
             teacherOptions +=
                 '<option value="' +
                 value["id"] +
@@ -170,12 +170,8 @@ function setTeacherOptions(form) {
 
 // Create Routine Table Cell
 function createEmptyRoutineCell(dayId, periodId, sessionId, sectionId) {
-    var cell =
-        '<td class="text-center align-middle" id="Routine-Cell-' +
-        dayId +
-        "-" +
-        periodId +
-        '"><button class="btn btn-outline-info btn-sm btn-circle create-routine" data-day="' +
+    const button =
+        '<button class="btn btn-outline-info btn-sm btn-circle create-routine" data-day="' +
         dayId +
         '" data-period="' +
         periodId +
@@ -183,41 +179,79 @@ function createEmptyRoutineCell(dayId, periodId, sessionId, sectionId) {
         sessionId +
         '" data-section="' +
         sectionId +
-        '" data-toggle="modal" data-target="#Modal-Create-Routine-Form"><i class="fas fa-plus"></i></button></td>';
-    
-    return cell;
+        '" data-toggle="modal" data-target="#Modal-Create-Routine-Form"><i class="fas fa-plus"></i></button>\n';
+
+    return button;
 }
-function createRoutineCell(routineId, sessionId, sectionId, dayId, periodId, subject, teacher, room) {
-    var cell =
-        '<td class="text-center align-middle" id="Routine-Cell-' +
+function createRoutineCell(
+    routineId,
+    sessionId,
+    sectionId,
+    dayId,
+    periodId,
+    subject,
+    teacher,
+    room
+) {
+    const button =
+        '<div class="mask flex-center rgba-blue-strong">\n' +
+        '<button class="delete-routine btn btn-sm btn-danger" data-id="' +
+        routineId +
+        '" data-session="' +
+        sessionId +
+        '" data-section="' +
+        sectionId +
+        '" data-day="' +
         dayId +
-        "-" +
+        '" data-period="' +
         periodId +
-        '"><div class="view overlay"><span class="subject">' +
+        '"><i class="fas fa-trash-alt"></i></button>\n' +
+        "</div>\n";
+
+    const cell =
+        '<div class="view overlay">\n' +
+        '<span class="subject">' +
         subject +
         '</span></br>by <span class="teacher">' +
         teacher +
         '</span></br>at <span class="room">' +
         room +
-        '</span><div class="mask flex-center rgba-blue-strong"><button class="delete-routine btn btn-sm btn-danger" data-id="' +
-        routineId +
-        '" data-day="' +
-        dayId +
-        '" data-period="' +
-        periodId +
-        '" data-session="' +
-        sessionId +
-        '" data-section="' +
-        sectionId +
-        '"><i class="fas fa-trash-alt"></i></button></div></div></td>';
+        "</span>\n" +
+        button +
+        "</div>\n";
 
     return cell;
 }
 
 // Create Routine Table
 function setRoutineTable(data) {
-    var tableButton =
-        '<div class="d-flex align-items-end justify-content-between"><div>Dept: <strong>' +
+    const btnPDF =
+        '<button class="btn btn-sm btn-primary ml-0 download-routine-pdf" data-session="' +
+        data.sessionId +
+        '" data-department="' +
+        data.departmentId +
+        '" data-batch="' +
+        data.batchId +
+        '" data-section="' +
+        data.sectionId +
+        '">Download PDF</button>';
+
+    const btnReset =
+        '<button class="btn btn-sm btn-danger mr-0 reset-routine" data-toggle="modal" data-target="#Modal-Routine-Reset" data-session="' +
+        data.sessionId +
+        '" data-department="' +
+        data.departmentId +
+        '" data-batch="' +
+        data.batchId +
+        '" data-section="' +
+        data.sectionId +
+        '">Reset Routine</button>';
+
+    const buttons = "<div>\n" + btnPDF + "\n" + btnReset + "\n</div>";
+
+    var tableHeader =
+        '<div class="d-flex align-items-end justify-content-between">\n' +
+        "<div>Dept: <strong>" +
         data.departmentName["short_name"] +
         "</strong></br>Batch: <strong>" +
         data.batchNo["batch_no"] +
@@ -225,100 +259,129 @@ function setRoutineTable(data) {
         data.sectionNo["section_no"] +
         "</strong></br>Session: <strong>" +
         data.session["session"] +
-        '</strong></div><div><button class="btn btn-sm btn-primary ml-0 download-routine-pdf" data-session="' +
-        data.sessionId +
-        '" data-department="' +
-        data.departmentId +
-        '" data-batch="' +
-        data.batchId +
-        '" data-section="' +
-        data.sectionId +
-        '">Download PDF</button><button class="btn btn-sm btn-danger mr-0 reset-routine" data-toggle="modal" data-target="#Modal-Routine-Reset" data-session="' +
-        data.sessionId +
-        '" data-department="' +
-        data.departmentId +
-        '" data-batch="' +
-        data.batchId +
-        '" data-section="' +
-        data.sectionId +
-        '">Reset Routine</button></div></div>';
+        "</strong></div>\n" +
+        buttons +
+        "\n</div>";
 
-    var table =
-        "<hr>" +
-        tableButton +
-        '<table class="table table-sm table-striped border border-dark" id="Table-Routine"><thead><tr><th></th>';
-
+    var tableRows = "<tr><th></th>";
     $.each(data.periods, function(key, period) {
-        table +=
+        tableRows +=
             '<th class="text-center">' +
-            period["start_time"] +
+            convertTo12Hr(period["start_time"]) +
             " - " +
-            period["end_time"] +
+            convertTo12Hr(period["end_time"]) +
             "</th>";
     });
-    table += "</tr></thead><tbody>";
+    tableRows += "</tr>";
 
+    const tableHead = "<thead>" + tableRows + "</thead>\n";
+
+    tableRows = "";
     $.each(data.classDays, function(key, classDay) {
-        table += '<tr><td class="align-middle">' + classDay["day"] + "</td>";
-        $.each(data.periods, function (key, period) {
+        tableRows +=
+            '<tr><td class="align-middle">' + classDay["day"] + "</td>";
+        $.each(data.periods, function(key, period) {
             var flag = false;
-            $.each(data.routines, function (key, routine) {
+            $.each(data.routines, function(key, routine) {
                 if (
                     routine["day"] === classDay["id"] &&
                     routine["period"] === period["id"]
                 ) {
-                    table += createRoutineCell(
-                        routine["id"],
-                        data["sessionId"],
-                        data["sectionId"],
-                        classDay["id"],
-                        period["id"],
-                        routine["subject"],
-                        routine["teacher"],
-                        routine["room"]
-                    );
+                    tableRows +=
+                        '<td class="text-center align-middle" id="Routine-Cell-' +
+                        classDay["id"] +
+                        "-" +
+                        period["id"] +
+                        '">\n' +
+                        createRoutineCell(
+                            routine["id"],
+                            data["sessionId"],
+                            data["sectionId"],
+                            classDay["id"],
+                            period["id"],
+                            routine["subject"],
+                            routine["teacher"],
+                            routine["room"]
+                        ) +
+                        "</td>\n";
                     flag = true;
                 }
             });
             if (flag === false) {
-                table += createEmptyRoutineCell(classDay["id"], period["id"], data["sessionId"], data["sectionId"]);
+                tableRows +=
+                    '<td class="text-center align-middle" id="Routine-Cell-' +
+                    classDay["id"] +
+                    "-" +
+                    period["id"] +
+                    '">\n' +
+                    createEmptyRoutineCell(
+                        classDay["id"],
+                        period["id"],
+                        data["sessionId"],
+                        data["sectionId"]
+                    ) +
+                    "</td>";
             }
         });
-        table += "</tr>";
+        tableRows += "</tr>";
     });
-    table += "</tbody></table>";
-    $("#Routine-Search-Reasult").html(table);
+
+    const tableBody = "<tbody>" + tableRows + "</tbody>\n";
+    const table =
+        '<table class="table table-sm table-striped border border-dark" id="Table-Routine">\n' +
+        tableHead +
+        tableBody +
+        "</table>";
+
+    const result = "<hr>\n" + tableHeader + "\n" + table;
+
+    $("#Routine-Search-Reasult").html(result);
 }
 
 // Add Row to Academic Structure Table
 function addRowToAcademicStructureTable(data) {
-    var row = "";
-    $.each(data, function(key, item) {
-        if (key !== "id") {
-            row += '<td class"align-middle">' + item + "</td>";
-        }
-    });
+    var cells = "";
+    if ($("#Form-Academic-Structure").data("table") === "Period") {
+        cells +=
+            '<td class"align-middle">' +
+            convertTo12Hr(data.start_time) +
+            "</td>";
 
-    row +=
-        '<td class="align-middle py-0"> <button class="btn btn-danger btn-sm px-2 delete-academic-structure" data-toggle="modal" data-target="#Modal-Academic-Structure-Delete" data-id="' +
+        cells +=
+            '<td class"align-middle">' + convertTo12Hr(data.end_time) + "</td>";
+    } else {
+        $.each(data, function(key, item) {
+            if (key !== "id") {
+                cells += '<td class"align-middle">' + item + "</td>";
+            }
+        });
+    }
+
+    cells +=
+        '<td class="align-middle py-0">\n' +
+        '<button class="btn btn-danger btn-sm px-2 delete-academic-structure" data-toggle="modal" data-target="#Modal-Academic-Structure-Delete" data-id="' +
         data.id +
         '" data-table="' +
         $("#Form-Academic-Structure").data("table") +
-        '"> <i class="fas fa-trash-alt"></i> </button> </td>';
+        '"> <i class="fas fa-trash-alt"></i> </button>\n' +
+        "</td>";
 
-    $("#Table-" + $("#Form-Academic-Structure").data("table") + " tbody").append(
-        "<tr id=" +
-            $("#Form-Academic-Structure").data("table") +
-            "-Id-" +
-            data.id +
-            ">" +
-            row +
-            "</tr>"
-    );
+    const row =
+        "\n<tr id=" +
+        $("#Form-Academic-Structure").data("table") +
+        "-Id-" +
+        data.id +
+        ">\n" +
+        cells +
+        "</tr>\n";
+
+    $(
+        "#Table-" + $("#Form-Academic-Structure").data("table") + " tbody"
+    ).append(row);
 }
 
 // Academic Structure Menu Clicked
-$(".academic-structure-menu .menu").click(function (e) {
+$(".academic-structure-menu .menu").click(function(e) {
     e.preventDefault();
     var animationTime = 500;
 
@@ -347,7 +410,7 @@ $(".academic-structure-menu .menu").click(function (e) {
 });
 
 // Clicked to Add Department
-$("#Btn-Add-Dapartment").click(function () {
+$("#Btn-Add-Dapartment").click(function() {
     $("#Modal-Academic-Structure-Title").html("Add Department");
 
     $("#Form-Academic-Structure").trigger("reset");
@@ -362,7 +425,7 @@ $("#Btn-Add-Dapartment").click(function () {
 });
 
 // Clicked to Add Batch
-$("#Btn-Add-Batch").click(function () {
+$("#Btn-Add-Batch").click(function() {
     $("#Modal-Academic-Structure-Title").html("Add Batch");
 
     $("#Form-Academic-Structure").trigger("reset");
@@ -379,7 +442,7 @@ $("#Btn-Add-Batch").click(function () {
 });
 
 // Clicked to Add Section
-$("#Btn-Add-Section").click(function () {
+$("#Btn-Add-Section").click(function() {
     $("#Modal-Academic-Structure-Title").html("Add Section");
     $("#Form-Academic-Structure").trigger("reset");
     $("#Form-Academic-Structure").data("table", "Section");
@@ -391,7 +454,7 @@ $("#Btn-Add-Section").click(function () {
         '<label>Department Name</label><select name="dept-id" class="Select-Department browser-default custom-select mb-4" required ></select> <label>Batch No</label><select name="batch-id" class="Select-Batch browser-default custom-select mb-4" required></select> <label>Section No</label><input type="text" name="section-no" class="form-control mb-4" required>'
     );
 
-    setDepartmentOptions("#Form-Academic-Structure").done(function () {
+    setDepartmentOptions("#Form-Academic-Structure").done(function() {
         setBatchOptions(
             "#Form-Academic-Structure",
             $("#Form-Academic-Structure .Select-Department").val()
@@ -404,7 +467,7 @@ $("#Form-Academic-Structure").on("change", ".Select-Department", function() {
 });
 
 // Clicked to Add Teacher
-$("#Btn-Add-Teacher").click(function () {
+$("#Btn-Add-Teacher").click(function() {
     $("#Modal-Academic-Structure-Title").html("Add Teacher");
 
     $("#Form-Academic-Structure").trigger("reset");
@@ -419,7 +482,7 @@ $("#Btn-Add-Teacher").click(function () {
 });
 
 // Clicked to Add Subject
-$("#Btn-Add-Subject").click(function () {
+$("#Btn-Add-Subject").click(function() {
     $("#Modal-Academic-Structure-Title").html("Add Subject");
 
     $("#Form-Academic-Structure").trigger("reset");
@@ -434,7 +497,7 @@ $("#Btn-Add-Subject").click(function () {
 });
 
 // Clicked to Add Period
-$("#Btn-Add-Period").click(function () {
+$("#Btn-Add-Period").click(function() {
     $("#Modal-Academic-Structure-Title").html("Add Period");
 
     $("#Form-Academic-Structure").trigger("reset");
@@ -449,7 +512,7 @@ $("#Btn-Add-Period").click(function () {
 });
 
 // Clicked to Add Session
-$("#Btn-Add-Session").click(function () {
+$("#Btn-Add-Session").click(function() {
     $("#Modal-Academic-Structure-Title").html("Add Session");
 
     $("#Form-Academic-Structure").trigger("reset");
@@ -457,8 +520,9 @@ $("#Btn-Add-Session").click(function () {
     $("#Form-Academic-Structure").attr("method", "POST");
     $("#Form-Academic-Structure").attr("action", "/routine/store/session");
 
-    var yearSelect = '<label>Session Year</label><select name="year" class="browser-default custom-select mb-4" required >';
-    for (var i = (new Date).getFullYear(); i >= 2000; i--) {
+    var yearSelect =
+        '<label>Session Year</label><select name="year" class="browser-default custom-select mb-4" required >';
+    for (var i = new Date().getFullYear(); i >= 2000; i--) {
         yearSelect += '<option value="' + i + '">' + i + "</option>";
     }
     yearSelect += "</select>";
@@ -466,12 +530,12 @@ $("#Btn-Add-Session").click(function () {
     $("#Form-Academic-Structure-Content").empty();
     $("#Form-Academic-Structure-Content").html(
         yearSelect +
-        '<label>Term</label><select name="term" class="browser-default custom-select mb-4" required ><option value="Spring">Spring</option><option value="Summer">Summer</option><option value="Autumn">Autumn</option></select>'
+            '<label>Term</label><select name="term" class="browser-default custom-select mb-4" required ><option value="Spring">Spring</option><option value="Summer">Summer</option><option value="Autumn">Autumn</option></select>'
     );
 });
 
 // Store Academic Structure
-$("#Btn-Form-Academic-Structure-Save").click(function (e) {
+$("#Btn-Form-Academic-Structure-Save").click(function(e) {
     e.preventDefault();
     $.ajaxSetup({
         headers: {
@@ -483,19 +547,19 @@ $("#Btn-Form-Academic-Structure-Save").click(function (e) {
         url: $("#Form-Academic-Structure").attr("action"),
         data: $("#Form-Academic-Structure").serialize(),
 
-        success: function (response) {
+        success: function(response) {
             $("#Btn-Form-Academic-Structure-Close").click();
             addRowToAcademicStructureTable(response.data);
 
             $("#Alert-Routine-Success").html(response.msg);
             $("#Alert-Routine-Success").removeClass("d-none");
-            setTimeout(function () {
+            setTimeout(function() {
                 $("#Alert-Routine-Success").addClass("d-none");
             }, 5000);
         },
 
-        error: function (xhr) {
-            $.each(xhr.responseJSON.errors, function (key, item) {
+        error: function(xhr) {
+            $.each(xhr.responseJSON.errors, function(key, item) {
                 if ($.isArray(item)) {
                     $.each(item, function(key, value) {
                         $("#Form-Academic-Structure-Error-Message").append(
@@ -510,7 +574,7 @@ $("#Btn-Form-Academic-Structure-Save").click(function (e) {
             });
 
             $("#Form-Academic-Structure-Error").removeClass("d-none");
-            setTimeout(function () {
+            setTimeout(function() {
                 $("#Form-Academic-Structure-Error").addClass("d-none");
                 $("#Form-Academic-Structure-Error-Message").empty();
             }, 10000);
@@ -539,16 +603,16 @@ function deleteAcademicStructure(id, tableUC, tableLC, sections, batches) {
             }, 5000);
 
             if (tableUC === "Department") {
-                $.each(batches, function (key, item) {
+                $.each(batches, function(key, item) {
                     $("#Batch-Id-" + item["id"]).remove();
                 });
-                $.each(sections, function (key, item) {
+                $.each(sections, function(key, item) {
                     $("#Section-Id-" + item["id"]).remove();
                 });
             }
 
             if (tableUC === "Batch") {
-                $.each(sections, function (key, item) {
+                $.each(sections, function(key, item) {
                     $("#Section-Id-" + item["id"]).remove();
                 });
             }
@@ -558,50 +622,59 @@ function deleteAcademicStructure(id, tableUC, tableLC, sections, batches) {
         }
     });
 }
-$("body").on("click", "#Btn-Delete-Academic-Structure", function () {
+$("body").on("click", "#Btn-Delete-Academic-Structure", function() {
     const id = $(this).data("id");
     const tableUC = $(this).data("table");
     const tableLC = tableUC.substr(0, 1).toLowerCase() + tableUC.substr(1);
 
     if (tableUC === "Department") {
-        var batches = [], sections = [];
-        getBatchesId(id).done(function (batchesIds) {
-            var deferred = new $.Deferred();
+        var batches = [],
+            sections = [];
+        getBatchesId(id)
+            .done(function(batchesIds) {
+                var deferred = new $.Deferred();
 
-            batches = batchesIds;
-            $.each(batches, function (key, item) {
-                getSectionsId(item["id"]).done(function (sectionIds) {
-                    $.each(sectionIds, function(key, item) {
-                        sections.push(item);
-                    }); 
+                batches = batchesIds;
+                $.each(batches, function(key, item) {
+                    getSectionsId(item["id"]).done(function(sectionIds) {
+                        $.each(sectionIds, function(key, item) {
+                            sections.push(item);
+                        });
+                    });
                 });
+
+                deferred.resolve();
+                return deferred.promise();
+            })
+            .done(function() {
+                deleteAcademicStructure(
+                    id,
+                    tableUC,
+                    tableLC,
+                    sections,
+                    batches
+                );
             });
-
-            deferred.resolve();
-            return deferred.promise();
-        }).done(function () {
-            deleteAcademicStructure(id, tableUC, tableLC, sections, batches);
-        });
-    }
-
-    if (tableUC === "Batch") {
+    } else if (tableUC === "Batch") {
         getSectionsId(id).done(function(sections) {
             deleteAcademicStructure(id, tableUC, tableLC, sections);
         });
+    } else {
+        deleteAcademicStructure(id, tableUC, tableLC, sections);
     }
 });
-$("body").on("click", ".delete-academic-structure", function () {
+$("body").on("click", ".delete-academic-structure", function() {
     $("#Btn-Delete-Academic-Structure").data("id", $(this).data("id"));
     $("#Btn-Delete-Academic-Structure").data("table", $(this).data("table"));
 });
 
 // Set Class Days
-$("#Form-Set-Days").change(function () {
+$("#Form-Set-Days").change(function() {
     $("#Form-Set-Days-Submit")
         .removeClass("d-none")
         .addClass("d-block");
 });
-$("#Form-Set-Days").on("submit", function (e) {
+$("#Form-Set-Days").on("submit", function(e) {
     e.preventDefault();
     $.ajaxSetup({
         headers: {
@@ -613,11 +686,11 @@ $("#Form-Set-Days").on("submit", function (e) {
         type: "POST",
         url: "/routine/store/class-days",
         data: $("#Form-Set-Days").serialize(),
-        success: function (response) {
+        success: function(response) {
             $("#Form-Set-Days-Submit")
                 .removeClass("d-block")
                 .addClass("d-none");
-            
+
             $("#Alert-Routine-Success").html(response.msg);
             $("#Alert-Routine-Success").removeClass("d-none");
             setTimeout(function() {
@@ -632,7 +705,7 @@ $("#Form-Set-Days").on("submit", function (e) {
 
 // Set Options for Routine Search Form
 $("#Form-Routine-Search").on("change", ".Select-Department", function() {
-    setBatchOptions("#Form-Routine-Search", $(this).val()).done(function () {
+    setBatchOptions("#Form-Routine-Search", $(this).val()).done(function() {
         setSectionOptions(
             "#Form-Routine-Search",
             $("#Form-Routine-Search .Select-Batch").val()
@@ -642,7 +715,7 @@ $("#Form-Routine-Search").on("change", ".Select-Department", function() {
 $("#Form-Routine-Search").on("change", ".Select-Batch", function() {
     setSectionOptions("#Form-Routine-Search", $(this).val());
 });
-$(".Routines").on("click", function () {
+$(".Routines").on("click", function() {
     $("#Routine-Search-Reasult").empty();
 
     setSessionOptions("#Form-Routine-Search");
@@ -651,7 +724,7 @@ $(".Routines").on("click", function () {
         setBatchOptions(
             "#Form-Routine-Search",
             $("#Form-Routine-Search .Select-Department").val()
-        ).done(function () {
+        ).done(function() {
             setSectionOptions(
                 "#Form-Routine-Search",
                 $("#Form-Routine-Search .Select-Batch").val()
@@ -661,7 +734,7 @@ $(".Routines").on("click", function () {
 });
 
 // Generate Routin Table
-$("#Form-Routine-Search").on("submit", function (e) {
+$("#Form-Routine-Search").on("submit", function(e) {
     e.preventDefault();
     $.ajaxSetup({
         headers: {
@@ -673,14 +746,14 @@ $("#Form-Routine-Search").on("submit", function (e) {
         type: "GET",
         url: "/routine/search",
         data: $("#Form-Routine-Search").serialize(),
-        success: function (response) {
+        success: function(response) {
             setRoutineTable(response);
         },
-        error: function (xhr) {
+        error: function(xhr) {
             $("#Routine-Search-Reasult").empty();
-            $.each(xhr.responseJSON.errors, function (key, item) {
+            $.each(xhr.responseJSON.errors, function(key, item) {
                 if ($.isArray(item)) {
-                    $.each(item, function (key, value) {
+                    $.each(item, function(key, value) {
                         $("#Form-Routine-Search-Error-Message").append(
                             "<li>" + value + "</li>"
                         );
@@ -702,7 +775,7 @@ $("#Form-Routine-Search").on("submit", function (e) {
 });
 
 // Create Routine Form
-$("body").on("click", ".create-routine", function (e) {
+$("body").on("click", ".create-routine", function(e) {
     e.preventDefault();
     setSubjectOptions("#Form-Create-Routine");
     setTeacherOptions("#Form-Create-Routine");
@@ -726,37 +799,28 @@ $("#Btn-Form-Create-Routine-Save").click(function(e) {
         type: "POST",
         url: "/routine/store",
         data: $("#Form-Create-Routine").serialize(),
-        success: function (response) {
+        success: function(response) {
             $("#Btn-Form-Create-Routine-Close").click();
             $("#Form-Create-Routine").trigger("reset");
 
             var dayId = response.data.day;
             var periodId = response.data.period;
-            var sessionId = response.data.session;
-            var sectionId = response.data.section;
 
             $("#Routine-Cell-" + dayId + "-" + periodId).empty();
             $("#Routine-Cell-" + dayId + "-" + periodId).html(
-                '<div class="view overlay"><span class="subject">' +
-                    response.data.subject +
-                    '</span></br>by <span class="teacher">' +
-                    response.data.teacher +
-                    '</span></br>at <span class="room">' +
-                    response.data.room +
-                    '</span><div class="mask flex-center rgba-blue-strong"><button class="delete-routine btn btn-sm btn-danger" data-id="' +
-                    response.data.id +
-                    '" data-day="' +
-                    dayId +
-                    '" data-period="' +
-                    periodId +
-                    '" data-session="' +
-                    sessionId +
-                    '" data-section="' +
-                    sectionId +
-                    '"> <i class="fas fa-trash-alt"></i></button ></div ></div > '
+                createRoutineCell(
+                    response.data.id,
+                    response.data.session,
+                    response.data.section,
+                    response.data.day,
+                    response.data.period,
+                    response.data.subject,
+                    response.data.teacher,
+                    response.data.room
+                )
             );
         },
-        error: function(xhr) {            
+        error: function(xhr) {
             $.each(xhr.responseJSON.errors, function(key, item) {
                 if ($.isArray(item)) {
                     $.each(item, function(key, value) {
@@ -796,17 +860,9 @@ $("body").on("click", ".delete-routine", function() {
     $.ajax({
         type: "delete",
         url: "/routine/delete/" + id,
-        success: function (data) {
+        success: function(data) {
             $("#Routine-Cell-" + dayId + "-" + periodId).html(
-                '<button class="btn btn-outline-info btn-sm btn-circle create-routine" data-day="' +
-                    dayId +
-                    '" data-period="' +
-                    periodId +
-                    '" data-session="' +
-                    sessionId +
-                    '" data-section="' +
-                    sectionId +
-                    '" data-toggle="modal" data-target="#Modal-Create-Routine-Form"><i class="fas fa-plus"></i></button>'
+                createEmptyRoutineCell(dayId, periodId, sessionId, sectionId)
             );
         },
         error: function(data) {

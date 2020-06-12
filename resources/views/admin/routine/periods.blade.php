@@ -16,8 +16,12 @@
                 <tbody>
                 @foreach($periods as $period)
                     <tr id="Period-Id-{{ $period->id }}">
-                        <td class="align-middle">{{ $period->start_time }}</td>
-                        <td class="align-middle">{{ $period->end_time }}</td>
+                        <td class="align-middle">
+                            {{ \Carbon\Carbon::parse($period->start_time)->format('h:ia') }}
+                        </td>
+                        <td class="align-middle">
+                            {{ \Carbon\Carbon::parse($period->end_time)->format('h:ia') }}
+                        </td>
                         <td class="align-middle py-0">
                             <button class="btn btn-danger btn-sm px-2 delete-academic-structure" data-toggle="modal" data-target="#Modal-Academic-Structure-Delete" data-id="{{ $period->id }}" data-table="Period">
                                 <i class="fas fa-trash-alt"></i>

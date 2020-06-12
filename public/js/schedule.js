@@ -23,15 +23,31 @@ schedulesTable = $("#Schedules-Table").DataTable({
             searchable: false
         },
         {
+            targets: 1,
+            render: function(data, type, row, meta) {
+                return convertTo12Hr(row.starts_at);
+            }
+        },
+        {
             targets: 5,
             render: function(data, type, row, meta) {
-                return (
+                const btnEdit =
                     '<button type="button" class="edit-schedule btn btn-sm btn-primary" data-toggle="modal" data-target="#Modal-Schedule-Form" data-id="' +
                     row.id +
-                    '"><i class="fas fa-edit mr-2"></i></i>Edit</button><button type="button" class="delete-schedule btn btn-sm btn-danger" data-toggle="modal" data-target="#Modal-Schedule-Delete" data-id="' +
+                    '">\n' +
+                    '<i class="fas fa-edit mr-2"></i>\n' +
+                    "Edit\n" +
+                    "</button>";
+
+                const btnDelete =
+                    '<button type="button" class="delete-schedule btn btn-sm btn-danger" data-toggle="modal" data-target="#Modal-Schedule-Delete" data-id="' +
                     row.id +
-                    '"><i class="fas fa-trash-alt mr-2"></i>Delete</button>'
-                );
+                    '">\n' +
+                    '<i class="fas fa-trash-alt mr-2"></i>\n' +
+                    "Delete\n" +
+                    "</button>";
+
+                return btnEdit + "\n" + btnDelete;
             },
             searchable: false,
             orderable: false
@@ -52,23 +68,27 @@ schedulesTable = $("#Schedules-Table").DataTable({
 
 // Add Stoppage Input
 $("#Btn-Add-Stoppage").click(function() {
-    var cloned_stoppage = document.createElement("div");
+    const inputRow =
+        '<div class="col-7 col-sm-9"><input type="text" name="stoppages[]" class="form-control"></div>\n' +
+        '<div class="col-5 col-sm-3" style="height: calc(1.5em + .75rem + 2px);"><button class="btn btn-danger btn-sm btn-block btn-reomve-stoppage h-100" type="button">Remove</button></div>\n';
 
-    cloned_stoppage.className = "form-row mb-4 align-items-center remove-clone";
+    const stoppage =
+        '<div class="form-row mb-4 align-items-center remove-stoppage">\n' +
+        inputRow +
+        "</div>";
 
-    cloned_stoppage.innerHTML =
-        '<div class="col-7 col-sm-9"><input type="text" name="stoppages[]" class="form-control"></div><div class="col-5 col-sm-3"><button class="btn btn-danger btn-sm btn-block btn-reomve-stoppage" type="button">Remove</button></div>';
-
-    $("#Clone-Stoppage").before(cloned_stoppage);
+    $("#Clone-Stoppage").before(stoppage);
 });
 // Remove Stoppage Input
 $("body").on("click", ".btn-reomve-stoppage", function() {
-    $(this).parents(".remove-clone").remove();
+    $(this)
+        .parents(".remove-stoppage")
+        .remove();
 });
 
 // Clicked to Create Schedule
-$("#Btn-Create-Schedule").click(function () {
-    $(".remove-clone").remove();
+$("#Btn-Create-Schedule").click(function() {
+    $(".remove-stoppage").remove();
     $("#Form-Schedule").trigger("reset");
     $("#Schedule-Id").val(null);
     $("#Btn-Form-Schedule").html("Create Schedule");
@@ -76,25 +96,33 @@ $("#Btn-Create-Schedule").click(function () {
 });
 
 // Clicked to Edit Schedule
-$("body").on("click", ".edit-schedule", function () {
-    $(".remove-clone").remove();
+$("body").on("click", ".edit-schedule", function() {
+    $(".remove-stoppage").remove();
     $("#Form-Schedule").trigger("reset");
     $("#Btn-Form-Schedule").html("Save Changes");
     $("#Modal-Bus-Schedule-Title").html("Edit Schedule");
 
     var scheduleId = $(this).data("id");
-    $.get("/transport/get/schedule/" + scheduleId, function (data) {
+    $.get("/transport/get/schedule/" + scheduleId, function(data) {
         $("#Schedule-Id").val(data.id);
         $("#Source").val(data.source);
         $("#Destination").val(data.destination);
         $("#Start-Time").val(data.starts_at);
     });
-    $.get("/transport/get/stoppages/"+scheduleId, function(data) {
+    $.get("/transport/get/stoppages/" + scheduleId, function(data) {
+        var inputRow, stoppage;
         $.each(data, function(key, item) {
-            var stoppage = document.createElement("div");
-            stoppage.className = "form-row mb-4 align-items-center remove-clone";
-            stoppage.innerHTML =
-                '<div class="col-7 col-sm-9"><input type="text" name="stoppages[]" class="form-control" value="' + item.stoppage + '"></div><div class="col-5 col-sm-3"><button class="btn btn-danger btn-sm btn-block btn-reomve-stoppage" type="button">Remove</button></div>';
+            inputRow =
+                '<div class="col-7 col-sm-9"><input type="text" name="stoppages[]" class="form-control" value="' +
+                item.stoppage +
+                '"></div>\n' +
+                '<div class="col-5 col-sm-3" style="height: calc(1.5em + .75rem + 2px);"><button class="btn btn-danger btn-sm btn-block btn-reomve-stoppage h-100" type="button">Remove</button></div>\n';
+
+            stoppage =
+                '<div class="form-row mb-4 align-items-center remove-stoppage">\n' +
+                inputRow +
+                "</div>";
+
             $("#Clone-Stoppage").before(stoppage);
         });
     });
@@ -112,8 +140,8 @@ $("#Form-Schedule").on("submit", function(e) {
         type: "PUT",
         url: "/transport/store/schedule",
         data: $("#Form-Schedule").serialize(),
-        success: function (response) {
-            $(".remove-clone").remove();
+        success: function(response) {
+            $(".remove-stoppage").remove();
             $("#Form-Schedule").trigger("reset");
             $("#Btn-Close-Schedule-Form").click();
             schedulesTable.ajax.reload();
@@ -127,9 +155,17 @@ $("#Form-Schedule").on("submit", function(e) {
         },
         error: function(xhr) {
             $.each(xhr.responseJSON.errors, function(key, item) {
-                $("#Form-Schedule-Error-Message").append(
-                    "<li>" + item + "</li>"
-                );
+                if ($.isArray(item)) {
+                    $.each(item, function(key, value) {
+                        $("#Form-Schedule-Error-Message").append(
+                            "<li>" + item + "</li>"
+                        );
+                    });
+                } else {
+                    $("#Form-Schedule-Error-Message").append(
+                        "<li>" + item + "</li>"
+                    );
+                }
             });
 
             $("#Form-Schedule-Error").removeClass("d-none");

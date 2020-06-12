@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Invitation;
 use App\Mail\SendInvitationToken;
 use Illuminate\Support\Facades\Auth;
@@ -19,10 +20,10 @@ class InvitationController extends Controller
     public function show()
     {
         $pendingRequests = Invitation::whereNull('invitation_token')->count();
-        
+
         return Datatables::of(Invitation::whereNull('invitation_token')->get(['id', 'email', 'created_at']))
             ->setRowId(function ($request) {
-                return "Request-Id-".$request->id;
+                return "Request-Id-" . $request->id;
             })
             ->with([
                 "pendingRequests" => $pendingRequests
@@ -33,7 +34,7 @@ class InvitationController extends Controller
     public function sendInvitation($id)
     {
         $request = Invitation::find($id);
-        
+
         $token = random_int(10000000, 99999999);
 
         $request->invitation_token = md5($token);
@@ -41,13 +42,13 @@ class InvitationController extends Controller
         $request->is_active = true;
         $request->is_used = false;
         $request->save();
-        
+
         // This Token will be active for next 48 hours
-        $qry = "CREATE EVENT updateRequest_".$id."
+        $qry = "CREATE EVENT updateRequest_" . $id . "
             ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 48 HOUR
             ON COMPLETION NOT PRESERVE
             DO
-            update invitations set is_active = false where id = ".$id.";";
+            update invitations set is_active = false where id = " . $id . ";";
         DB::unprepared($qry);
 
         // Send Invitation Token tom mailing address
@@ -55,7 +56,7 @@ class InvitationController extends Controller
 
         $pendingRequests = Invitation::whereNull('invitation_token')->count();
         $data = ['pendingRequests' => $pendingRequests];
-        
+
         return Response::json($data);
     }
 

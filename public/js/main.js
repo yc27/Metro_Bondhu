@@ -58,11 +58,17 @@ function leadingZero(n) {
 // Formate Time
 function formatTime(hh, mm) {
     return (
-        (hh % 12 === 0 ? 12 : hh % 12) +
+        leadingZero( ((hh + 11) % 12) + 1 ) +
         ":" +
         leadingZero(mm) +
         (hh > 11 ? "pm" : "am")
     );
+}
+
+// Conver 24 hour format to 12 hour format
+function convertTo12Hr(hr24) {
+    var arr = hr24.split(":");
+    return formatTime(parseInt(arr[0]), parseInt(arr[1]));
 }
 
 // Fromate Date

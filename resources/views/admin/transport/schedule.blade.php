@@ -65,7 +65,7 @@
 </div>
 <!-- /Schedule Form Modal -->
 
-<!-- Delete Modal -->
+<!-- Schedule Delete Modal -->
 <div id="Modal-Schedule-Delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Schedule-Delete-Label" aria-hidden="true">
     <div class="modal-dialog modal-notify modal-danger" role="document">
         <div class="modal-content text-dark" style="font-size: 14px">
@@ -88,8 +88,10 @@
         </div>
     </div>
 </div>
-<!-- /Delete Modal -->
-
-<!-- DataTable Script -->
-<script type="text/javascript" src={{ asset('js/schedule.js') }}></script>
+<!-- /Schedule Delete Modal -->
 <!-- /Schedules Tab -->
+
+@section('script')
+@parent
+<script type="text/javascript" src={{ asset('js/schedule.js') }}></script>
+@endsection

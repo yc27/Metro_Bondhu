@@ -1,6 +1,6 @@
 <!-- Inbox -->
 <div id="Inbox" class="tabcontent">
-    <div class="container">
+    <div class="container-fluid">
         <div class="text-dark title h1">
             Inbox
         </div>
@@ -12,7 +12,7 @@
         @endif
         <hr>
         @if($messages->isEmpty())
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col">
                     <h2 class="h2 text-center indigo-text">Inbox Empty</h2>
@@ -63,7 +63,7 @@
 </div>
 <!-- /Message View Modal -->
 
-<!-- Delete Modal -->
+<!-- Message Delete Modal -->
 <div id="Modal-Message-Delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Message-Delete-Label" aria-hidden="true">
     <div class="modal-dialog modal-notify modal-danger" role="document">
         <div class="modal-content text-dark" style="font-size: 14px">
@@ -86,8 +86,10 @@
         </div>
     </div>
 </div>
-<!-- /Delete Modal -->
-
-<!-- Script -->
-<script type="text/javascript" src={{ asset('js/inbox.js') }}></script>
+<!-- /Message Delete Modal -->
 <!-- /Inbox -->
+
+@section('script')
+@parent
+<script type="text/javascript" src={{ asset('js/inbox.js') }}></script>
+@endsection

@@ -1,6 +1,6 @@
 <!-- Routine -->
 <div id="Routine" class="tabcontent">
-    <div class="container">
+    <div class="container-fluid">
         <div class="text-dark title h1">
             Routine
         </div>
@@ -153,7 +153,7 @@
 </div>
 <!-- /Academic-Structure Form Modal -->
 
-<!-- Delete Modal -->
+<!-- Academic-Structure Delete Modal -->
 <div id="Modal-Academic-Structure-Delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Academic-Structure-Label" aria-hidden="true">
     <div class="modal-dialog modal-notify modal-danger" role="document">
         <div class="modal-content text-dark" style="font-size: 14px">
@@ -176,8 +176,10 @@
         </div>
     </div>
 </div>
-<!-- /Delete Modal -->
-
-<!-- Script -->
-<script type="text/javascript" src={{ asset('js/routine.js') }}></script>
+<!-- /Academic-Structure Delete Modal -->
 <!-- Routine -->
+
+@section('script')
+@parent
+<script type="text/javascript" src={{ asset('js/routine.js') }}></script>
+@endsection

@@ -24,11 +24,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Style -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/mdb.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -38,9 +33,18 @@
 
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- Style -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/mdb.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+
+    <!-- Icon -->
+    <link rel="icon" href="{{ asset('/img/mu-guide.png') }}" type="image/x-icon"/>
 </head>
 <body>
     <div class="loader"></div>
+
     <div id="app">
         <!-- Navbar -->
         <nav id="top-navbar" class="navbar navbar-dark navbar-expand-lg fixed-top" style="background-color: #001C57">
@@ -81,7 +85,7 @@
         </nav>
         <!-- /Navbar -->
 
-        <main id="main" class="position-relative bg-full">
+        <main id="main" class="bg-full">
             @yield('content')
         </main>
     </div>
@@ -103,5 +107,6 @@
             $('.loader').fadeOut("slow");
         });
     </script>
+    @yield('script')
 </body>
 </html>

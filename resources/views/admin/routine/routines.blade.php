@@ -4,7 +4,7 @@
             <div class="lead">Routines</div>
         </div>
         <div class="card-body">
-            <div class="container">
+            <div class="container-fluid">
                 <form id="Form-Routine-Search">
                     <div class="row">
                         <div class="col-12">
@@ -91,7 +91,7 @@
 </div>
 <!-- /Create-Routine Form Modal -->
 
-<!-- Reset Modal -->
+<!-- Reset Routine Modal -->
 <div id="Modal-Routine-Reset" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Routine-Reset-Label" aria-hidden="true">
     <div class="modal-dialog modal-notify modal-danger" role="document">
         <div class="modal-content text-dark" style="font-size: 14px">
@@ -114,4 +114,4 @@
         </div>
     </div>
 </div>
-<!-- /Delete Modal -->
+<!-- /Reset Routine Modal -->

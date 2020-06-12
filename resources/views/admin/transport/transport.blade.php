@@ -1,6 +1,6 @@
 <!-- Transport -->
 <div id="Transport" class="tabcontent">
-    <div class="container">
+    <div class="container-fluid">
         <div class="text-dark title h1">
             Transport
         </div>

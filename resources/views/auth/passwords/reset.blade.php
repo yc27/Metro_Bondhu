@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-4">
-    <div class="d-flex justify-content-left">
-        <div class="col-md-8 col-sm-10 col-xs-12">
+<div class="container-fluid py-4">
+    <div class="row px-4">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 offset-sm-1 offset-md-2 offset-lg-3">
             <div class="card">
                 <div class="card-header">{{ __('Reset Password') }}</div>
 

@@ -1,6 +1,6 @@
 <!-- Invitation -->
 <div id="Invite" class="tabcontent">
-    <div class="container">
+    <div class="container-fluid">
         <div class="text-dark title h1">
             Invitation Requests
         </div>
@@ -52,7 +52,7 @@
 </div>
 <!-- /Send Invitation Modal -->
 
-<!-- Delete Modal -->
+<!-- Invitation Request Delete Modal -->
 <div id="Modal-Request-Delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Request-Delete-Label" aria-hidden="true">
     <div class="modal-dialog modal-notify modal-danger" role="document">
         <div class="modal-content" style="font-size: 14px">
@@ -75,8 +75,10 @@
         </div>
     </div>
 </div>
-<!-- /Delete Modal -->
-
-<!-- DataTable Script -->
-<script type="text/javascript" src={{ asset('js/invitationRequest.js') }}></script>
+<!-- /Invitation Request Delete Modal -->
 <!-- /Invitation -->
+
+@section('script')
+@parent
+<script type="text/javascript" src={{ asset('js/invitationRequest.js') }}></script>
+@endsection

@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-sm py-4">
-    <div class="d-flex justify-content-start mt-2">
-        <div class="col-md-5 col-sm-7 col-xs-9 p-4 text-left white rounded shadow-lg">
-            <div class="mb-4 text-center">
+<div class="container-fluid py-4">
+    <div class="row px-4">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4 text-left white rounded shadow-lg px-4">
+            <div class="my-4 text-center">
                 <img src="{{ asset('img/mu_logo.png') }}" class="w-75">
             </div>
 
@@ -47,7 +47,7 @@
 
                 <div class="form-row">
                     <div class="form-group col-md">
-                        <button class="btn btn-primary" type="submit">
+                        <button class="btn btn-primary ml-0" type="submit">
                             {{ __('Login') }}
                         </button>
                     </div>

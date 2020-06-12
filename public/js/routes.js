@@ -113,7 +113,7 @@ function geocodeLatLng(lat, lng) {
             }
         } else {
             console.log("Geocoder failed due to: " + status);
-		}
+        }
     });
 }
 
@@ -178,8 +178,8 @@ function activateSetEnd() {
 
     markerDragHandler = endMarker.addListener("drag", function(event) {
         handleEvent(event, "#End-Point");
-	});
-	
+    });
+
     markerDragendHandler = endMarker.addListener("dragend", function(event) {
         handleEvent(event, "#End-Point");
     });
@@ -228,21 +228,21 @@ function deactivateSetWaypoint() {
     google.maps.event.removeListener(mapClickHandler);
 }
 
-$("#Btn-Set-Route").click(function () {
-	var directionsDisplay = new google.maps.DirectionsRenderer();
-	var directionsService = new google.maps.DirectionsService();
+$("#Btn-Set-Route").click(function() {
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
 
-	directionsDisplay.setMap(map);
+    directionsDisplay.setMap(map);
 
-	var route = {
+    var route = {
         origin: $("#Start-Point").val(),
-		destination: $("#End-Point").val(),
-		travelMode: "DRIVING"
-	};
-	
-	directionsService.route(route, function(result, status) {
-		if (status === "OK") {
-			directionsDisplay.setDirections(result);
-		}
+        destination: $("#End-Point").val(),
+        travelMode: "DRIVING"
+    };
+
+    directionsService.route(route, function(result, status) {
+        if (status === "OK") {
+            directionsDisplay.setDirections(result);
+        }
     });
 });

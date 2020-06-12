@@ -40,14 +40,14 @@ class HomeController extends Controller
                 'message.required' => 'Message field can\'t be empty',
             ]
         );
-        
+
         $message = new Message();
         $message->name = $request['name'];
         $message->email = $request['email'];
         $message->message = Purifier::clean($request['message']);
         $message->is_opened = false;
         $message->save();
-        
+
         $arr = array('msg' => 'Your message sent to admins.', 'status' => true);
         return Response::json($arr);
     }

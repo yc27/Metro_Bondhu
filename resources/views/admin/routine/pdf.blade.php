@@ -107,7 +107,7 @@
                 <tr>
                     <th></th>
                     @foreach($periods as $period)
-                    <th>{{ \Carbon\Carbon::parse($period->start_time)->format('h:iA') }} - {{ \Carbon\Carbon::parse($period->end_time)->format('h:iA') }}</th>
+                    <th>{{ \Carbon\Carbon::parse($period->start_time)->format('h:ia') }} - {{ \Carbon\Carbon::parse($period->end_time)->format('h:ia') }}</th>
                     @endforeach
                 </tr>
             </thead>

@@ -30,13 +30,23 @@ requestsTable = $("#Requests-Table").DataTable({
         {
             targets: 3,
             render: function(data, type, row, meta) {
-                return (
+                const btnInvite =
                     '<button type="button" class="send-invitation btn btn-sm btn-success" data-toggle="modal" data-target="#Modal-Send-Invitation" data-id="' +
                     row.id +
-                    '"><i class="fas fa-cogs mr-2"></i>Send Invitation</button><button type="button" class="delete-request btn btn-sm btn-danger" data-toggle="modal" data-target="#Modal-Request-Delete" data-id="' +
+                    '">\n' +
+                    '<i class="fas fa-cogs mr-2"></i>\n' +
+                    "Send Invitation\n" +
+                    "</button>";
+
+                const btnDelete =
+                    '<button type="button" class="delete-request btn btn-sm btn-danger" data-toggle="modal" data-target="#Modal-Request-Delete" data-id="' +
                     row.id +
-                    '"><i class="fas fa-trash-alt mr-2"></i>Delete Request</button>'
-                );
+                    '">\n' +
+                    '<i class="fas fa-trash-alt mr-2"></i>\n' +
+                    "Delete Request\n" +
+                    "</button>";
+
+                return btnInvite + "\n" + btnDelete;
             },
             searchable: false,
             orderable: false
@@ -92,7 +102,7 @@ $("body").on("click", "#Btn-Send-Invitation", function() {
     $.ajax({
         type: "put",
         url: "/request/send-invitation/" + requestId,
-        success: function (data) {
+        success: function(data) {
             $("#Request-Id-" + requestId).remove();
             updatePendingRequestsCount(data);
         },
@@ -117,7 +127,7 @@ $("body").on("click", "#Btn-Delete-Request", function() {
     $.ajax({
         type: "delete",
         url: "/request/delete/" + requestId,
-        success: function (data) {
+        success: function(data) {
             $("#Request-Id-" + requestId).remove();
             updatePendingRequestsCount(data);
         },

@@ -31,10 +31,10 @@ class TransportController extends Controller
                 )
                 ->get()
         )
-        ->setRowId(function ($schedule) {
-            return "Schedule-Id-".$schedule->id;
-        })
-        ->make(true);
+            ->setRowId(function ($schedule) {
+                return "Schedule-Id-" . $schedule->id;
+            })
+            ->make(true);
     }
 
     public function storeSchedule(Request $request)
@@ -54,15 +54,12 @@ class TransportController extends Controller
             ]
         );
 
-        if ($request->has('schedule-id') && $request['schedule-id'] !== null)
-        {
+        if ($request->has('schedule-id') && $request['schedule-id'] !== null) {
             $busSchedule = BusSchedule::find($request['schedule-id']);
-        }
-        else
-        {
+        } else {
             $busSchedule = new BusSchedule();
         }
-        
+
         $busSchedule->source = $request['source'];
         $busSchedule->destination = $request['destination'];
         $busSchedule->starts_at = $request['starts_at'];
@@ -71,12 +68,9 @@ class TransportController extends Controller
         $scheduleId = $busSchedule->id;
         Stoppage::where('schedule_id', $scheduleId)->delete();
 
-        if ($request->has('stoppages'))
-        {
-            foreach ($request['stoppages'] as $stoppage)
-            {
-                if($stoppage !== null && !empty($stoppage))
-                {
+        if ($request->has('stoppages')) {
+            foreach ($request['stoppages'] as $stoppage) {
+                if ($stoppage !== null && !empty($stoppage)) {
                     $way_point = new Stoppage();
                     $way_point->schedule_id = $scheduleId;
                     $way_point->stoppage = $stoppage;
@@ -128,9 +122,9 @@ class TransportController extends Controller
                 )
                 ->get()
         )
-        ->setRowId(function ($route) {
-            return "Route-Id-".$route->id;
-        })
-        ->make(true);
+            ->setRowId(function ($route) {
+                return "Route-Id-" . $route->id;
+            })
+            ->make(true);
     }
 }

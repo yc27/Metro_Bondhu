@@ -31,7 +31,7 @@
                 </button>
             </div>
             <div class="modal-body p-2">
-                <div class="container">
+                <div class="container-fluid">
                     {{-- <form> --}}
                     <div class="row mb-2">
                         <div class="col-lg-6 p-1">
@@ -188,7 +188,9 @@
         }
 	});
 </script> --}}
-
-<!-- DataTable Script -->
-<script type="text/javascript" src={{ asset('js/routes.js') }}></script>
 <!-- /Routes Tab -->
+
+@section('script')
+@parent
+<script type="text/javascript" src={{ asset('js/routes.js') }}></script>
+@endsection
