@@ -234,7 +234,7 @@ function setRoutineTable(data) {
         data.batchId +
         '" data-section="' +
         data.sectionId +
-        '">Download PDF</button>';
+        '"><i class="fas fa-file-pdf mr-2"></i>Download PDF</button>';
 
     const btnReset =
         '<button class="btn btn-sm btn-danger mr-0 reset-routine" data-toggle="modal" data-target="#Modal-Routine-Reset" data-session="' +
@@ -245,7 +245,7 @@ function setRoutineTable(data) {
         data.batchId +
         '" data-section="' +
         data.sectionId +
-        '">Reset Routine</button>';
+        '"><i class="fas fa-times-circle mr-2"></i>Reset Routine</button>';
 
     const buttons = "<div>\n" + btnPDF + "\n" + btnReset + "\n</div>";
 
@@ -551,11 +551,7 @@ $("#Btn-Form-Academic-Structure-Save").click(function(e) {
             $("#Btn-Form-Academic-Structure-Close").click();
             addRowToAcademicStructureTable(response.data);
 
-            $("#Alert-Routine-Success").html(response.msg);
-            $("#Alert-Routine-Success").removeClass("d-none");
-            setTimeout(function() {
-                $("#Alert-Routine-Success").addClass("d-none");
-            }, 5000);
+            createToast("success", "Success", response.msg);
         },
 
         error: function(xhr) {
@@ -595,12 +591,7 @@ function deleteAcademicStructure(id, tableUC, tableLC, sections, batches) {
         url: "/routine/delete/" + tableLC + "/" + id,
         success: function(response) {
             $("#" + tableUC + "-Id-" + id).remove();
-
-            $("#Alert-Routine-Success").html(response.msg);
-            $("#Alert-Routine-Success").removeClass("d-none");
-            setTimeout(function() {
-                $("#Alert-Routine-Success").addClass("d-none");
-            }, 5000);
+            createToast("danger", "Success", response.msg);
 
             if (tableUC === "Department") {
                 $.each(batches, function(key, item) {
@@ -691,11 +682,7 @@ $("#Form-Set-Days").on("submit", function(e) {
                 .removeClass("d-block")
                 .addClass("d-none");
 
-            $("#Alert-Routine-Success").html(response.msg);
-            $("#Alert-Routine-Success").removeClass("d-none");
-            setTimeout(function() {
-                $("#Alert-Routine-Success").addClass("d-none");
-            }, 5000);
+            createToast("success", "Success", response.msg);
         },
         error: function(response) {
             console.log("Error:", response);
@@ -819,6 +806,7 @@ $("#Btn-Form-Create-Routine-Save").click(function(e) {
                     response.data.room
                 )
             );
+            createToast("success", "Success", "Routine set successfully.");
         },
         error: function(xhr) {
             $.each(xhr.responseJSON.errors, function(key, item) {
@@ -864,6 +852,7 @@ $("body").on("click", ".delete-routine", function() {
             $("#Routine-Cell-" + dayId + "-" + periodId).html(
                 createEmptyRoutineCell(dayId, periodId, sessionId, sectionId)
             );
+            createToast("danger", "Success", "Routine deleted successfully.");
         },
         error: function(data) {
             console.log("Error:", data);
@@ -896,6 +885,7 @@ $("body").on("click", "#Btn-Reset-Routine", function() {
             sectionId,
         success: function(response) {
             setRoutineTable(response);
+            createToast("danger", "Success", "Routine has been reset to default.");
         },
         error: function(response) {
             console.log("Error:", response);
@@ -937,6 +927,7 @@ $("body").on("click", ".download-routine-pdf", function() {
         url: link,
         success: function(response) {
             window.open(link, "_blank");
+            createToast("info", "Success", "PDF Downloaded.");
         },
         error: function(response) {
             console.log("Error:", response);

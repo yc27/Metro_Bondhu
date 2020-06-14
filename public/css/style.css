@@ -46,6 +46,31 @@ blockquote p {
     text-align: center; 
 }
 
+.toast {
+    min-width: 250px;
+    opacity: 1;
+    border-radius: 0.125rem;
+    border: none;
+    color: #ffffff;
+    padding: 8px 12px;
+}
+
+.toast.toast-info {
+    background: rgba(51, 182, 229, 0.75);
+}
+
+.toast.toast-warning {
+    background: rgba(255, 187, 51, 0.75);
+}
+
+.toast.toast-success {
+    background: rgba(0, 193, 78, 0.75);
+}
+
+.toast.toast-danger {
+    background: rgba(255, 53, 71, 0.75);
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -458,6 +483,16 @@ textarea.form-control.is-invalid {
 
 .inbox ul.pagination {
     margin-bottom: 0;
+}
+
+.create-notice.card {
+    cursor: pointer;
+}
+
+.create-notice.card .card-body {
+    text-align: center;
+    font-family: "Age", sans-serif;
+    font-size: 32px;
 }
 
 .academic-structure-menu {

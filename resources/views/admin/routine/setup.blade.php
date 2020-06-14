@@ -6,8 +6,6 @@
         </div>
         <hr>
 
-        <div class="alert alert-success d-none" id="Alert-Routine-Success"></div>
-
         <div class="academic-structure-menu clearfix">
             <div class="menu-button mb-4 float-left">
                 <div class="card text-center menu" data-menu="Departments">
@@ -177,7 +175,7 @@
     </div>
 </div>
 <!-- /Academic-Structure Delete Modal -->
-<!-- Routine -->
+<!-- /Routine -->
 
 @section('script')
 @parent

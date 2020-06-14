@@ -99,3 +99,44 @@ function formatDate(d) {
         d.getFullYear()
     );
 }
+
+// Create Toast
+function createToast(type = "info", header = "Info", msg) {
+    var btnClose =
+        '<button type="button" class="ml-2 mb-0 close">\n' +
+        '<span aria-hidden="true">&times;</span>\n' +
+        "</button>\n";
+
+    var toastBody =
+        btnClose +
+        "<strong>" +
+        header +
+        ": </strong> " +
+        msg;
+
+    var toast =
+        '<div class="toast toast-' +
+        type +
+        '" style="display:none;">\n' +
+        toastBody +
+        "</div>\n";
+    
+    console.log(msg);
+
+    $("#Toasts").after(
+        $(toast).fadeIn("slow", function() {
+            setTimeout(() => {
+                $(this).fadeOut("slow", function() {
+                    $(this).remove();
+                });
+            }, 3000);
+        })
+    );
+}
+
+// Close Toast
+$("body").on("click", ".toast .close", function() {
+    $(this)
+        .closest(".toast")
+        .remove();
+});

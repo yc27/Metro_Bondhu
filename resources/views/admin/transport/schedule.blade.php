@@ -4,10 +4,6 @@
     Add Bus Schedule
 </button>
 
-<div class="alert alert-success d-none" id="Schedule-Success">
-    <span id="Schedule-Success-Message"></span>
-</div>
-
 <div class="border border-dark rounded p-2">
     <table class="table table-striped text-center w-100" id="Schedules-Table">
         <thead>

@@ -105,6 +105,11 @@ $("body").on("click", "#Btn-Send-Invitation", function() {
         success: function(data) {
             $("#Request-Id-" + requestId).remove();
             updatePendingRequestsCount(data);
+            createToast(
+                "success",
+                "Success",
+                "Invitation sent to mail address successfully."
+            );
         },
         error: function(data) {
             console.log("Error:", data);
@@ -130,6 +135,7 @@ $("body").on("click", "#Btn-Delete-Request", function() {
         success: function(data) {
             $("#Request-Id-" + requestId).remove();
             updatePendingRequestsCount(data);
+            createToast("danger", "Success", "Request deleted successfully");
         },
         error: function(data) {
             console.log("Error:", data);

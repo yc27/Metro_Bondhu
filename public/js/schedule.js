@@ -147,11 +147,7 @@ $("#Form-Schedule").on("submit", function(e) {
             schedulesTable.ajax.reload();
             schedulesTable.columns.adjust().draw();
 
-            $("#Schedule-Success-Message").html(response.msg);
-            $("#Schedule-Success").removeClass("d-none");
-            setTimeout(function() {
-                $("#Schedule-Success").addClass("d-none");
-            }, 10000);
+            createToast("success", "Success", response.msg);
         },
         error: function(xhr) {
             $.each(xhr.responseJSON.errors, function(key, item) {
@@ -191,6 +187,7 @@ $("body").on("click", "#Btn-Delete-Schedule", function() {
         url: "/transport/delete/schedule/" + scheduleId,
         success: function(data) {
             $("#Schedule-Id-" + scheduleId).remove();
+            createToast("danger", "Success", "Schedule deleted successfully.");
         },
         error: function(data) {
             console.log("Error:", data);

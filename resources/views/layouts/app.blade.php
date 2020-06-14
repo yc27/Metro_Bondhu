@@ -21,6 +21,9 @@
     <!-- Data Table Style -->
     <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/datatables.min.css') }}">
 
+    <!-- Masonry Script -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -103,8 +106,17 @@
         $(window).resize(function() {
             adjustMainTop();
         });
+
+        // loading animation
         $(window).on('load', function() {
             $('.loader').fadeOut("slow");
+        });
+
+        // masonry config
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            percentPosition: true,
+            horizontalOrder: true
         });
     </script>
     @yield('script')

@@ -108,6 +108,7 @@ $("body").on("click", "#Btn-Delete-Message", function() {
         success: function(data) {
             updateUnseenMessagesCount(data);
             $("#Message-Id-" + messageId).remove();
+            createToast("danger", "Success", "Message deleted successfully");
         },
         error: function(data) {
             console.log("Error:", data);
@@ -134,8 +135,10 @@ $("body").on("click", ".mark-message", function() {
             updateUnseenMessagesCount(data.unseen_messages_count);
             if (data.message.is_opened === false) {
                 setMessageCardUnseen(data.message.id);
+                createToast("info", "Success", "Message marked as unseen.");
             } else {
                 setMessageCardSeen(data.message.id);
+                createToast("info", "Success", "Message marked as seen.");
             }
         },
         error: function(data) {
@@ -156,7 +159,11 @@ $(window).on("hashchange", function() {
     }
 });
 $(document).on("click", ".pagination a", function(e) {
-    getMessages( $(this).attr("href").split("page=")[1] );
+    getMessages(
+        $(this)
+            .attr("href")
+            .split("page=")[1]
+    );
     e.preventDefault();
 });
 function getMessages(page) {
@@ -164,12 +171,12 @@ function getMessages(page) {
         url: "/inbox?page=" + page,
         dataType: "json"
     })
-    .done(function (data) {
-        $(".inbox").html(data);
-        // location.hash = page;
-    })
-    .fail(function(data) {
-        console.log(data);
-        alert("Messages Could Not Be Loaded.");
-    });
+        .done(function(data) {
+            $(".inbox").html(data);
+            // location.hash = page;
+        })
+        .fail(function(data) {
+            console.log(data);
+            alert("Messages Could Not Be Loaded.");
+        });
 }
