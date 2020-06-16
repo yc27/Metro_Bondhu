@@ -24,8 +24,9 @@ schedulesTable = $("#Schedules-Table").DataTable({
         },
         {
             targets: 1,
-            render: function(data, type, row, meta) {
-                return convertTo12Hr(row.starts_at);
+            render: function (data, type, row, meta) {
+                var [hh, mm, ss] = row.starts_at.split(":");
+                return formatTime(parseInt(hh), parseInt(mm));
             }
         },
         {

@@ -42,6 +42,24 @@ Route::group(['prefix' => '/message'], function () {
     ]);
 });
 
+// Notice Control
+Route::group(['prefix' => '/notice'], function () {
+    Route::get('/show/{id}', [
+        'uses' => 'NoticeController@showNotice',
+        'as'   => 'notice.show',
+    ]);
+
+    Route::post('/store', [
+        'uses' => 'NoticeController@storeNotice',
+        'as'   => 'notice.store',
+    ]);
+
+    Route::delete('/delete/{id}', [
+        'uses' => 'NoticeController@destroyNotice',
+        'as'   => 'notice.destroy',
+    ]);
+});
+
 // Routines Control
 Route::group(['prefix' => '/routine'], function () {
     // Department

@@ -264,12 +264,15 @@ function setRoutineTable(data) {
         "\n</div>";
 
     var tableRows = "<tr><th></th>";
-    $.each(data.periods, function(key, period) {
+    $.each(data.periods, function (key, period) {
+        var [hh_s, mm_s, ss_s] = period["start_time"].split(":");
+        var [hh_e, mm_e, ss_e] = period["end_time"].split(":");
+
         tableRows +=
             '<th class="text-center">' +
-            convertTo12Hr(period["start_time"]) +
+            formatTime(parseInt(hh_s), parseInt(mm_s)) +
             " - " +
-            convertTo12Hr(period["end_time"]) +
+            formatTime(parseInt(hh_e), parseInt(mm_e)) +
             "</th>";
     });
     tableRows += "</tr>";
@@ -342,13 +345,18 @@ function setRoutineTable(data) {
 function addRowToAcademicStructureTable(data) {
     var cells = "";
     if ($("#Form-Academic-Structure").data("table") === "Period") {
+        var [hh_s, mm_s, ss_s] = data.start_time.split(":");
+        var [hh_e, mm_e, ss_e] = data.end_time.split(":");
+        
         cells +=
             '<td class"align-middle">' +
-            convertTo12Hr(data.start_time) +
+            formatTime(parseInt(hh_s), parseInt(mm_s)) +
             "</td>";
 
         cells +=
-            '<td class"align-middle">' + convertTo12Hr(data.end_time) + "</td>";
+            '<td class"align-middle">' +
+            formatTime(parseInt(hh_e), parseInt(mm_e)) +
+            "</td>";
     } else {
         $.each(data, function(key, item) {
             if (key !== "id") {

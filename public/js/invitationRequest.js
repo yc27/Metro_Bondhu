@@ -24,7 +24,7 @@ requestsTable = $("#Requests-Table").DataTable({
             targets: 2,
             render: function(data, type, row, meta) {
                 var d = new Date(row.created_at);
-                return formatDate(d);
+                return formatDateTime(d);
             }
         },
         {

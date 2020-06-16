@@ -21,6 +21,7 @@ sidebarToggle.addEventListener("click", function() {
         schedulesTable.columns.adjust().draw();
         routesTable.columns.adjust().draw();
         requestsTable.columns.adjust().draw();
+        $noticeMason.masonry();
     }, 500);
 });
 
@@ -43,9 +44,11 @@ function openMenu(evt, menu) {
     }
     document.getElementById(menu).style.display = "block";
     
-    if (menu == "Transport") {
+    if (menu === "Notice") {
+        $noticeMason.masonry();
+    } else if (menu === "Transport") {
         schedulesTable.columns.adjust().draw();
-    }else if (menu == "Invite") {
+    }else if (menu === "Invite") {
         requestsTable.columns.adjust().draw();
     }
 }
@@ -55,7 +58,7 @@ function leadingZero(n) {
     return n < 10 ? "0" + n : n;
 }
 
-// Formate Time
+// Format Time
 function formatTime(hh, mm) {
     return (
         leadingZero( ((hh + 11) % 12) + 1 ) +
@@ -65,15 +68,9 @@ function formatTime(hh, mm) {
     );
 }
 
-// Conver 24 hour format to 12 hour format
-function convertTo12Hr(hr24) {
-    var arr = hr24.split(":");
-    return formatTime(parseInt(arr[0]), parseInt(arr[1]));
-}
-
-// Fromate Date
-function formatDate(d) {
-    var months = [
+// Format Date
+function formatDate(d, m, yyyy) {
+    const months = [
         "January",
         "February",
         "March",
@@ -88,16 +85,21 @@ function formatDate(d) {
         "December"
     ];
 
-    var time = formatTime(d.getHours(), d.getMinutes());
     return (
-        time +
+        months[m] +
+        " " +
+        leadingZero(d) +
         ", " +
-        leadingZero(d.getDate()) +
-        " " +
-        months[d.getMonth()] +
-        " " +
-        d.getFullYear()
+        yyyy
     );
+}
+
+// Fromat DateTime
+function formatDateTime(d) {
+    const time = formatTime(d.getHours(), d.getMinutes());
+    const date = formatDate(d.getDate(), d.getMonth(), d.getFullYear());
+
+    return date + " " + time;
 }
 
 // Create Toast
@@ -120,8 +122,6 @@ function createToast(type = "info", header = "Info", msg) {
         '" style="display:none;">\n' +
         toastBody +
         "</div>\n";
-    
-    console.log(msg);
 
     $("#Toasts").after(
         $(toast).fadeIn("slow", function() {

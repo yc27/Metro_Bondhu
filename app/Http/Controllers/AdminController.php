@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ClassDay;
 use App\Department;
 use App\Message;
+use App\Notice;
 use App\Period;
 use App\Session;
 use App\Subject;
@@ -25,6 +26,8 @@ class AdminController extends Controller
     {
         $unseen_messages_count = Message::where('is_opened', '0')->count();
         $messages = Message::orderBy('is_opened', 'ASC')->orderBy('created_at', 'DESC')->paginate(5);
+
+        $notices = Notice::orderBy('date')->get();
 
         $departments = Department::orderBY('name')->get();
         $batches = DB::table('batches')
@@ -60,6 +63,7 @@ class AdminController extends Controller
             [
                 'unseen_messages_count' => $unseen_messages_count,
                 'messages' => $messages,
+                'notices' => $notices,
                 'departments' => $departments,
                 'batches' => $batches,
                 'sections' => $sections,

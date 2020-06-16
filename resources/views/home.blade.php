@@ -197,6 +197,9 @@
             plugins: 'lists',
             toolbar: 'undo redo | bold italic underline | fontsizeselect | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | subscript superscript | forecolor backcolor | outdent indent | removeformat',
             menubar: false,
+            force_br_newlines : true,
+            force_p_newlines : false,
+            forced_root_block : 'div',
             min_height: 250,
             max_height: 250,
         });

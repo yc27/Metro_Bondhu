@@ -13,19 +13,20 @@
     <!-- JQuery -->
     <script type="text/javascript" src={{ asset('jQuery-3.3.1/jquery-3.3.1.min.js') }}></script>
 
-    <!-- Pubnub Script -->
-    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.3.js"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Data Table Script -->
     <script type="text/javascript" src="{{ asset('DataTables/datatables.min.js') }}"></script>
-    <!-- Data Table Style -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/datatables.min.css') }}">
+
+    <!-- Pubnub Script -->
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.3.js"></script>
+
+    <!-- Tiny MCE Editor -->
+    <script src="https://cdn.tiny.cloud/1/{{ config('services.tiny_mce.key') }}/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
     <!-- Masonry Script -->
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -33,11 +34,13 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Nunito">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:100,600">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600">
 
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <!-- Style -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/datatables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mdb.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
@@ -113,7 +116,7 @@
         });
 
         // masonry config
-        $('.grid').masonry({
+        var $noticeMason = $('.grid').masonry({
             itemSelector: '.grid-item',
             percentPosition: true,
             horizontalOrder: true

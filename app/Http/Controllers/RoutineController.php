@@ -322,8 +322,8 @@ class RoutineController extends Controller
 
         $data = new Period();
         $data->id = $period->id;
-        $data->start_time = \Carbon\Carbon::parse($period->start_time)->format('h:i A');
-        $data->end_time = \Carbon\Carbon::parse($period->end_time)->format('h:i A');
+        $data->start_time = $period->start_time;
+        $data->end_time = $period->end_time;
 
         $response = ['msg' => 'Something went wrong. Please try again later', 'status' => false];
         if ($period->id) {

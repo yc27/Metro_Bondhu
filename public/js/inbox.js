@@ -70,7 +70,7 @@ function setMessageCardUnseen(id) {
 function showMessage(message) {
     $("#Modal-Message-Name").text(message.name);
     $("#Modal-Message-Email").text(message.email);
-    $("#Modal-Message-Date").text(formatDate(new Date(message.created_at)));
+    $("#Modal-Message-Date").text(formatDateTime(new Date(message.created_at)));
     $("#Modal-Message-Body").html(message.message);
 }
 
