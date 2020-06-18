@@ -13,14 +13,14 @@
         <a class="tablinks Home" onclick="openMenu(event, 'Home')" data-toggle="tooltip" title="Home" data-placement="right">
             <i class="fas fa-home mr-4"></i>Home
         </a>
-        <a class="tablinks Inbox {{ $unseen_messages_count > 0 ? 'yellow-text' : 'custom-blue-1' }}" onclick="openMenu(event, 'Inbox')" data-toggle="tooltip" title="Inbox" data-placement="right">
+        <a id="defaultOpen" class="tablinks Inbox {{ $unseen_messages_count > 0 ? 'yellow-text' : 'custom-blue-1' }}" onclick="openMenu(event, 'Inbox')" data-toggle="tooltip" title="Inbox" data-placement="right">
             <i class="fas fa-envelope mr-4"></i>Inbox
             <span class="badge badge-pill danger-color ml-1 align-self-start {{ $unseen_messages_count > 0 ? 'd-block' : 'd-none' }}" id="Sidebar-Unseen-Messages-Count">{{ $unseen_messages_count }}</span>
         </a>
         <a class="tablinks Profile" onclick="openMenu(event, 'Profile')" data-toggle="tooltip" title="Profile" data-placement="right">
             <i class="fas fa-user mr-4"></i>Profile
         </a>
-        <a id="defaultOpen" class="tablinks Notice" onclick="openMenu(event, 'Notice')" data-toggle="tooltip" title="Notice" data-placement="right">
+        <a class="tablinks Notice" onclick="openMenu(event, 'Notice')" data-toggle="tooltip" title="Notice" data-placement="right">
             <i class="fas fa-file-alt mr-4"></i>Notice
         </a>
         <a class="tablinks Routine" onclick="openMenu(event, 'Routine')" data-toggle="tooltip" title="Routine" data-placement="right">

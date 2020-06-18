@@ -4,15 +4,10 @@
         <div class="text-dark title h1">
             Inbox
         </div>
-        @if($unseen_messages_count !== 0)
-        <div class="py-1 px-2 my-2 mx-0 align-middle rounded warning-color text-dark" style="width: -moz-fit-content;width: fit-content;">
-            Total Unseen Messages:
-            <span class="badge primary-color p-2" id="Unseen-Messages-Count">{{ $unseen_messages_count }}</span>
-        </div>
-        @endif
         <hr>
+
         @if($messages->isEmpty())
-        <div class="container-fluid">
+        <div class="container-fluid d-block" id="Inbx-Empty">
             <div class="row">
                 <div class="col">
                     <h2 class="h2 text-center indigo-text">Inbox Empty</h2>
@@ -20,48 +15,29 @@
             </div>
         </div>
         @else
-        <div class="inbox">
+        <div class="inbox pb-4 position-relative">
+            <div class="inbox-content" style="display: block">
             @include('admin.inbox.messages')
+            </div>
+
+            <div class="message-view" id="Message-View" style="display: none">
+                <div class="message-header border-bottom d-flex" id="Message-Header">
+                    <div class="message-close p-3 align-self-center">
+                        <i class="fas fa-arrow-left text-muted"></i>
+                    </div>
+                    <div class="message-info border-left px-3 py-2">
+                        <h4 class="h4 title m-0" id="Message-Sender-Name"></h4>
+                        <h6 class="h6 m-0 text-muted" id="Message-Sender-Email"></h6>
+                        <small id="Message-Date"></small>
+                    </div>
+                </div>
+
+                <div class="message-body p-4" id="Message-Body"></div>
+            </div>
         </div>
         @endif
     </div>
 </div>
-
-<!-- Message View Modal -->
-<div id="Modal-Message-View" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Message-View-Label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-notify" role="document">
-        <div class="modal-content">
-            <div class="modal-header light-blue darken-4" style="flex-direction: column">
-                <div class="row m-0">
-                    <div class="col pl-0 header-title h4 custom-blue-1" id="Modal-Message-Name"></div>
-                </div>
-                <div class="row m-0">
-                    <div class="col pl-0 header-title h6 custom-blue-2" id="Modal-Message-Email"></div>
-                </div>
-                <div class="row m-0">
-                    <div class="col pl-0 small text-white" id="Modal-Message-Date"></div>
-                </div>
-
-                <button type="button" class="close position-absolute" style="right: 1rem" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-dark" id="Modal-Message-Body">
-            </div>
-            <div class="modal-footer p-0 justify-content-center">
-                <div class="row text-center m-0 w-100">
-                    <div class="col-6 border-right btn m-0 text-info mark-message" id="Btn-Mark-Message" data-dismiss="modal">
-                        <i class="fas fa-check-square mr-2"></i>Mark As Unseen
-                    </div>
-                    <div class="col-6 btn m-0 text-danger delete-message" data-dismiss="modal" data-toggle="modal" data-target="#Modal-Message-Delete" >
-                        <i class="fas fa-trash-alt mr-2"></i>Delete Message
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- /Message View Modal -->
 
 <!-- Message Delete Modal -->
 <div id="Modal-Message-Delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Modal-Message-Delete-Label" aria-hidden="true">

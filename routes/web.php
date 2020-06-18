@@ -27,18 +27,33 @@ Route::get('/inbox', 'AdminController@index')->name('dashboard.inbox');
 // Inbox Control
 Route::group(['prefix' => '/message'], function () {
     Route::get('/view/{id}', [
-        'uses' => 'AdminController@viewMessage',
+        'uses' => 'InboxController@viewMessage',
         'as'   => 'message.view',
     ]);
 
     Route::put('/mark/{id}', [
-        'uses' => 'AdminController@markMessage',
+        'uses' => 'InboxController@markMessage',
         'as'   => 'message.mark',
     ]);
 
     Route::delete('/delete/{id}', [
-        'uses' => 'AdminController@destroyMessage',
+        'uses' => 'InboxController@destroyMessage',
         'as'   => 'message.destroy',
+    ]);
+
+    Route::delete('/delete-all', [
+        'uses' => 'InboxController@destroyAllMessage',
+        'as'   => 'message.destroy.all',
+    ]);
+
+    Route::post('/search', [
+        'uses' => 'InboxController@searchMessage',
+        'as'   => 'message.search',
+    ]);
+
+    Route::post('/search/reset', [
+        'uses' => 'InboxController@resetSearchMessage',
+        'as'   => 'message.search.reset',
     ]);
 });
 
