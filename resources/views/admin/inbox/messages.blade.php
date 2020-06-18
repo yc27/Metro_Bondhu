@@ -1,44 +1,62 @@
-@foreach($messages as $message)
-<div class="card mb-3 text-dark" id="Message-Id-{{ $message->id }}">
-    <div class="card-header {{ $message->is_opened === 0 ? 'light-blue darken-4' : 'white'}}">
-        <div class="row m-0">
-            <div class="col-10 col-sm-11 pl-0">
-                <div class="row m-0 d-flex align-items-baseline">
-                    <div class="col-md-auto pl-0 header-title h4 message-name {{ $message->is_opened === 0 ? 'custom-blue-1' : 'blue-text'}}">
-                        {{ $message->name }}
-                    </div>
-                    <div class="col-md-auto pl-0 header-title h6 message-email {{ $message->is_opened === 0 ? 'custom-blue-2' : 'blue-grey-text'}}">
-                        {{ $message->email }}
-                    </div>
-                </div>
-                <p class="small mb-0 message-date {{ $message->is_opened === 0 ? 'text-white' : 'text-black-50'}}">{{ \DateTime::createFromFormat('Y-m-d H:i:s', $message->created_at)->format('D, d F Y, h:i A') }}</p>
-            </div>
-            <div class="col-2 col-sm-1 pr-0 border-left d-flex align-items-center justify-content-end">
-                <button class="btn btn-danger btn-sm px-2 delete-message" data-toggle="modal" data-target="#Modal-Message-Delete" data-id={{ $message->id }}>
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </div>
+<div class="inbox-header d-flex justify-content-between align-items-end mb-3">
+    <div class="select-all-button d-flex align-items-center" style="padding-left: .75rem">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="Select-All-Message">
+            <label class="custom-control-label text-primary" for="Select-All-Message">Select All</label>
         </div>
+        <button class="btn btn-sm btn-danger p-2 ml-4 delete-all-message">Delete Selected</button>
     </div>
-    <div class="card-body">
-        {{ substr(strip_tags($message->getMessage()), 0, 100) }}{{ strlen(strip_tags($message->getMessage())) > 100 ? "..." : "" }}
-    </div>
-    <div class="card-footer p-0">
-        <div class="row text-center text-muted m-0">
-            <div class="col-sm-6 border-right btn m-0 view-message" data-toggle="modal" data-target="#Modal-Message-View" data-id={{ $message->id }}>
-                <i class="fas fa-expand-arrows-alt mr-2"></i>View Full Message
+
+    <div class="search-button">
+        <div class="input-group form-sm">
+            <input class="form-control my-0 py-1" id="Message-Query" type="text" placeholder="Search" aria-label="Search">
+
+            @if($from_search === true)
+            <div class="input-group-append">
+                <span class="input-group-text white reset-search-message">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </span>
             </div>
-            <div class="col-sm-6 btn m-0 mark-message" data-id={{ $message->id }}>
-                <i class="{{ $message->is_opened === 0 ? 'far' : 'fas'}} fa-check-square mr-2"></i>Mark As {{ $message->is_opened === 0 ? 'Seen' : 'Unseen'}}
+            @endif
+
+            <div class="input-group-append">
+                <span class="input-group-text primary-color-dark search-message">
+                    <i class="fas fa-search text-white" aria-hidden="true"></i>
+                </span>
             </div>
         </div>
     </div>
 </div>
-@endforeach
-@if($messages->hasPages())
-<div class="card">
-    <div class="card-body text-center info-color rounded py-2">
-        <div class="mx-auto" style="width: fit-content">{{ $messages->links() }}</div>
-    </div>
+
+<div class="inbox-body">
+    <table class="table table-sm border-bottom mb-3 white">
+        <tbody>
+            @foreach($messages as $message)
+            <tr class="{{ $message->is_opened === 0 ? 'unseen-message' : 'seen-message'}}" id="Message-Id-{{ $message->id }}">
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input message-check" id="Message-Check-{{ $message->id}}" data-id="{{ $message->id}}">
+                        <label class="custom-control-label" for="Message-Check-{{ $message->id}}"></label>
+                    </div>
+                </td>
+                <td class="message-info" data-id="{{ $message->id }}">
+                    {{ $message->name }}
+                    <br>
+                    <small class="text-muted font-weight-normal">
+                        {{ \DateTime::createFromFormat('Y-m-d H:i:s', $message->created_at)->format('F d, Y') }}
+                    </small>
+                </td>
+                <td class="message-body" data-id="{{ $message->id }}">
+                    {{ strip_tags( $message->getMessage() ) }}
+                </td>
+                <td>
+                    <i class="fas fa-envelope{{ $message->is_opened === 0 ? '-open' : ''}} text-muted mr-2 mark-message" title="Mark As {{ $message->is_opened === 0 ? 'Seen' : 'Unseen'}}" data-toggle="tooltip" data-id="{{ $message->id }}"></i>
+
+                    <i class="fas fa-trash-alt text-muted delete-message" data-id="{{ $message->id }}" data-toggle="modal" data-target="#Modal-Message-Delete"></i>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    {{ $messages->links() }}
 </div>
-@endif

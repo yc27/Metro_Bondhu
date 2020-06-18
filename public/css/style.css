@@ -480,6 +480,75 @@ textarea.form-control.is-invalid {
     width: 35% !important;
 }
 
+.inbox .search-button span {
+    cursor: pointer;
+}
+
+.inbox .table tr:hover {
+    background: #F0F8FD;
+    -webkit-box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.inbox .table tr td {
+    max-width: 0;
+    vertical-align: middle;
+}
+
+.inbox .table tr td:first-child {
+    width: 35px;
+    padding-left: .75rem;
+}
+
+.inbox .table tr td:last-child {
+    width: 65px;
+    padding-left: 10px;
+}
+
+.inbox .table .message-info {
+    cursor: pointer;
+    width: 150px;
+    padding-right: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.inbox .table .message-body {
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.inbox .table .unseen-message td {
+    font-weight: bold;
+}
+
+.inbox .table i:hover {
+    cursor: pointer;
+    color: #000000 !important;
+    -webkit-transform: scale(1.2, 1.2);
+    -moz-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+}
+
+.message-view {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: #ffffff;
+}
+
+.message-view .message-close {
+    cursor: pointer;
+}
+
 .inbox ul.pagination {
     margin-bottom: 0;
 }
