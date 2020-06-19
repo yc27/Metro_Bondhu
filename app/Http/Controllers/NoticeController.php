@@ -9,6 +9,11 @@ use Response;
 
 class NoticeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+    
     public function showNotice(Request $request, $id)
     {
         $notice = Notice::find($id);
