@@ -26,6 +26,10 @@ function setMessageRowSeen(id) {
     $("#Message-Id-" + id)
         .removeClass("unseen-message")
         .addClass("seen-message");
+    
+    const $icon = $("#Message-Id-" + id).find(".mark-message");
+    $icon.prop("title", "Mark As Uneen");
+    $icon.removeClass("fa-envelope-open").addClass("fa-envelope");
 }
 
 // Set Message As Unseen
@@ -33,6 +37,10 @@ function setMessageRowUnseen(id) {
     $("#Message-Id-" + id)
         .removeClass("seen-message")
         .addClass("unseen-message");
+    
+    const $icon = $("#Message-Id-" + id).find(".mark-message");
+    $icon.prop("title", "Mark As Seen");
+    $icon.removeClass("fa-envelope").addClass("fa-envelope-open");
 }
 
 // Close Message
@@ -42,7 +50,6 @@ $(".message-close").click(function (e) {
     $("#Message-View").fadeOut("slow");
     $(".inbox-content").fadeIn("slow");
 
-    // $(".inbox").height($(".inbox-content").height());
     $(".inbox").animate(
         {
             height: $(".inbox-content").height()
@@ -174,7 +181,6 @@ $("body").on("click", ".delete-message", function () {
 // Mark Message As Seen or Unseen
 $("body").on("click", ".mark-message", function () {
     var messageId = $(this).data("id");
-    const $icon = $(this);
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
@@ -187,13 +193,9 @@ $("body").on("click", ".mark-message", function () {
         success: function (data) {
             updateUnseenMessagesCount(data.unseen_messages_count);
             if (data.message.is_opened === false) {
-                $icon.prop("title", "Mark As Seen");
-                $icon.removeClass("fa-envelope").addClass("fa-envelope-open");
                 setMessageRowUnseen(data.message.id);
                 createToast("info", "Success", "Message marked as unseen.");
             } else {
-                $icon.prop("title", "Mark As Uneen");
-                $icon.removeClass("fa-envelope-open").addClass("fa-envelope");
                 setMessageRowSeen(data.message.id);
                 createToast("info", "Success", "Message marked as seen.");
             }
@@ -286,6 +288,13 @@ function getMessages(page) {
     })
         .done(function (data) {
             $(".inbox-content").html(data);
+
+            $(".inbox").animate(
+                {
+                    height: $(".inbox-content").height()
+                },
+                1000
+            );
         })
         .fail(function (data) {
             console.log(data);
