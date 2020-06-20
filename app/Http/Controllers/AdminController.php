@@ -10,6 +10,8 @@ use App\Period;
 use App\Session;
 use App\Subject;
 use App\Teacher;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Response;
@@ -37,6 +39,8 @@ class AdminController extends Controller
             )->render());
         }
 
+        $user = User::find(Auth::user()->id);
+        
         $notices = Notice::orderBy('date')->get();
 
         $departments = Department::orderBY('name')->get();
@@ -64,6 +68,7 @@ class AdminController extends Controller
                 'from_search' => false,
                 'unseen_messages_count' => $unseen_messages_count,
                 'messages' => $messages,
+                'user' => $user,
                 'notices' => $notices,
                 'departments' => $departments,
                 'batches' => $batches,

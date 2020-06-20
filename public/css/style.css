@@ -70,6 +70,10 @@ blockquote p {
     background: rgba(255, 53, 71, 0.75);
 }
 
+.border-primary-dark {
+    border-color: #002456 !important;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -551,6 +555,11 @@ textarea.form-control.is-invalid {
 
 .inbox ul.pagination {
     margin-bottom: 0;
+}
+
+.user-name {
+    font-size: 1.5rem;
+    color: #002456;
 }
 
 .create-notice.card {

@@ -189,6 +189,11 @@ return [
          * DomPDF
          */
         Barryvdh\DomPDF\ServiceProvider::class,
+
+        /*
+         * Interventaion Image
+         */
+        'Intervention\Image\ImageServiceProvider'
     ],
 
     /*
@@ -244,6 +249,7 @@ return [
         'Datatables' => Yajra\DataTables\Facades\DataTables::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Image' => 'Intervention\Image\Facades\Image',
     ],
 
 ];

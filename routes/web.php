@@ -57,6 +57,19 @@ Route::group(['prefix' => '/message'], function () {
     ]);
 });
 
+// Profile Control
+Route::group(['prefix' => '/profile'], function () {
+    Route::post('/update/photo', [
+        'uses' => 'ProfileController@updatePhoto',
+        'as'   => 'profile.update.photo',
+    ]);
+
+    Route::post('/update', [
+        'uses' => 'ProfileController@updateProfile',
+        'as'   => 'profile.update',
+    ]);
+});
+
 // Notice Control
 Route::group(['prefix' => '/notice'], function () {
     Route::get('/show/{id}', [
