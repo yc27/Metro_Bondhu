@@ -46,7 +46,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 
     <!-- Icon -->
-    <link rel="icon" href="{{ asset('/img/mu-guide.png') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ asset('/img/favicon.png') }}" type="image/x-icon"/>
 </head>
 <body>
     <div class="loader"></div>
@@ -54,7 +54,9 @@
     <div id="app">
         <!-- Navbar -->
         <nav id="top-navbar" class="navbar navbar-dark navbar-expand-lg fixed-top" style="background-color: #001C57">
-            <div class="navbar-brand pl-md-4">Metro Guide</div>
+            <div class="navbar-brand pl-md-2">
+                <img src="{{ asset('img/brand-logo.png') }}" alt="brand-logo" style="height: 32px">
+            </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -73,11 +75,14 @@
                     @else
                     <li class="nav-item avatar dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="w-25 rounded-circle z-depth-0" alt="avatar image">
+                            @isset($user)
+                            <img src="{{ asset('img/admins/' . $user->photo) }}" class="rounded-circle z-depth-0 mr-2" alt="avatar image" style="width: 32px">
+                            @else
+                            <img src="{{ asset('img/admins/default.png') }}" class="rounded-circle z-depth-0 mr-2" alt="avatar image" style="width: 32px">
+                            @endisset                            
+                            {{ Auth::user()->name }}
                         </a>
-                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-info" aria-labelledby="navbarDropdownMenu">
-                            <a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
-
+                        <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdownMenu">
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> {{ __('Logout') }}</a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

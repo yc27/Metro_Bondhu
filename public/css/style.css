@@ -33,7 +33,7 @@ blockquote p {
 .modal-dialog .modal-content .modal-header .modal-title {
     font-weight: 500;
     font-size: 18px;
-    font-family: 'Poppints', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .btn-circle.btn-sm {
@@ -72,6 +72,11 @@ blockquote p {
 
 .border-primary-dark {
     border-color: #002456 !important;
+}
+
+.nav-item.dropdown .dropdown-menu .dropdown-item:hover {
+    background: #001C57 !important;
+    color: #ffffff !important;
 }
 
 /* Custom Scrollbar */

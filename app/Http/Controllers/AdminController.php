@@ -62,6 +62,13 @@ class AdminController extends Controller
         $classDays = ClassDay::get();
         $sessions = Session::orderBy('session')->get();
 
+        $admins = DB::table('users as u1')
+            ->select('u1.id as id', 'u1.name as name', 'u1.email as email', 'u1.mobile_no', 'u1.photo', 'u1.email_verified_at', 'u1.created_at', 'u2.name as inviter')
+            ->leftJoin('invitations as i', 'i.email', '=', 'u1.email')
+            ->leftJoin('users as u2', 'u2.id', '=', 'i.inviter_id')
+            ->orderBy('u1.id')
+            ->get();
+
         return view(
             'admin.dashboard',
             [
@@ -77,7 +84,8 @@ class AdminController extends Controller
                 'teachers' => $teachers,
                 'periods' => $periods,
                 'classDays' => $classDays,
-                'sessions' => $sessions
+                'sessions' => $sessions,
+                'admins' => $admins
             ]
         );
     }
