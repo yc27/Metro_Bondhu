@@ -36,13 +36,31 @@ blockquote p {
     font-family: 'Poppins', sans-serif;
 }
 
+.btn-circle {
+    width: 40px; 
+    height: 40px; 
+    padding: 6px 0px;
+    border-radius: 50rem;
+    font-size: 12px;
+    text-align: center;
+}
+
 .btn-circle.btn-sm {
-    width: 30px; 
-    height: 30px; 
-    padding: 6px 0px; 
-    border-radius: 15px; 
-    font-size: 8px; 
-    text-align: center; 
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 50rem;
+    font-size: 8px;
+    text-align: center;
+}
+
+.btn-scroll-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+    font-size: 1.2rem !important;
 }
 
 .toast {
@@ -79,6 +97,12 @@ blockquote p {
     color: #ffffff !important;
 }
 
+/* For sm view-port */
+@media (max-width: 768px) {
+    .w-sm-50 {
+        width: 50% !important;
+    }
+}
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -283,27 +307,181 @@ textarea.form-control.is-invalid {
 }
 /* /Laravel Style */
 
-/* Home Page */
-.app-header {
-    font-size: 24px;
-    font-family: Lato;
+/* Landing Page */
+nav.navbar #Navbar-Content.show {
+    transition: 0.2s;
+    background: radial-gradient(circle, rgb(0,118,191) 22%, rgb(0,74,160) 100%);
 }
 
-.app-name {
-    font-size: 40px;
-    font-family: Ostrich;
+nav.navbar #Navbar-Content .nav-item .nav-link:hover {
+    transition: .2s linear;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    color: #0076bf !important;
 }
 
-.app-content {
-    font-size: 18px;
-    font-family: Lato;
+section h2 {
+    font-size: 38px;
+    font-weight: 300;
+    color: #002456;
+    line-height: 50px;
+    font-style: italic;
 }
 
-.message-box {
-    overflow-y: auto;
-    height: 250px !important;
+.carousel-control-prev,
+.carousel-control-next {
+    width: 8%;
+    font-size: 2rem;
 }
-/* /Home Page */
+.carousel-control-prev:hover {
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+.carousel-control-next:hover {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background: #1C2A48;
+    font-size: 3rem;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    /* Show 4th slide on md if col-md-4*/
+    .carousel-inner .active.col-md-4.carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: absolute;
+        top: 0;
+        right: -33.3333%;  /*change this with javascript in the future*/
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+}
+@media (min-width: 576px) and (max-width: 768px) {
+    /* Show 3rd slide on sm if col-sm-6*/
+    .carousel-inner .active.col-sm-6.carousel-item + .carousel-item + .carousel-item {
+        position: absolute;
+        top: 0;
+        right: -50%;  /*change this with javascript in the future*/
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+}
+@media (min-width: 576px) {
+    .carousel-item {
+        margin-right: 0;
+    }
+    /* show 2 items */
+    .carousel-inner .active + .carousel-item {
+        display: block;
+    }
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item {
+        transition: none;
+    }
+    .carousel-inner .carousel-item-next {
+        position: relative;
+        transform: translate3d(0, 0, 0);
+    }
+    /* left or forward direction */
+    .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+    .carousel-item-next.carousel-item-left + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    /* farthest right hidden item must be also positioned for animations */
+    .carousel-inner .carousel-item-prev.carousel-item-right {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    /* right or prev direction */
+    .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+    .carousel-item-prev.carousel-item-right + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+        display: block;
+        visibility: visible;
+    }
+}
+/* MD */
+@media (min-width: 768px) {
+    /* show 3rd of 3 item slide */
+    .carousel-inner .active + .carousel-item + .carousel-item {
+        display: block;
+    }
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item {
+        transition: none;
+    }
+    .carousel-inner .carousel-item-next {
+        position: relative;
+        transform: translate3d(0, 0, 0);
+    }
+    /* left or forward direction */
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    /* right or prev direction */
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+        display: block;
+        visibility: visible;
+    }
+}
+/* LG */
+@media (min-width: 991px) {
+    /* show 4th item */
+    .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
+        display: block;
+    }
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item {
+        transition: none;
+    }
+    /* Show 5th slide on lg if col-lg-3 */
+    .carousel-inner .active.col-lg-3.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: absolute;
+        top: 0;
+        right: -25%;  /*change this with javascript in the future*/
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    /* left or forward direction */
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    /* right or prev direction //t - previous slide direction last item animation fix */
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+    }
+}
+
+#Routines {
+    background: #002456;
+    color: #ffffff;
+}
+#Routines h2,
+#Routines hr {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+/* /Landing Page */
 
 /* DataTable */
 .dataTable thead {
@@ -762,6 +940,14 @@ textarea.form-control.is-invalid {
     width:1%;
     white-space:nowrap;
     text-align: center;
+}
+
+#Table-Routine.table tbody tr:nth-of-type(odd) {
+    background-color: #f1f1f1 !important;
+}
+
+#Table-Routine.table tbody tr:nth-of-type(even) {
+    background-color: #ffffff !important;
 }
 
 #Table-Routine.table tbody tr td {

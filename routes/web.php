@@ -92,7 +92,7 @@ Route::group(['prefix' => '/notice'], function () {
 Route::group(['prefix' => '/routine'], function () {
     // Department
     Route::get('/get/departments', [
-        'uses' => 'RoutineController@getDepartments',
+        'uses' => 'CommonController@getDepartments',
         'as'   => 'routine.get.departments',
     ]);
     
@@ -113,7 +113,7 @@ Route::group(['prefix' => '/routine'], function () {
     ]);
     
     Route::get('/get/batches/{dept_id}', [
-        'uses' => 'RoutineController@getBatches',
+        'uses' => 'CommonController@getBatches',
         'as'   => 'routine.get.batches',
     ]);
     
@@ -134,7 +134,7 @@ Route::group(['prefix' => '/routine'], function () {
     ]);
     
     Route::get('/get/sections/{batch_id}', [
-        'uses' => 'RoutineController@getSections',
+        'uses' => 'CommonController@getSections',
         'as'   => 'routine.get.sections',
     ]);
     
@@ -199,7 +199,7 @@ Route::group(['prefix' => '/routine'], function () {
 
     // Session
     Route::get('/get/sessions', [
-        'uses' => 'RoutineController@getSessions',
+        'uses' => 'CommonController@getSessions',
         'as'   => 'routine.get.sessions',
     ]);
     
@@ -215,7 +215,7 @@ Route::group(['prefix' => '/routine'], function () {
 
     // Routine
     Route::get('/search', [
-        'uses' => 'RoutineController@searchRoutine',
+        'uses' => 'CommonController@searchRoutine',
         'as'   => 'routine.search'
     ]);
 
@@ -235,7 +235,7 @@ Route::group(['prefix' => '/routine'], function () {
     ]);
 
     Route::get('/download/pdf/{sessionId}/{departmentId}/{batchId}/{sectionId}', [
-        'uses' => 'RoutineController@downloadRoutinePDF',
+        'uses' => 'CommonController@downloadRoutinePDF',
         'as'   => 'routine.download.pdf'
     ]);
 });

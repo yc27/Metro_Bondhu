@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Message;
+use App\Notice;
 use Illuminate\Http\Request;
 use Mews\Purifier\Facades\Purifier;
 use Response;
@@ -21,7 +22,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home');
+        $notices = Notice::orderBy('date')->get();
+        return view('landing_page.app', ['notices' => $notices]);
     }
 
     public function storeMessage(Request $request)

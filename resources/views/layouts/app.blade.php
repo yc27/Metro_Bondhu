@@ -114,19 +114,8 @@
         $(window).resize(function() {
             adjustMainTop();
         });
-
-        // loading animation
-        $(window).on('load', function() {
-            $('.loader').fadeOut("slow");
-        });
-
-        // masonry config
-        var $noticeMason = $('.grid').masonry({
-            itemSelector: '.grid-item',
-            percentPosition: true,
-            horizontalOrder: true
-        });
     </script>
+    <script type="text/javascript" src="{{ asset('js/common.js') }}"></script>
     @yield('script')
 </body>
 </html>
