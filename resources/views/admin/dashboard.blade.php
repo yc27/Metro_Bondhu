@@ -61,5 +61,5 @@
 <!-- Script -->
 @section('script')
 @parent
-<script type="text/javascript" src={{ asset('js/main.js') }}></script>
+<script type="text/javascript" src={{ asset('js/admin_menu.js') }}></script>
 @endsection

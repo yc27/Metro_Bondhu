@@ -749,22 +749,12 @@ $("#Form-Routine-Search").on("submit", function(e) {
             $.each(xhr.responseJSON.errors, function(key, item) {
                 if ($.isArray(item)) {
                     $.each(item, function(key, value) {
-                        $("#Form-Routine-Search-Error-Message").append(
-                            "<li>" + value + "</li>"
-                        );
+                        createToast("danger", "ERROR", value);
                     });
                 } else {
-                    $("#Form-Routine-Search-Error-Message").append(
-                        "<li>" + item + "</li>"
-                    );
+                    createToast("danger", "ERROR", item);
                 }
             });
-
-            $("#Form-Routine-Search-Error").removeClass("d-none");
-            setTimeout(function() {
-                $("#Form-Routine-Search-Error").addClass("d-none");
-                $("#Form-Routine-Search-Error-Message").empty();
-            }, 10000);
         }
     });
 });
