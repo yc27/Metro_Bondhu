@@ -30,8 +30,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     
-    'google' => [
-        'key' => env('GOOGLE_KEY'),
+    'mapbox' => [
+        'token' => env('MAPBOX_TOKEN'),
     ],
     
     'tiny_mce' => [

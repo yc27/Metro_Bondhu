@@ -273,6 +273,21 @@ Route::group(['prefix' => '/transport'], function () {
         'uses' => 'TransportController@showRoutes',
         'as'   => 'transport.show.routes',
     ]);
+
+    Route::get('/get/routes', [
+        'uses' => 'TransportController@getRoutes',
+        'as'   => 'transport.get.routes',
+    ]);
+
+    Route::post('/store/route', [
+        'uses' => 'TransportController@storeRoute',
+        'as'   => 'transport.store.route',
+    ]);
+
+    Route::delete('/delete/route/{id}', [
+        'uses' => 'TransportController@destroyRoute',
+        'as'   => 'transport.destroy.route',
+    ]);
 });
 
 // Invitation Request Control

@@ -22,6 +22,7 @@ sidebarToggle.addEventListener("click", function() {
         routesTable.columns.adjust().draw();
         requestsTable.columns.adjust().draw();
         $noticeMason.masonry();
+        mapRoutes.resize();
     }, 500);
 });
 
@@ -48,6 +49,8 @@ function openMenu(evt, menu) {
         $noticeMason.masonry();
     } else if (menu === "Transport") {
         schedulesTable.columns.adjust().draw();
+        routesTable.columns.adjust().draw();
+        mapRoutes.resize();
     } else if (menu === "Invite") {
         requestsTable.columns.adjust().draw();
     }

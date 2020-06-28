@@ -1,5 +1,5 @@
 <!-- Schedules Tab -->
-<button id="Btn-Create-Schedule" class="btn btn-block blue-gradient mx-0 my-4 fa-lg" data-toggle="modal" data-target="#Modal-Schedule-Form">
+<button id="Btn-Create-Schedule" class="btn blue-gradient mx-0 my-4 fa-lg" data-toggle="modal" data-target="#Modal-Schedule-Form">
     <i class="fas fa-plus-circle mr-2"></i>
     Add Bus Schedule
 </button>

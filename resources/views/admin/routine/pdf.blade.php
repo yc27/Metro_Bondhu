@@ -3,6 +3,7 @@
 <head>
     <style>
         .title {
+            width: 100%;
             border-collapse: collapse;
             color: #25597B;
             margin: 20px 0;
