@@ -14,13 +14,13 @@ routesTable = $("#Routes-Table").DataTable({
         { data: "id", name: "id" },
         {
             render: function(data, type, row) {
-                return "(" + row.source_lat + ", " + row.source_lng + ")";
+                return "(" + row.source_lng + ", " + row.source_lat + ")";
             }
         },
         {
             render: function(data, type, row) {
                 return (
-                    "(" + row.destination_lat + ", " + row.destination_lng + ")"
+                    "(" + row.destination_lng + ", " + row.destination_lat + ")"
                 );
             }
         },
@@ -106,6 +106,7 @@ var endMarker = new mapboxgl.Marker({
 // way point marker
 var wayPoints = [];
 var waypointMarker;
+var waypointMarkerList = [];
 
 // geocoder start-point
 var startGeocoder = new MapboxGeocoder({
@@ -454,6 +455,7 @@ function drawRoute(coords, layer = "route", mapD) {
             "line-opacity": 0.9
         }
     });
+    mapD.resize();
 }
 
 function removeRoute(layer = "route", mapD) {
@@ -570,6 +572,7 @@ $(".btn-way-point").click(function(e) {
             waypointMarker.remove();
             waypointMarker.setLngLat([lng, lat]).addTo(mapCanvas);
             waypointMarker.setDraggable(false);
+            waypointMarkerList.push(waypointMarker);
             waypointMarker = null;
 
             mapCanvas.flyTo({
@@ -714,6 +717,13 @@ $("#Btn-Save-Route").click(function(e) {
         success: function(response) {
             $("#Btn-Form-Route-Close").click();
             $("#Form-Route").trigger("reset");
+            $.each(waypointMarkerList, function(index, marker) {
+                console.log(marker);
+                marker.remove();
+            });
+            startMarker.remove();
+            endMarker.remove();
+            removeRoute("route-0", mapCanvas);
 
             routesTable.ajax.reload();
             routesTable.columns.adjust().draw();

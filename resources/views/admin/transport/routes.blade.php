@@ -166,7 +166,7 @@
 
     var mapRoutes = new mapboxgl.Map({
         container: 'map-routes',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        style: 'mapbox://styles/yeamin/ckbxg69ca0fpt1is0u3hwl1yn',
         center: [91.86880624578957, 24.894808641185534],
         zoom: 12
     });
@@ -178,7 +178,7 @@
 
     var mapCanvas = new mapboxgl.Map({
         container: 'map-canvas',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        style: 'mapbox://styles/yeamin/ckbxg69ca0fpt1is0u3hwl1yn',
         center: [91.86880624578957, 24.894808641185534],
         zoom: 13
     });

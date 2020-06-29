@@ -18,27 +18,6 @@ class TransportController extends Controller
         $this->middleware(['auth', 'verified']);
     }
 
-    public function showSchedules()
-    {
-        return Datatables::of(
-            DB::table('bus_schedules')
-                ->leftJoin('stoppages', 'bus_schedules.id', '=', 'stoppages.schedule_id')
-                ->groupBy('bus_schedules.id')
-                ->select(
-                    DB::raw('min(bus_schedules.id) as id'),
-                    DB::raw('min(starts_at) as starts_at'),
-                    'source',
-                    'destination',
-                    DB::raw('GROUP_CONCAT(stoppage separator ", ") AS stoppages')
-                )
-                ->get()
-        )
-            ->setRowId(function ($schedule) {
-                return "Schedule-Id-" . $schedule->id;
-            })
-            ->make(true);
-    }
-
     public function storeSchedule(Request $request)
     {
         request()->validate(
@@ -128,24 +107,6 @@ class TransportController extends Controller
                 return "Route-Id-" . $route->id;
             })
             ->make(true);
-    }
-
-    public function getRoutes()
-    {
-        $routes = DB::table('routes')
-            ->leftJoin('way_points', 'routes.id', '=', 'way_points.route_id')
-            ->groupBy('routes.id')
-            ->select(
-                DB::raw('min(routes.id) as id'),
-                'source_lat',
-                'source_lng',
-                'destination_lat',
-                'destination_lng',
-                DB::raw('GROUP_CONCAT(way_point_lng, ",", way_point_lat separator ";") AS way_points')
-            )
-            ->get();
-
-        return Response::json($routes);
     }
 
     public function storeRoute(Request $request)

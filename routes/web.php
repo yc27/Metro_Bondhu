@@ -244,7 +244,7 @@ Route::group(['prefix' => '/routine'], function () {
 Route::group(['prefix' => '/transport'], function () {
     // Schedules
     Route::get('/show/schedules', [
-        'uses' => 'TransportController@showSchedules',
+        'uses' => 'CommonController@showSchedules',
         'as'   => 'transport.show.schedules',
     ]);
 
@@ -275,7 +275,7 @@ Route::group(['prefix' => '/transport'], function () {
     ]);
 
     Route::get('/get/routes', [
-        'uses' => 'TransportController@getRoutes',
+        'uses' => 'CommonController@getRoutes',
         'as'   => 'transport.get.routes',
     ]);
 

@@ -10,25 +10,25 @@
     <div class="collapse navbar-collapse" id="Navbar-Content">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item px-3">
-                <a class="nav-link Notices">
+                <a class="nav-link" data-menu="Notices">
                     <i class="fas fa-file-alt mr-2"></i>Notice
                 </a>
             </li>
 
             <li class="nav-item px-3">
-                <a class="nav-link Routines">
+                <a class="nav-link" data-menu="Routines">
                     <i class="far fa-calendar-plus mr-2"></i>Routine
                 </a>
             </li>
 
             <li class="nav-item px-3">
-                <a class="nav-link Schedules">
+                <a class="nav-link" data-menu="Schedules">
                     <i class="fas fa-bus-alt mr-2"></i>Bus Schedule
                 </a>
             </li>
 
             <li class="nav-item px-3">
-                <a class="nav-link Track-Buses">
+                <a class="nav-link" data-menu="Routes">
                     <i class="fas fa-map-marker-alt mr-2"></i>Track Bus
                 </a>
             </li>

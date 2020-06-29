@@ -22,13 +22,21 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <!-- Mapbox Script -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js'></script>
+
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <!-- Fonts -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:100,600">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
 
     <!-- Style -->
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css' type='text/css'/>
+    <link rel='stylesheet' type="text/css" href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css'/>
     <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/datatables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/mdb.min.css') }}">
@@ -44,6 +52,8 @@
     @include('landing_page.jumborton')
     @include('landing_page.notices')
     @include('landing_page.routines')
+    @include('landing_page.schedules')
+    @include('landing_page.routes')
     @include('landing_page.footer')
 
     <!-- Scroll Top Button -->
@@ -84,6 +94,21 @@
                 $(".btn-scroll-top").fadeOut("slow");
             }
         });
+
+        // mapbox initiate
+        mapboxgl.accessToken = "{{ config('services.mapbox.token') }}";
+
+        var mapRoutes = new mapboxgl.Map({
+            container: 'map-canvas',
+            style: 'mapbox://styles/yeamin/ckbxg69ca0fpt1is0u3hwl1yn',
+            center: [91.86880624578957, 24.894808641185534],
+            zoom: 13
+        });
+
+        var navRoutes = new mapboxgl.NavigationControl({
+            showCompass: false
+        });
+        mapRoutes.addControl(navRoutes, 'top-right');
     </script>
     <script src="{{ asset('js/common.js') }}"></script>
     <script src="{{ asset('js/home.js') }}"></script>

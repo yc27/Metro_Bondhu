@@ -1,3 +1,171 @@
+// Scroll To Top
+$(".btn-scroll-top").click(function() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+
+// Scroll To Section
+$("#Navbar-Content .nav-link").click(function (e) {
+    e.preventDefault();
+
+    var menu = $(this).data("menu");
+
+    var offset = $("#" + menu).offset().top;
+    offset -= $("nav").innerHeight();
+
+    $("body, html").animate(
+        {
+            scrollTop: offset
+        },
+        500
+    );
+});
+
+$(".Feedback").click(function(e) {
+    e.preventDefault();
+
+    var offset = $("#Feedback").offset().top;
+    offset -= $("nav").innerHeight();
+
+    $("body, html").animate(
+        {
+            scrollTop: offset
+        },
+        500
+    );
+});
+
+// Show Schedules
+$("#Schedules-Table").DataTable({
+    autoWidth: true,
+    bAutoWidth: true,
+    scrollX: true,
+    processing: true,
+    serverSide: true,
+    order: [[1, "asc"]],
+    pagingType: "full_numbers",
+    ajax: {
+        url: "/transport/show/schedules"
+    },
+    columns: [
+        { data: "id", name: "id" },
+        { data: "starts_at", name: "starts_at" },
+        { data: "source", name: "source" },
+        { data: "destination", name: "destination" },
+        { data: "stoppages", name: "stoppages" }
+    ],
+    columnDefs: [
+        {
+            targets: 0,
+            visible: false,
+            searchable: false
+        },
+        {
+            targets: 1,
+            render: function(data, type, row, meta) {
+                var [hh, mm, ss] = row.starts_at.split(":");
+                return formatTime(parseInt(hh), parseInt(mm));
+            }
+        },
+        {
+            targets: "_all",
+            className: "align-middle"
+        }
+    ],
+    language: {
+        lengthMenu: "Display _MENU_ records per page",
+        zeroRecords: "No Data Found",
+        info: "Showing page _PAGE_ of _PAGES_",
+        infoEmpty: "No records available",
+        infoFiltered: "(Filtered from _MAX_ total records)"
+    }
+});
+
+// Draw Map
+mapRoutes.on("load", function() {
+    $.get("/transport/get/routes").done(function(routes) {
+        $.each(routes, function(index, route) {
+            var start = route["source_lng"] + "," + route["source_lat"];
+            var end = route["destination_lng"] + "," + route["destination_lat"];
+
+            var coords = route["way_points"];
+            coords += coords == null ? "" : ";";
+
+            coords =
+                start +
+                ";" +
+                (coords == "null" || coords == null ? "" : coords) +
+                end;
+
+            getDirection(coords, route["id"]);
+        });
+    });
+});
+function getDirection(coordinates, id = 0) {
+    var url =
+        "https://api.mapbox.com/directions/v5/mapbox/driving/" +
+        coordinates +
+        "?geometries=geojson&access_token=" +
+        mapboxgl.accessToken;
+
+    var req = new XMLHttpRequest();
+    req.responseType = "json";
+    req.open("GET", url, true);
+
+    req.onload = function() {
+        var jsonResponse = req.response;
+        var coords = jsonResponse.routes[0].geometry;
+        drawRoute(coords, "route-" + id);
+    };
+
+    req.send();
+}
+function drawRoute(coords, layer = "route") {
+    if (mapRoutes.getSource(layer)) {
+        mapRoutes.removeLayer(layer);
+        mapRoutes.removeSource(layer);
+    }
+
+    var colors = [
+        "#669DF6",
+        "#AFA828",
+        "#7C029D",
+        "#1869FC",
+        "#008C47",
+        "#DD1E76",
+        "#F2706C",
+        "#9DCB16",
+        "#9D4D19",
+        "#4E4161"
+    ];
+    var idx = Math.floor(Math.random() * 10);
+
+    mapRoutes.addLayer({
+        id: layer,
+        type: "line",
+        source: {
+            type: "geojson",
+            data: {
+                type: "Feature",
+                properties: {},
+                geometry: coords
+            }
+        },
+        layout: {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        paint: {
+            "line-color": colors[idx],
+            "line-width": 6,
+            "line-opacity": 0.9
+        }
+    });
+    mapRoutes.resize();
+}
+
 // Initialize Tiny Editor
 tinymce.init({
     selector: "#message",
@@ -273,9 +441,7 @@ function setRoutineTable(data) {
 
 // Set Routine Search Form
 $("#Routine-Search-Reasult").empty();
-
 setSessionOptions("#Form-Routine-Search");
-
 setDepartmentOptions("#Form-Routine-Search").done(function() {
     setBatchOptions(
         "#Form-Routine-Search",
@@ -377,50 +543,4 @@ $("body").on("click", ".clear-routine-table", function() {
     $("#Routine-Search-Reasult").slideUp("slow", function() {
         $("#Routine-Search-Reasult").empty();
     });
-});
-
-// Scroll To Top
-$(".btn-scroll-top").click(function() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-});
-
-// Scroll To Section
-$(".Notices").click(function(e) {
-    e.preventDefault();
-    var offset = $("#Notices").offset().top;
-    offset -= $("nav").innerHeight();
-
-    $("body, html").animate(
-        {
-            scrollTop: offset
-        },
-        500
-    );
-});
-$(".Routines").click(function(e) {
-    e.preventDefault();
-    var offset = $("#Routines").offset().top;
-    offset -= $("nav").innerHeight();
-
-    $("body, html").animate(
-        {
-            scrollTop: offset
-        },
-        500
-    );
-});
-$(".Feedback").click(function(e) {
-    e.preventDefault();
-    var offset = $("#Feedback").offset().top;
-    offset -= $("nav").innerHeight();
-
-    $("body, html").animate(
-        {
-            scrollTop: offset
-        },
-        500
-    );
 });

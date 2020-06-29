@@ -472,12 +472,22 @@ section h2 {
     }
 }
 
-#Routines {
+.app-routine {
     background: #002456;
     color: #ffffff;
 }
-#Routines h2,
-#Routines hr {
+.app-routine h2,
+.app-routine hr {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.app-routes {
+    background: #FDB811;
+    color: #ffffff;
+}
+.app-routes h2,
+.app-routes hr {
     color: #ffffff;
     border-color: #ffffff;
 }
@@ -910,6 +920,10 @@ section h2 {
     color: #002456;
 }
 
+#Table-Routine.table {
+    margin-bottom: 0;
+}
+
 #Table-Routine.table tbody tr td,
 #Table-Routine.table thead tr th {
     border-left: 1px solid #002456;
@@ -940,6 +954,10 @@ section h2 {
     width:1%;
     white-space:nowrap;
     text-align: center;
+}
+
+#Table-Routine.table thead tr th:not(:first-child) {
+    min-width: 150px;
 }
 
 #Table-Routine.table tbody tr:nth-of-type(odd) {
@@ -981,6 +999,12 @@ section h2 {
 #Table-Routine .btn-outline-info:hover,
 #Table-Routine .btn-outline-info:focus {
     background: #ffffff !important;
+}
+
+#Routine-Search-Reasult {
+    position: relative;
+    width: 100%;
+    overflow: auto;
 }
 
 .mapboxgl-ctrl-geocoder {

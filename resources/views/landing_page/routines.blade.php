@@ -1,5 +1,5 @@
 <!-- Routines -->
-<section class="py-4" id="Routines">
+<section class="py-4 app-routine" id="Routines">
     <h2 class="h2 text-center">Routines</h2>
     <hr class="w-25 w-sm-50 mt-2 mb-4">
 
@@ -27,8 +27,8 @@
                             Section:
                             <select class="Select-Section browser-default custom-select" name="section"></select>
                         </div>
-					</div>
-					
+                    </div>
+
                 </div>
 
                 <div class="col-12 col-lg-2 pt-2 pt-lg-0 align-self-end" style="height: calc(1.5em + .75rem + 2px);">
