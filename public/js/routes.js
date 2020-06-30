@@ -143,114 +143,26 @@ document
 
 mapCanvas.on("load", function() {
     startGeocoder.on("result", function(ev) {
-        if (mapActivePoint !== "start-point") {
-            $(".btn-start-point").data("state", "confirm");
-            $(".btn-start-point").text("Confirm");
-            $(".btn-start-point")
-                .removeClass("btn-success")
-                .addClass("btn-warning");
-        }
-
-        if (mapActivePoint === "end-point") {
-            $(".btn-end-point").data("state", "");
-            $(".btn-end-point").text("Add End Point");
-            $(".btn-end-point")
-                .removeClass("btn-warning")
-                .addClass("btn-danger");
-
-            endMarker.setDraggable(false);
-        } else if (mapActivePoint === "way-point") {
-            $(".btn-way-point").data("state", "");
-            $(".btn-way-point").text("Add Waypoint");
-            $(".btn-way-point")
-                .removeClass("btn-warning")
-                .addClass("btn-primary");
-
-            waypointMarker.remove();
-        }
-        mapActivePoint = "start-point";
-
         var [lng, lat] = ev.result.center;
 
-        $("#start-lat").val(lat);
-        $("#start-lng").val(lng);
-
-        startMarker.remove();
-        startMarker.setLngLat([lng, lat]).addTo(mapCanvas);
-        startMarker.setDraggable(true);
+        setStartMarker(lat, lng);        
+        setMapActivePointStart();
     });
 
     endGeocoder.on("result", function(ev) {
-        if (mapActivePoint !== "end-point") {
-            $(".btn-end-point").data("state", "confirm");
-            $(".btn-end-point").text("Confirm");
-            $(".btn-end-point")
-                .removeClass("btn-danger")
-                .addClass("btn-warning");
-        }
-
-        if (mapActivePoint === "start-point") {
-            $(".btn-start-point").data("state", "");
-            $(".btn-start-point").text("Add Start Point");
-            $(".btn-start-point")
-                .removeClass("btn-warning")
-                .addClass("btn-success");
-
-            startMarker.setDraggable(false);
-        } else if (mapActivePoint === "way-point") {
-            $(".btn-way-point").data("state", "");
-            $(".btn-way-point").text("Add Waypoint");
-            $(".btn-way-point")
-                .removeClass("btn-warning")
-                .addClass("btn-primary");
-
-            waypointMarker.remove();
-        }
-        mapActivePoint = "end-point";
-
         var [lng, lat] = ev.result.center;
 
-        $("#end-lat").val(lat);
-        $("#end-lng").val(lng);
-
-        endMarker.remove();
-        endMarker.setLngLat([lng, lat]).addTo(mapCanvas);
-        endMarker.setDraggable(true);
+        setEndMarker(lat, lng);
+        setMapActivePointEnd();
     });
 
     waypointGeocoder.on("result", function(ev) {
-        if (mapActivePoint !== "way-point") {
-            $(".btn-way-point").data("state", "confirm");
-            $(".btn-way-point").text("Confirm");
-            $(".btn-way-point")
-                .removeClass("btn-primary")
-                .addClass("btn-warning");
-        }
-
-        if (mapActivePoint === "start-point") {
-            $(".btn-start-point").data("state", "");
-            $(".btn-start-point").text("Add Start Point");
-            $(".btn-start-point")
-                .removeClass("btn-warning")
-                .addClass("btn-success");
-
-            startMarker.setDraggable(false);
-        } else if (mapActivePoint === "end-point") {
-            $(".btn-end-point").data("state", "");
-            $(".btn-end-point").text("Add End Point");
-            $(".btn-end-point")
-                .removeClass("btn-warning")
-                .addClass("btn-danger");
-
-            endMarker.setDraggable(false);
-        }
-
         var [lng, lat] = ev.result.center;
 
         $("#waypoint-lat").val(lat);
         $("#waypoint-lng").val(lng);
 
-        if (mapActivePoint === "way-point") {
+        if (waypointMarker) {
             waypointMarker.remove();
             waypointMarker.setLngLat([lng, lat]).addTo(mapCanvas);
         } else {
@@ -267,7 +179,7 @@ mapCanvas.on("load", function() {
                 .addTo(mapCanvas);
         }
 
-        mapActivePoint = "way-point";
+        setMapActivePointWaypoint();
     });
 });
 
@@ -321,6 +233,72 @@ mapCanvas.on("click", function(e) {
     }
 });
 
+function clearMapActivePoint() {
+    if (mapActivePoint === "start-point") {
+        $(".btn-start-point").data("state", "");
+        $(".btn-start-point").text("Add Start Point");
+        $(".btn-start-point")
+            .removeClass("btn-warning")
+            .addClass("btn-success");
+
+        startMarker.setDraggable(false);
+    } else if (mapActivePoint === "end-point") {
+        $(".btn-end-point").data("state", "");
+        $(".btn-end-point").text("Add End Point");
+        $(".btn-end-point")
+            .removeClass("btn-warning")
+            .addClass("btn-danger");
+
+        endMarker.setDraggable(false);
+    } else if (mapActivePoint === "way-point") {
+        $(".btn-way-point").data("state", "");
+        $(".btn-way-point").text("Add Waypoint");
+        $(".btn-way-point")
+            .removeClass("btn-warning")
+            .addClass("btn-primary");
+    }
+
+    mapActivePoint = "";
+}
+
+function setMapActivePointStart() {
+    clearMapActivePoint();
+    
+    $(".btn-start-point").data("state", "confirm");
+    $(".btn-start-point").text("Confirm");
+    $(".btn-start-point")
+        .removeClass("btn-success")
+        .addClass("btn-warning");
+    
+    startMarker.setDraggable(true);
+    mapActivePoint = "start-point";
+}
+
+function setMapActivePointEnd() {
+    clearMapActivePoint();
+
+    $(".btn-end-point").data("state", "confirm");
+    $(".btn-end-point").text("Confirm");
+    $(".btn-end-point")
+        .removeClass("btn-danger")
+        .addClass("btn-warning");
+    
+    endMarker.setDraggable(true);
+    mapActivePoint = "end-point";
+}
+
+function setMapActivePointWaypoint() {
+    clearMapActivePoint();
+
+    $(".btn-way-point").data("state", "confirm");
+    $(".btn-way-point").text("Confirm");
+    $(".btn-way-point")
+        .removeClass("btn-primary")
+        .addClass("btn-warning");
+    
+    mapActivePoint = "way-point";
+}
+
 function verifyLatLng(lat, lng) {
     if (!lat || !lng) {
         createToast(
@@ -356,6 +334,9 @@ function setStartMarker(lat, lng) {
     var deferred = new $.Deferred();
 
     if (verifyLatLng(lat, lng) === true) {
+        $("#start-lat").val(lat);
+        $("#start-lng").val(lng);
+
         startMarker.remove();
         startMarker.setLngLat([lng, lat]).addTo(mapCanvas);
         startMarker.setDraggable(true);
@@ -377,6 +358,9 @@ function setEndMarker(lat, lng) {
     var deferred = new $.Deferred();
 
     if (verifyLatLng(lat, lng) === true) {
+        $("#end-lat").val(lat);
+        $("#end-lng").val(lng);
+
         endMarker.remove();
         endMarker.setLngLat([lng, lat]).addTo(mapCanvas);
         endMarker.setDraggable(true);
@@ -474,42 +458,12 @@ $(".btn-start-point").click(function(e) {
     var lng = $("#start-lng").val();
 
     if ($(this).data("state") === "confirm") {
-        setStartMarker(lat, lng).done(function() {
-            $(".btn-start-point").data("state", "");
-            $(".btn-start-point").text("Add Start Point");
-            $(".btn-start-point")
-                .removeClass("btn-warning")
-                .addClass("btn-success");
-
-            startMarker.setDraggable(false);
-            mapActivePoint = "";
+        setStartMarker(lat, lng).done(function () {
+            clearMapActivePoint();
         });
     } else {
-        if (mapActivePoint === "end-point") {
-            $(".btn-end-point").data("state", "");
-            $(".btn-end-point").text("Add End Point");
-            $(".btn-end-point")
-                .removeClass("btn-warning")
-                .addClass("btn-danger");
-
-            endMarker.setDraggable(false);
-        } else if (mapActivePoint === "way-point") {
-            $(".btn-way-point").data("state", "");
-            $(".btn-way-point").text("Add Waypoint");
-            $(".btn-way-point")
-                .removeClass("btn-warning")
-                .addClass("btn-primary");
-
-            waypointMarker.remove();
-        }
-
-        $(this).data("state", "confirm");
-        $(this).text("Confirm");
-        $(this)
-            .removeClass("btn-success")
-            .addClass("btn-warning");
-
-        mapActivePoint = "start-point";
+        clearMapActivePoint();
+        setMapActivePointStart()
         setStartMarker(lat, lng);
     }
 });
@@ -521,42 +475,12 @@ $(".btn-end-point").click(function(e) {
     var lng = $("#end-lng").val();
 
     if ($(this).data("state") === "confirm") {
-        setEndMarker(lat, lng).done(function() {
-            $(".btn-end-point").data("state", "");
-            $(".btn-end-point").text("Add End Point");
-            $(".btn-end-point")
-                .removeClass("btn-warning")
-                .addClass("btn-danger");
-
-            endMarker.setDraggable(false);
-            mapActivePoint = "";
+        setEndMarker(lat, lng).done(function () {
+            clearMapActivePoint();
         });
     } else {
-        if (mapActivePoint === "start-point") {
-            $(".btn-start-point").data("state", "");
-            $(".btn-start-point").text("Add Start Point");
-            $(".btn-start-point")
-                .removeClass("btn-warning")
-                .addClass("btn-success");
-
-            startMarker.setDraggable(false);
-        } else if (mapActivePoint === "way-point") {
-            $(".btn-way-point").data("state", "");
-            $(".btn-way-point").text("Add Waypoint");
-            $(".btn-way-point")
-                .removeClass("btn-warning")
-                .addClass("btn-primary");
-
-            waypointMarker.remove();
-        }
-
-        $(this).data("state", "confirm");
-        $(this).text("Confirm");
-        $(this)
-            .removeClass("btn-danger")
-            .addClass("btn-warning");
-
-        mapActivePoint = "end-point";
+        clearMapActivePoint();
+        setMapActivePointEnd();
         setEndMarker(lat, lng);
     }
 });
@@ -588,43 +512,14 @@ $(".btn-way-point").click(function(e) {
             });
             $("#coordinates").val(coordinates);
 
-            mapActivePoint = "";
-
             $("#waypoint-lat").val("");
             $("#waypoint-lng").val("");
 
-            $(".btn-way-point").data("state", "");
-            $(".btn-way-point").text("Add Waypoint");
-            $(".btn-way-point")
-                .removeClass("btn-warning")
-                .addClass("btn-primary");
+            clearMapActivePoint();
         }
     } else {
-        if (mapActivePoint === "start-point") {
-            $(".btn-start-point").data("state", "");
-            $(".btn-start-point").text("Add Start Point");
-            $(".btn-start-point")
-                .removeClass("btn-warning")
-                .addClass("btn-success");
-
-            startMarker.setDraggable(false);
-        } else if (mapActivePoint === "end-point") {
-            $(".btn-end-point").data("state", "");
-            $(".btn-end-point").text("Add End Point");
-            $(".btn-end-point")
-                .removeClass("btn-warning")
-                .addClass("btn-danger");
-
-            endMarker.setDraggable(false);
-        }
-
-        $(this).data("state", "confirm");
-        $(this).text("Confirm");
-        $(this)
-            .removeClass("btn-primary")
-            .addClass("btn-warning");
-
-        mapActivePoint = "way-point";
+        clearMapActivePoint();
+        setMapActivePointWaypoint();
 
         if (verifyLatLng(lat, lng) === true) {
             waypointMarker = new mapboxgl.Marker({
@@ -655,23 +550,14 @@ $("#Btn-Create-Route").click(function(e) {
     }, 250);
 });
 
-$("#Btn-Draw-Route").click(function(e) {
+$("#Btn-Draw-Route").click(function (e) {
     e.preventDefault();
 
-    if (!$("#start-lng").val() || !$("#start-lat").val()) {
-        createToast(
-            "danger",
-            "ERROR",
-            "Start Point is not valid. Please enter a valid pair of Lattitude & Longitude."
-        );
+    if (verifyLatLng($("#start-lat").val(), $("#start-lng").val()) === false) {
         return;
     }
-    if (!$("#end-lng").val() || !$("#end-lat").val()) {
-        createToast(
-            "danger",
-            "ERROR",
-            "End Point is not valid. Please enter a valid pair of Lattitude & Longitude."
-        );
+    
+    if (verifyLatLng($("#end-lat").val(), $("#end-lng").val()) === false) {
         return;
     }
 
@@ -687,20 +573,11 @@ $("#Btn-Draw-Route").click(function(e) {
 $("#Btn-Save-Route").click(function(e) {
     e.preventDefault();
 
-    if (!$("#start-lng").val() || !$("#start-lat").val()) {
-        createToast(
-            "danger",
-            "ERROR",
-            "Start Point is not valid. Please enter a valid pair of Lattitude & Longitude."
-        );
+    if (verifyLatLng($("#start-lat").val(), $("#start-lng").val()) === false) {
         return;
     }
-    if (!$("#end-lng").val() || !$("#end-lat").val()) {
-        createToast(
-            "danger",
-            "ERROR",
-            "End Point is not valid. Please enter a valid pair of Lattitude & Longitude."
-        );
+
+    if (verifyLatLng($("#end-lat").val(), $("#end-lng").val()) === false) {
         return;
     }
 
@@ -717,18 +594,23 @@ $("#Btn-Save-Route").click(function(e) {
         success: function(response) {
             $("#Btn-Form-Route-Close").click();
             $("#Form-Route").trigger("reset");
+
+            clearMapActivePoint();
+            removeRoute("route-0", mapCanvas);
+
+            wayPoints.splice(0, wayPoints.length);
+
+            if (waypointMarker) {
+                waypointMarker.remove();
+            }
             $.each(waypointMarkerList, function(index, marker) {
-                console.log(marker);
                 marker.remove();
             });
             startMarker.remove();
             endMarker.remove();
-            removeRoute("route-0", mapCanvas);
 
             routesTable.ajax.reload();
             routesTable.columns.adjust().draw();
-
-            createToast("success", "Success", response.msg);
 
             var start =
                 response.data["source_lng"] + "," + response.data["source_lat"];
@@ -747,6 +629,7 @@ $("#Btn-Save-Route").click(function(e) {
                 end;
 
             getDirection(coords, response.data["id"], mapRoutes);
+            createToast("success", "Success", response.msg);
         },
 
         error: function(xhr) {
