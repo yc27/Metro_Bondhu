@@ -256,6 +256,14 @@ function clearMapActivePoint() {
         $(".btn-way-point")
             .removeClass("btn-warning")
             .addClass("btn-primary");
+        
+        if (waypointMarker) {
+            waypointMarker.remove();
+            waypointMarker = null;
+
+            $("#waypoint-lat").val("");
+            $("#waypoint-lng").val("");
+        }
     }
 
     mapActivePoint = "";
@@ -376,6 +384,21 @@ function setEndMarker(lat, lng) {
     }
 
     return deferred.promise();
+}
+
+function clearWayPoints() {
+    $("#waypoint-lat").val("");
+    $("#waypoint-lng").val("");
+    $("#coordinates").val("");
+
+    wayPoints.splice(0, wayPoints.length);
+
+    $.each(waypointMarkerList, function(index, marker) {
+        marker.remove();
+    });
+    waypointMarkerList.splice(0, waypointMarkerList.length);
+    
+    clearMapActivePoint();
 }
 
 function getDirection(coordinates, id = 0, mapD) {
@@ -542,6 +565,11 @@ $(".btn-way-point").click(function(e) {
     }
 });
 
+$(".clear-waypoints").click(function(e) {
+    e.preventDefault();
+    clearWayPoints();
+});
+
 $("#Btn-Create-Route").click(function(e) {
     e.preventDefault();
 
@@ -595,17 +623,10 @@ $("#Btn-Save-Route").click(function(e) {
             $("#Btn-Form-Route-Close").click();
             $("#Form-Route").trigger("reset");
 
+            clearWayPoints();
             clearMapActivePoint();
             removeRoute("route-0", mapCanvas);
 
-            wayPoints.splice(0, wayPoints.length);
-
-            if (waypointMarker) {
-                waypointMarker.remove();
-            }
-            $.each(waypointMarkerList, function(index, marker) {
-                marker.remove();
-            });
             startMarker.remove();
             endMarker.remove();
 

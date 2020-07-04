@@ -103,7 +103,10 @@
                                         <button class="btn btn-sm btn-block btn-primary btn-way-point">Add Waypoint</button>
                                     </div>
                                     <div class="col-12 col-lg-6 pl-lg-1 pt-3 pt-lg-0 d-flex flex-column">
-                                        <label><strong>Coordinates:</strong></label>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label class="mb-0"><strong>Coordinates:</strong></label>
+                                            <i class="fas fa-times text-danger clear-waypoints"></i>
+                                        </div>
                                         <textarea class="form-control form-control-sm h-100" id="coordinates" name="waypoints" readonly></textarea>
                                     </div>
                                 </div>
