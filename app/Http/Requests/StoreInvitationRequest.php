@@ -27,6 +27,7 @@ class StoreInvitationRequest extends FormRequest
         return [
             'email' => [
                 'required',
+                'email:rfc,dns',
                 Rule::unique('invitations', 'email')->whereNotNull('registered_at')
             ]
         ];
