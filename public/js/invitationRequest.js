@@ -111,8 +111,16 @@ $("body").on("click", "#Btn-Send-Invitation", function() {
                 "Invitation sent to mail address successfully."
             );
         },
-        error: function(data) {
-            console.log("Error:", data);
+        error: function (data) {
+            if (data.status === 400) {
+                createToast(
+                    "danger",
+                    "ERROR",
+                    data.responseJSON.message
+                )
+            } else {
+                console.log("Error:", data);
+            }
         }
     });
 });

@@ -1,5 +1,7 @@
 /node_modules
 /public/hot
+/public/img/admins/*
+!/public/img/admins/default.png
 /public/storage
 /storage/*.key
 /vendor

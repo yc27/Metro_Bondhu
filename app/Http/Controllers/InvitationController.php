@@ -51,8 +51,13 @@ class InvitationController extends Controller
             update invitations set is_active = false where id = " . $id . ";";
         DB::unprepared($qry);
 
-        // Send Invitation Token tom mailing address
+        // Send Invitation Token to mailing address
         Mail::to($request->email)->send(new SendInvitationToken($token));
+        
+        // Error occurred
+        if( count(Mail::failures()) > 0 ) {
+            abort(400, 'Something went wrong!<br>May be e-mail address doesn\'t exist.');
+        }
 
         $pendingRequests = Invitation::whereNull('invitation_token')->count();
         $data = ['pendingRequests' => $pendingRequests];
